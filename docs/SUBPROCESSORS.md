@@ -5,22 +5,26 @@ of the submission store. This list is short on purpose and is part of the produc
 
 | Party | Role | Region | What it receives | Its retention policy |
 |---|---|---|---|---|
-| **[Hosting provider]** | Runs the server | [US region] | IP address and request metadata of every clearnet request, as a necessary consequence of delivering the page. We do not log it; we cannot promise the provider's own network layer does not. | [link to provider policy] |
-| **Tor network** | Second path to the site | — | Nothing attributable. Onion routing means no party on our side receives a client IP. | n/a |
+| **DigitalOcean** | Runs the server | United States (New York, NYC1) | IP address and request metadata of every clearnet request, as a necessary consequence of delivering the page. We do not log it; we cannot promise the provider's own network layer does not. | [DigitalOcean privacy policy](https://www.digitalocean.com/legal/privacy-policy) |
+| **Tor network** | Second path to the site (onion address: `unxzqdwshn2ftzivh3bg7e63mvn3ccsxs2d5oplxd7z3djs3qvppjhyd.onion`) | — | Nothing attributable. Onion routing means no party on our side receives a client IP. | n/a |
+| **Google (Gmail)** | The project's mailbox | United States | A copy of each message sent through the contact page, and any reply address the sender chose to give. Nothing about reports. | [Google privacy policy](https://policies.google.com/privacy) |
 
 **That is the complete list.**
 
 There is no CDN, no WAF, no DDoS-protection edge, no analytics service, no error-reporting
-service, no email service, no font host, no CAPTCHA service, no third-party JavaScript, no
-payment processor, and no data processor of any other kind. The Content-Security-Policy header
+service, no email service beyond the forwarding described here, no font host, no CAPTCHA service,
+no third-party JavaScript, no payment processor, and no data processor of any other kind. The
+contact-page forward is the only thing that ever leaves our server, and nothing about reports is
+ever in it; retention is as stated in [LEGAL-PROCESS.md](LEGAL-PROCESS.md). The Content-Security-Policy header
 permits no external origin, and the build fails if any resource references one.
 
 Registrar and DNS for the domain are operational vendors that see DNS queries in the ordinary
 way and receive nothing about any submission; they are named here for completeness:
-**[registrar]** (domain), **[DNS provider]** (authoritative DNS).
+**Porkbun** (domain registrar and authoritative DNS).
 
-Backups of the submission store are encrypted at rest and held with **[hosting provider /
-backup location]**. Backups contain the same fields as the store and nothing more.
+Backups of the submission store are encrypted to a key held only by the operator, and kept on the
+same DigitalOcean server; no copy is held anywhere else. Backups contain the same fields as the
+store and nothing more.
 
 ## Changes
 
@@ -28,4 +32,4 @@ Any addition to this list is a material change to what contributors were told wh
 submitted. An addition is published here at least one full release period before it takes
 effect, with a notice on the site.
 
-*Last updated: [date]. Operator: [legal entity], an Oregon limited liability company.*
+*Last updated: 22 September 2026. Operator: at present an individual in Oregon, United States, as stated in the [privacy statement](PRIVACY.md), until the project incorporates.*

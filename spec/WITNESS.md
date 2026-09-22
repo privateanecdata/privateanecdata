@@ -1,9 +1,8 @@
 # Witness record
 
-**Empty until the freeze.** This file records, for every frozen document, the hash that was
-submitted to two independent public logs before the first report was accepted — and, later, for
-every amendment and every version of the privacy statement and terms. Until a row appears here
-for a document, that document is a draft.
+This file records, for every witnessed document, the hash submitted to two independent public
+logs — and, later, every amendment and every version of the privacy statement and terms. A
+version without a row here has not yet been witnessed.
 
 Procedure, per document (see `tools/witness.sh`):
 

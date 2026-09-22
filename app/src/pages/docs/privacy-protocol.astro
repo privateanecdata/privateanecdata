@@ -1,0 +1,52 @@
+---
+// The privacy protocol with everything that used to be separate documents folded beneath it:
+// what we cannot promise, the threat model (its technical appendix), and the shutdown protocol.
+import Base from '../../layouts/Base.astro';
+import Toc from '../../components/Toc.astro';
+import { getEntry, render } from 'astro:content';
+
+const protocol = await getEntry('docs', 'privacy-protocol');
+const promises = await getEntry('docs', 'what-we-can-and-cannot-promise');
+const threat = await getEntry('docs', 'threat-model');
+const shutdown = await getEntry('docs', 'shutdown');
+if (!protocol || !promises || !threat || !shutdown) return new Response(null, { status: 404 });
+const { Content: Protocol } = await render(protocol);
+const toc = [...((protocol.data.toc as { id: string; text: string }[]) ?? []),
+  { id: 'cannot-promise', text: 'What we cannot promise' }, { id: 'threat-model', text: 'Appendix A: threat model' }, { id: 'shutdown', text: 'Appendix B: shutdown protocol' }];
+const plain = (e: { data: Record<string, unknown> }) => String(e.data.plainHtml ?? '');
+// Only the "cannot" half of the promises document: the promises themselves open the protocol.
+const cannotHtml = (() => {
+  const html = plain(promises);
+  const i = html.indexOf('<h2 id="what-we-cannot-promise"');
+  const from = i >= 0 ? html.slice(i) : html;
+  return from.replace(/^<h2\b[^>]*>[\s\S]*?<\/h2>/, '');
+})();
+---
+<Base title="Privacy protocol">
+  <h1>Privacy protocol</h1>
+  <Toc items={toc} />
+  <article class="doc">
+    <Protocol />
+  </article>
+
+  <details class="sec">
+    <summary><h2>What we cannot promise</h2><span class="kicker">The limits of this design, stated without softening. Read before you contribute.</span></summary>
+    <div class="sec-body"><span id="cannot-promise" class="anchor"></span>
+      <article class="doc" set:html={cannotHtml} />
+    </div>
+  </details>
+
+  <details class="sec">
+    <summary><h2>Appendix A: threat model</h2><span class="kicker">The technical appendix — what the system enforces, by threat.</span></summary>
+    <div class="sec-body"><span id="threat-model" class="anchor"></span>
+      <article class="doc" set:html={plain(threat)} />
+    </div>
+  </details>
+
+  <details class="sec">
+    <summary><h2>Appendix B: shutdown protocol</h2><span class="kicker">Kill criterion, destruction protocol, and the commitment that the store is never transferred.</span></summary>
+    <div class="sec-body"><span id="shutdown" class="anchor"></span>
+      <article class="doc" set:html={plain(shutdown)} />
+    </div>
+  </details>
+</Base>

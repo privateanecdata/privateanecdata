@@ -1,0 +1,34 @@
+---
+// One page for everything a lawyer or a careful contributor would want to read: the privacy
+// statement, the terms, how legal process is handled, and every third party involved. Each
+// document is rendered in full — nothing here folds — and keeps its own anchor.
+import Base from '../layouts/Base.astro';
+import { getEntry, render } from 'astro:content';
+const parts = [
+  ['privacy', 'Privacy statement'],
+  ['terms', 'Terms'],
+  ['legal-process', 'Legal process and retention'],
+  ['subprocessors', 'Subprocessors'],
+] as const;
+const rendered = [];
+for (const [slug, title] of parts) {
+  const entry = await getEntry('docs', slug);
+  if (!entry) continue;
+  const { Content } = await render(entry);
+  rendered.push({ slug, title, Content });
+}
+---
+<Base title="Legal">
+  <h1>Legal</h1>
+  <nav class="toc" aria-label="On this page"><span class="toc-label">On this page</span>
+    <ol>{rendered.map((r) => <li><a href={`#doc-${r.slug}`}>{r.title}</a></li>)}</ol>
+  </nav>
+  <div class="legal">
+    {rendered.map((r) => (
+      <section id={`doc-${r.slug}`} aria-label={r.title}>
+        <h2 class="doc-title">{r.title}</h2>
+        <article class="doc"><r.Content /></article>
+      </section>
+    ))}
+  </div>
+</Base>

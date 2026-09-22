@@ -1,0 +1,174 @@
+{
+ "table": "T11",
+ "title": "Adverse effect onset and dechallenge",
+ "release": "EXAMPLE-SYNTHETIC",
+ "data": {
+  "compound:ghk-cu": {
+   "n": 272,
+   "effects": [
+    {
+     "effect": "headache",
+     "label": "Headache",
+     "n": null,
+     "display": "fewer than 20 reports"
+    },
+    {
+     "effect": "nausea",
+     "label": "Nausea",
+     "n": 25,
+     "onset": {
+      "n": 25,
+      "percent": false,
+      "cells": [
+       {
+        "id": "first-days",
+        "label": "In the first few days",
+        "count": 5
+       },
+       {
+        "id": "first-2wk",
+        "label": "In the first 2 weeks",
+        "count": 7
+       },
+       {
+        "id": "2-6wk",
+        "label": "Between 2 and 6 weeks",
+        "count": null,
+        "display": "not shown"
+       },
+       {
+        "id": "after-6wk",
+        "label": "After 6 weeks",
+        "count": null,
+        "display": "not shown"
+       },
+       {
+        "id": "unsure",
+        "label": "Not sure",
+        "count": 8
+       }
+      ]
+     },
+     "dechallenge": {
+      "n": 25,
+      "percent": false,
+      "cells": [
+       {
+        "id": "resolved",
+        "label": "Went away after stopping",
+        "count": 12
+       },
+       {
+        "id": "did-not-resolve",
+        "label": "Did not go away after stopping",
+        "count": null,
+        "display": "not shown"
+       },
+       {
+        "id": "still-taking",
+        "label": "Haven't stopped",
+        "count": 6
+       },
+       {
+        "id": "unsure",
+        "label": "Not sure",
+        "count": null,
+        "display": "not shown"
+       }
+      ]
+     }
+    },
+    {
+     "effect": "vomiting",
+     "label": "Vomiting",
+     "n": null,
+     "display": "fewer than 20 reports"
+    },
+    {
+     "effect": "dizziness",
+     "label": "Dizziness or lightheadedness",
+     "n": null,
+     "display": "fewer than 20 reports"
+    },
+    {
+     "effect": "fatigue",
+     "label": "Fatigue / low energy",
+     "n": null,
+     "display": "fewer than 20 reports"
+    },
+    {
+     "effect": "insomnia",
+     "label": "Trouble sleeping",
+     "n": null,
+     "display": "fewer than 20 reports"
+    },
+    {
+     "effect": "vivid-dreams",
+     "label": "Vivid dreams",
+     "n": null,
+     "display": "fewer than 20 reports"
+    },
+    {
+     "effect": "flushing",
+     "label": "Flushing or feeling warm",
+     "n": null,
+     "display": "fewer than 20 reports"
+    },
+    {
+     "effect": "anxiety-jittery",
+     "label": "Anxiety, restlessness or feeling wired",
+     "n": null,
+     "display": "fewer than 20 reports"
+    },
+    {
+     "effect": "low-mood",
+     "label": "Low mood or irritability",
+     "n": null,
+     "display": "fewer than 20 reports"
+    },
+    {
+     "effect": "appetite-change",
+     "label": "Appetite change",
+     "n": null,
+     "display": "fewer than 20 reports"
+    },
+    {
+     "effect": "injection-site",
+     "label": "Injection-site reaction (redness, itching, lump, bruising)",
+     "n": null,
+     "display": "fewer than 20 reports"
+    },
+    {
+     "effect": "tolerance",
+     "label": "Effect faded with repeated use",
+     "n": null,
+     "display": "fewer than 20 reports"
+    },
+    {
+     "effect": "no-effect",
+     "label": "No noticeable effect at all",
+     "n": null,
+     "display": "fewer than 20 reports"
+    },
+    {
+     "effect": "skin-staining",
+     "label": "Blue-green staining or residue on skin",
+     "n": null,
+     "display": "fewer than 20 reports"
+    },
+    {
+     "effect": "skin-irritation",
+     "label": "Skin irritation, rash, hives or breakouts",
+     "n": null,
+     "display": "fewer than 20 reports"
+    },
+    {
+     "effect": "hair-shedding",
+     "label": "Hair shedding",
+     "n": null,
+     "display": "fewer than 20 reports"
+    }
+   ]
+  }
+ }
+}

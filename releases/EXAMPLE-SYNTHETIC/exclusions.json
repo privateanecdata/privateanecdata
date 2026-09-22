@@ -1,0 +1,12 @@
+{
+ "release": "EXAMPLE-SYNTHETIC",
+ "applies_to_all_releases_on_or_after": "2026-12-31",
+ "reason_codes": [
+  "malformed",
+  "implausible",
+  "duplicate-pattern",
+  "coordinated",
+  "test"
+ ],
+ "excluded": []
+}

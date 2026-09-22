@@ -2,6 +2,7 @@ app/node_modules/
 app/dist/
 app/data/
 releases/*SYNTHETIC*/
+!releases/EXAMPLE-SYNTHETIC/
 *.db
 *.db-wal
 *.db-shm
@@ -9,3 +10,4 @@ candidates*.json
 .DS_Store
 app/.astro/
 research/
+LAUNCH.md

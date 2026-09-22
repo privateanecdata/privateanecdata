@@ -1,0 +1,283 @@
+{
+ "table": "T8",
+ "title": "Outcome by goal",
+ "release": "EXAMPLE-SYNTHETIC",
+ "data": {
+  "compound:ghk-cu": {
+   "n": 272,
+   "strata": [
+    {
+     "goal": "skin-aging",
+     "n": 101,
+     "percent": true,
+     "cells": [
+      {
+       "id": "no-change",
+       "label": "No change",
+       "count": 37,
+       "pct": 36.6,
+       "ci95": [
+        27.9,
+        46.4
+       ]
+      },
+      {
+       "id": "slight",
+       "label": "Slight improvement",
+       "count": 27,
+       "pct": 26.7,
+       "ci95": [
+        19.1,
+        36.1
+       ]
+      },
+      {
+       "id": "moderate",
+       "label": "Moderate improvement",
+       "count": 30,
+       "pct": 29.7,
+       "ci95": [
+        21.7,
+        39.2
+       ]
+      },
+      {
+       "id": "large",
+       "label": "Large improvement",
+       "count": 7,
+       "pct": 6.9,
+       "ci95": [
+        3.4,
+        13.6
+       ]
+      }
+     ],
+     "label": "Skin appearance / fine lines / anti-aging look"
+    },
+    {
+     "goal": "hair",
+     "n": 44,
+     "percent": false,
+     "cells": [
+      {
+       "id": "no-change",
+       "label": "No change",
+       "count": 11
+      },
+      {
+       "id": "slight",
+       "label": "Slight improvement",
+       "count": 14
+      },
+      {
+       "id": "moderate",
+       "label": "Moderate improvement",
+       "count": 10
+      },
+      {
+       "id": "large",
+       "label": "Large improvement",
+       "count": 9
+      }
+     ],
+     "label": "Hair regrowth or thicker hair"
+    },
+    {
+     "goal": "wound-scar",
+     "n": 40,
+     "percent": false,
+     "cells": [
+      {
+       "id": "no-change",
+       "label": "No change",
+       "count": 16
+      },
+      {
+       "id": "slight",
+       "label": "Slight improvement",
+       "count": 14
+      },
+      {
+       "id": "moderate",
+       "label": "Moderate improvement",
+       "count": null,
+       "display": "not shown"
+      },
+      {
+       "id": "large",
+       "label": "Large improvement",
+       "count": null,
+       "display": "not shown"
+      }
+     ],
+     "label": "Healing wounds, scars, acne marks or stretch marks"
+    },
+    {
+     "goal": "skin-tone",
+     "n": 29,
+     "percent": false,
+     "cells": [
+      {
+       "id": "no-change",
+       "label": "No change",
+       "count": 13
+      },
+      {
+       "id": "slight",
+       "label": "Slight improvement",
+       "count": 6
+      },
+      {
+       "id": "moderate",
+       "label": "Moderate improvement",
+       "count": null,
+       "display": "not shown"
+      },
+      {
+       "id": "large",
+       "label": "Large improvement",
+       "count": null,
+       "display": "not shown"
+      }
+     ],
+     "label": "More even skin tone"
+    },
+    {
+     "goal": "injury-healing",
+     "n": 31,
+     "percent": false,
+     "cells": [
+      {
+       "id": "no-change",
+       "label": "No change",
+       "count": 13
+      },
+      {
+       "id": "slight",
+       "label": "Slight improvement",
+       "count": 8
+      },
+      {
+       "id": "moderate",
+       "label": "Moderate improvement",
+       "count": null,
+       "display": "not shown"
+      },
+      {
+       "id": "large",
+       "label": "Large improvement",
+       "count": null,
+       "display": "not shown"
+      }
+     ],
+     "label": "Healing a tendon, ligament, muscle or joint injury"
+    },
+    {
+     "goal": "longevity",
+     "n": null,
+     "display": "fewer than 20 reports",
+     "label": "General longevity / anti-aging"
+    }
+   ]
+  },
+  "compound:pt-141": {
+   "n": 137,
+   "strata": [
+    {
+     "goal": "libido",
+     "n": 59,
+     "percent": false,
+     "cells": [
+      {
+       "id": "no-change",
+       "label": "No change",
+       "count": 24
+      },
+      {
+       "id": "slight",
+       "label": "Slight improvement",
+       "count": 15
+      },
+      {
+       "id": "moderate",
+       "label": "Moderate improvement",
+       "count": 15
+      },
+      {
+       "id": "large",
+       "label": "Large improvement",
+       "count": 5
+      }
+     ],
+     "label": "Stronger sexual desire / libido"
+    },
+    {
+     "goal": "erections",
+     "n": 30,
+     "percent": false,
+     "cells": [
+      {
+       "id": "no-change",
+       "label": "No change",
+       "count": 11
+      },
+      {
+       "id": "slight",
+       "label": "Slight improvement",
+       "count": 12
+      },
+      {
+       "id": "moderate",
+       "label": "Moderate improvement",
+       "count": null,
+       "display": "not shown"
+      },
+      {
+       "id": "large",
+       "label": "Large improvement",
+       "count": null,
+       "display": "not shown"
+      }
+     ],
+     "label": "Firmer or more reliable erections"
+    },
+    {
+     "goal": "ed-adjunct",
+     "n": 24,
+     "percent": false,
+     "cells": [
+      {
+       "id": "no-change",
+       "label": "No change",
+       "count": null,
+       "display": "not shown"
+      },
+      {
+       "id": "slight",
+       "label": "Slight improvement",
+       "count": 6
+      },
+      {
+       "id": "moderate",
+       "label": "Moderate improvement",
+       "count": 9
+      },
+      {
+       "id": "large",
+       "label": "Large improvement",
+       "count": null,
+       "display": "not shown"
+      }
+     ],
+     "label": "Add-on when ED medication is not enough"
+    },
+    {
+     "goal": "orgasm",
+     "n": null,
+     "display": "fewer than 20 reports",
+     "label": "More intense arousal or orgasm"
+    }
+   ]
+  }
+ }
+}

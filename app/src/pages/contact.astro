@@ -1,0 +1,55 @@
+---
+import Base from '../layouts/Base.astro';
+import { allowContact, isHoneypotTripped, HONEYPOT_FIELD } from '../lib/abuse';
+import { validate, receive, MAX_MESSAGE } from '../lib/contact';
+
+let sent = false;
+let error = '';
+let draft = { message: '', email: '' };
+
+if (Astro.request.method === 'POST') {
+  const fd = await Astro.request.formData();
+  if (isHoneypotTripped(fd)) {
+    sent = true; // bots get the same page as everyone; nothing is stored
+  } else {
+    const v = validate(fd);
+    draft = { message: String(fd.get('message') ?? ''), email: String(fd.get('email') ?? '') };
+    if (!v.ok) error = v.error;
+    else if (!allowContact(Astro.clientAddress)) error = 'Too many messages from this connection in the last hour. Please try again later.';
+    else { receive(v.value); sent = true; }
+  }
+}
+---
+<Base title="Contact">
+  <h1>Contact</h1>
+  {sent ? (
+    <>
+      <p class="lede">Thank you. Your message is in, and we will aim to get back to you soon if you left an email address.</p>
+      <p><a href="/">Home</a> · <a href="/contribute">Contribute a report</a></p>
+    </>
+  ) : (
+    <>
+      <p class="lede">We welcome your questions and feedback and will aim to get back to you soon.</p>
+      <div class="notice">
+        <p>This is the one place on the site where you can type. What you write here is stored on our server, forwarded to the operator's mailbox, and deleted within 30 days. It is kept entirely separate from reports. <strong>Please do not describe a report you submitted</strong> — a description next to your email address would be more identifying than anything we hold.</p>
+      </div>
+      <form method="post" action="/contact" class="contact" autocomplete="off">
+        <p class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name={HONEYPOT_FIELD} tabindex="-1" autocomplete="off"></label></p>
+        {error && <p class="field-error" id="contact-err">{error}</p>}
+        <fieldset>
+          <legend><label for="message">Your message</label></legend>
+          <textarea id="message" name="message" rows="7" maxlength={MAX_MESSAGE} required aria-describedby={error ? 'contact-err' : undefined}>{draft.message}</textarea>
+          <p class="help">Up to {MAX_MESSAGE} characters.</p>
+        </fieldset>
+        <fieldset>
+          <legend><label for="email">Email, if you want a reply</label> <span class="muted">(optional)</span></legend>
+          <input id="email" name="email" type="email" inputmode="email" value={draft.email} maxlength="200" placeholder="you@example.com">
+          <p class="help">Used only to reply, then deleted with the message.</p>
+        </fieldset>
+        <div class="actions">
+          <button class="primary" type="submit">Send</button>
+        </div>
+      </form>
+    </>
+  )}
+</Base>

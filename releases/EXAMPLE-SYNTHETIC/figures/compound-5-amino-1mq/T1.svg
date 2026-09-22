@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="200" viewBox="0 0 760 200" role="img">
+<rect width="760" height="200" fill="#FFFFFF"/>
+<text x="28" y="36" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="17" fill="#1A1A1A" text-anchor="start" font-weight="600">5-amino-1MQ — route</text>
+<text x="28" y="56" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#5F6B6A" text-anchor="start" font-weight="normal">11 reports on 5-amino-1MQ. Counts. A cell under 5, and one neighbour that would reveal it, are “not</text>
+<text x="28" y="71" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#5F6B6A" text-anchor="start" font-weight="normal">shown”.</text>
+<text x="28" y="125" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="start" font-weight="normal">Oral / sublingual / troche</text>
+<rect x="278" y="115" width="6" height="12" fill="#C7CFCE"/>
+<text x="732" y="125" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#5F6B6A" text-anchor="end" font-weight="normal">not shown</text>
+<text x="28" y="151" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="start" font-weight="normal">Subcutaneous injection</text>
+<rect x="278" y="141" width="6" height="12" fill="#C7CFCE"/>
+<text x="732" y="151" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#5F6B6A" text-anchor="end" font-weight="normal">not shown</text>
+<line x1="28" y1="168" x2="732" y2="168" stroke="#D8DEDD" stroke-width="1"/>
+<text x="28" y="186" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11" fill="#5F6B6A" text-anchor="start" font-weight="normal">Self-reported. Not evidence of effectiveness or safety. See methodology.</text>
+<text x="732" y="186" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11" fill="#5F6B6A" text-anchor="end" font-weight="normal">Private Anecdata · EXAMPLE-SYNTHETIC · n = 11</text>
+</svg>

@@ -4,9 +4,11 @@
 set -eu
 cd "$(dirname "$0")/.."
 echo "== taxonomy -> schema config -> SCHEMA.md are in sync"
+before=$(cat spec/schema.config.json spec/SCHEMA.md | shasum -a 256)
 python3 tools/make_schema_config.py >/dev/null
 python3 tools/render_schema_md.py >/dev/null
-git diff --quiet -- spec/schema.config.json spec/SCHEMA.md || { echo "spec/ derived files are out of date: run the two tools above and commit"; exit 1; }
+after=$(cat spec/schema.config.json spec/SCHEMA.md | shasum -a 256)
+[ "$before" = "$after" ] || { echo "spec/ derived files were out of date and have been regenerated: review and commit them"; exit 1; }
 echo "== pipeline tests"
 python3 -m unittest discover -s tools/tests
 echo "== synthetic release builds and verifies"

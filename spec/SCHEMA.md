@@ -1,6 +1,6 @@
 # Submission schema
 
-**Version 0.1-draft.** This document is the schema. The form, the database, the release
+**Version 1.0.** This document is the schema. The form, the database, the release
 pipeline, and the uniqueness analysis are all generated from `spec/taxonomy.v1.json`, and the
 tables below are rendered from that file so they cannot drift from it. The schema is frozen at
 launch and changed only on a published schedule, in batches, with a version increment — because a
@@ -42,17 +42,15 @@ One row per report. Fields in form order.
 | 4 | `source_channel` | 8 options | Channel *type* only; never a vendor, pharmacy or brand |
 | 5 | `start_dose` | That compound's dose bands | Band, never a number |
 | 6 | `current_dose` | That compound's dose bands | Current or final |
-| 7 | `frequency` | That compound's frequency options | |
-| 8 | `titration` | 5 options | No change / stepped up / stepped down / cycled / other |
-| 9 | `duration` | 6 buckets | How long taken in total |
-| 10 | `purity_tested` | 5 options | Independent test obtained; did it match the label |
-| 11 | `reconstitution` | 6 options | Handling practice, coarse |
+| 7 | `frequency` | That compound's frequency options | Includes 'cycled' |
+| 8 | `duration` | 6 buckets | How long taken in total |
+| 9 | `purity_tested` | 5 options | Independent test obtained; did it match the label |
+| 10 | `status` | 3 options | Still taking, finished a planned course, or stopped early |
+| 11 | `stop_reason` | 7 options | Only if stopped early |
 | 12 | `outcome` | 4-point scale | For the goal selected in #3 |
 | 13 | `adverse_effects[]` | Universal list + that compound's list | Multi-select. Each selected effect carries `onset` and `dechallenge` |
-| 14 | `status` | 6 options | Still taking, or stopped in which week bucket, or completed |
-| 15 | `stop_reason` | 8 options | Only if stopped |
-| 16 | `age_band` | 6 bands | Optional |
-| 17 | `sex` | 3 options | Optional |
+| 14 | `age_band` | 6 bands | Optional |
+| 15 | `sex` | 5 options | Optional. Sex or gender, one question, never crossed with anything |
 
 **Held by the server in addition:** a received date at day granularity, assigned on write; a
 per-row secret salt for the Merkle log. **Nothing else.** No sequence number is exposed. No IP,
@@ -77,19 +75,10 @@ no user agent, no session, no timestamp finer than a day, no location, no identi
 
 `under-2wk` · `2-4wk` · `1-3mo` · `3-6mo` · `6-12mo` · `over-12mo`
 
-### Titration
-
-`no-change` · `stepped-up` · `stepped-down` · `cycled` · `other`
-
 ### Purity testing
 
 `no` — did not test · `yes-matched` — tested, matched the label · `yes-did-not-match` — tested, did
 not match · `yes-unsure` — tested, unsure how to read the result · `dont-know`
-
-### Reconstitution / handling
-
-`bac-water-refrigerated` · `bac-water-room-temp` · `sterile-water` · `pre-mixed-or-pen` ·
-`no-reconstitution` (oral, nasal, topical) · `other`
 
 ### Outcome scale (for the selected goal)
 
@@ -97,10 +86,9 @@ not match · `yes-unsure` — tested, unsure how to read the result · `dont-kno
 
 ### Status and stop reason
 
-Status: `still-taking` · `stopped-under-2wk` · `stopped-2-6wk` · `stopped-6-12wk` ·
-`stopped-over-12wk` · `completed-planned-course`
+Status: `still-taking` · `completed-planned-course` · `stopped` (before planned)
 
-Stop reason (if stopped): `achieved-goal` · `no-effect` · `adverse-effect` · `cost` · `supply` ·
+Stop reason (if stopped early): `achieved-goal` · `no-effect` · `adverse-effect` · `cost` · `supply` ·
 `safety-concern` · `other`
 
 ### Adverse-effect detail (per selected effect)
@@ -109,11 +97,12 @@ Onset: `first-days` · `first-2wk` · `2-6wk` · `after-6wk` · `unsure`
 
 Dechallenge (did it resolve on stopping): `resolved` · `did-not-resolve` · `still-taking` · `unsure`
 
-### Age band and sex (optional)
+### Age band and sex or gender (optional)
 
 Age: `18-24` · `25-34` · `35-44` · `45-54` · `55-64` · `65+`
 
-Sex: `male` · `female` · `prefer-not`
+Sex or gender (one question; reported only as a total across all contributors): `female` · `male` ·
+`intersex` · `nonbinary` · `prefer-not`
 
 ### Routes
 
@@ -1047,8 +1036,8 @@ is published so the identifiability of the store is a stated number, not a claim
 
 **Assumptions:** compound prevalence Zipf(s=1.0) over 30 compounds; dose bands middle-heavy; one
 goal per row, Zipf(0.8) within the compound's list; age and sex skewed to the community's known
-demographics; source channel dominated by research-chemical vendors. These are pre-launch
-guesses. The same tool runs in `real` mode on the private store before every release, and the
+demographics; source channel dominated by research-chemical vendors. These are assumptions
+made before any data existed. The same tool runs in `real` mode on the private store before every release, and the
 summary numbers (never rows) are published with the release.
 
 | Quasi-identifier set | Fields | n=500 | n=5,000 | n=50,000 |

@@ -1,0 +1,2718 @@
+{
+ "table": "T2",
+ "title": "Source channel",
+ "release": "EXAMPLE-SYNTHETIC",
+ "data": {
+  "compound:retatrutide": {
+   "n": 43,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": 6
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 6
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 10
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": 13
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:tirzepatide": {
+   "n": 36,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": 7
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 10
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": 7
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:semaglutide": {
+   "n": 35,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 8
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 11
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": 6
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:cagrilintide": {
+   "n": 28,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": 5
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 16
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:mazdutide": {
+   "n": 30,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 5
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 11
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": 7
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:survodutide": {
+   "n": 33,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": 5
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 7
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 9
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:liraglutide": {
+   "n": 22,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": 6
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 8
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:cjc-1295-ipamorelin-blend": {
+   "n": 16,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 5
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": 5
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:ipamorelin": {
+   "n": 18,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 6
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:tesamorelin": {
+   "n": 21,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 5
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 10
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:mk-677": {
+   "n": 10,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:somatropin": {
+   "n": 12,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 5
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:cjc-1295-without-dac": {
+   "n": 12,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:sermorelin": {
+   "n": 19,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": 6
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": 6
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:cjc-1295-with-dac": {
+   "n": 11,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:ghrp-6": {
+   "n": 14,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:ghrp-2": {
+   "n": 17,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": 5
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 6
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:ghk-cu": {
+   "n": 272,
+   "percent": true,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": 13,
+     "pct": 4.8,
+     "ci95": [
+      2.8,
+      8.0
+     ]
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": 38,
+     "pct": 14.0,
+     "ci95": [
+      10.4,
+      18.6
+     ]
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 54,
+     "pct": 19.9,
+     "ci95": [
+      15.5,
+      25.0
+     ]
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 78,
+     "pct": 28.7,
+     "ci95": [
+      23.6,
+      34.3
+     ]
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": 60,
+     "pct": 22.1,
+     "ci95": [
+      17.5,
+      27.4
+     ]
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": 14,
+     "pct": 5.1,
+     "ci95": [
+      3.1,
+      8.5
+     ]
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": 10,
+     "pct": 3.7,
+     "ci95": [
+      2.0,
+      6.6
+     ]
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": 5,
+     "pct": 1.8,
+     "ci95": [
+      0.8,
+      4.2
+     ]
+    }
+   ]
+  },
+  "compound:bpc-157": {
+   "n": 11,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:tb-500": {
+   "n": 10,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:kpv": {
+   "n": 12,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": 5
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:ll-37": {
+   "n": 11,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:ara-290": {
+   "n": 10,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:oxytocin": {
+   "n": 62,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": 8
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 8
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 21
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": 16
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:dsip": {
+   "n": 54,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": 9
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 12
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 13
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": 7
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": 5
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:semax": {
+   "n": 21,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 6
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 5
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:selank": {
+   "n": 29,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 10
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 9
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": 5
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:cerebrolysin": {
+   "n": 16,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 5
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:dihexa": {
+   "n": 19,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 10
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:p21": {
+   "n": 20,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 7
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:pinealon": {
+   "n": 11,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:aod-9604": {
+   "n": 10,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:nad": {
+   "n": 13,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 6
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:epitalon": {
+   "n": 10,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:5-amino-1mq": {
+   "n": 11,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:glutathione": {
+   "n": 14,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": 6
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:humanin": {
+   "n": 11,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:slu-pp-332": {
+   "n": 10,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:pt-141": {
+   "n": 137,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": 12
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": 20
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 23
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 37
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": 31
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": 8
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:melanotan-ii": {
+   "n": 89,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": 9
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": 13
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 14
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 26
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": 14
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": 6
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:kisspeptin-10": {
+   "n": 86,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": 6
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": 13
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 16
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 27
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": 17
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:melanotan-i": {
+   "n": 50,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": 6
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 11
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 16
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": 9
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:gonadorelin": {
+   "n": 47,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": 8
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 14
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 11
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": 8
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "class:incretin": {
+   "n": 227,
+   "percent": true,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": 13,
+     "pct": 5.7,
+     "ci95": [
+      3.4,
+      9.6
+     ]
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": 36,
+     "pct": 15.9,
+     "ci95": [
+      11.7,
+      21.2
+     ]
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 35,
+     "pct": 15.4,
+     "ci95": [
+      11.3,
+      20.7
+     ]
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 75,
+     "pct": 33.0,
+     "ci95": [
+      27.2,
+      39.4
+     ]
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": 42,
+     "pct": 18.5,
+     "ci95": [
+      14.0,
+      24.1
+     ]
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": 14,
+     "pct": 6.2,
+     "ci95": [
+      3.7,
+      10.1
+     ]
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "class:gh-secretagogue": {
+   "n": 158,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": 9
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": 26
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 36
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 41
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": 31
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": 7
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "class:tissue-repair": {
+   "n": 333,
+   "percent": true,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": 16,
+     "pct": 4.8,
+     "ci95": [
+      3.0,
+      7.7
+     ]
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": 56,
+     "pct": 16.8,
+     "ci95": [
+      13.2,
+      21.2
+     ]
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 61,
+     "pct": 18.3,
+     "ci95": [
+      14.5,
+      22.8
+     ]
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 95,
+     "pct": 28.5,
+     "ci95": [
+      23.9,
+      33.6
+     ]
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": 67,
+     "pct": 20.1,
+     "ci95": [
+      16.2,
+      24.8
+     ]
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": 17,
+     "pct": 5.1,
+     "ci95": [
+      3.2,
+      8.0
+     ]
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": 14,
+     "pct": 4.2,
+     "ci95": [
+      2.5,
+      6.9
+     ]
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": 7,
+     "pct": 2.1,
+     "ci95": [
+      1.0,
+      4.3
+     ]
+    }
+   ]
+  },
+  "class:neuro": {
+   "n": 232,
+   "percent": true,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": 12,
+     "pct": 5.2,
+     "ci95": [
+      3.0,
+      8.8
+     ]
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": 30,
+     "pct": 12.9,
+     "ci95": [
+      9.2,
+      17.9
+     ]
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 46,
+     "pct": 19.8,
+     "ci95": [
+      15.2,
+      25.4
+     ]
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 72,
+     "pct": 31.0,
+     "ci95": [
+      25.4,
+      37.3
+     ]
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": 45,
+     "pct": 19.4,
+     "ci95": [
+      14.8,
+      25.0
+     ]
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": 14,
+     "pct": 6.0,
+     "ci95": [
+      3.6,
+      9.9
+     ]
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": 5,
+     "pct": 2.2,
+     "ci95": [
+      0.9,
+      4.9
+     ]
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": 8,
+     "pct": 3.4,
+     "ci95": [
+      1.8,
+      6.7
+     ]
+    }
+   ]
+  },
+  "class:metabolic": {
+   "n": 114,
+   "percent": false,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": 8
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": 10
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 17
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 34
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": 34
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": 8
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "class:sexual-hormonal": {
+   "n": 409,
+   "percent": true,
+   "cells": [
+    {
+     "id": "retail-pharmacy",
+     "label": "Retail pharmacy (brand product, prescription)",
+     "count": 34,
+     "pct": 8.3,
+     "ci95": [
+      6.0,
+      11.4
+     ]
+    },
+    {
+     "id": "503a-compounder",
+     "label": "Compounding pharmacy",
+     "count": 60,
+     "pct": 14.7,
+     "ci95": [
+      11.6,
+      18.4
+     ]
+    },
+    {
+     "id": "telehealth-compounded",
+     "label": "Telehealth or clinic (compounded)",
+     "count": 78,
+     "pct": 19.1,
+     "ci95": [
+      15.6,
+      23.2
+     ]
+    },
+    {
+     "id": "domestic-rc-vendor",
+     "label": "Domestic research-chemical vendor",
+     "count": 117,
+     "pct": 28.6,
+     "ci95": [
+      24.4,
+      33.2
+     ]
+    },
+    {
+     "id": "overseas-vendor",
+     "label": "Overseas vendor",
+     "count": 79,
+     "pct": 19.3,
+     "ci95": [
+      15.8,
+      23.4
+     ]
+    },
+    {
+     "id": "another-person",
+     "label": "From another person",
+     "count": 22,
+     "pct": 5.4,
+     "ci95": [
+      3.6,
+      8.0
+     ]
+    },
+    {
+     "id": "unknown",
+     "label": "Don't know",
+     "count": 14,
+     "pct": 3.4,
+     "ci95": [
+      2.0,
+      5.7
+     ]
+    },
+    {
+     "id": "other",
+     "label": "Other (not listed)",
+     "count": 5,
+     "pct": 1.2,
+     "ci95": [
+      0.5,
+      2.8
+     ]
+    }
+   ]
+  }
+ }
+}

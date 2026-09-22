@@ -1,0 +1,1064 @@
+{
+ "release": "EXAMPLE-SYNTHETIC",
+ "date": "2026-12-31",
+ "synthetic": true,
+ "schema_version": "1.0",
+ "taxonomy_sha256": "1bbf7e563e1efbc72307d3004f84f6f69b3f4f79108b0f532d7c5664d76c30e2",
+ "release_spec": {
+  "version": "1.0",
+  "sha256": "c8e9606df87d264e1af954cbf3f6a1c3ca465ab8de449aa953fad7bf196d7b81"
+ },
+ "pipeline": {
+  "tool": "tools/release.py",
+  "sha256": "82f5a52f389cf09ef14d0e92a7451cf97a177dd2fbc9099090a285929b17adc4"
+ },
+ "merkle": {
+  "root": "49d08c112ca6b8914c888610f79d093be7ede651300ec2d2757216bce51ec87b",
+  "leaves": 1500,
+  "leaves_file": "merkle/leaves.txt",
+  "prior_root": null,
+  "prior_leaves": null
+ },
+ "counts": {
+  "committed": 1500,
+  "excluded": 0,
+  "analyzed": 1500
+ },
+ "tiers": {
+  "compound:retatrutide": 1,
+  "compound:tirzepatide": 1,
+  "compound:semaglutide": 1,
+  "compound:cagrilintide": 1,
+  "compound:mazdutide": 1,
+  "compound:survodutide": 1,
+  "compound:liraglutide": 1,
+  "compound:cjc-1295-ipamorelin-blend": 1,
+  "compound:ipamorelin": 1,
+  "compound:tesamorelin": 1,
+  "compound:mk-677": 1,
+  "compound:somatropin": 1,
+  "compound:cjc-1295-without-dac": 1,
+  "compound:sermorelin": 1,
+  "compound:cjc-1295-with-dac": 1,
+  "compound:ghrp-6": 1,
+  "compound:ghrp-2": 1,
+  "compound:hexarelin": 0,
+  "compound:ghk-cu": 4,
+  "compound:bpc-157": 1,
+  "compound:tb-500": 1,
+  "compound:bpc-157-tb-500-blend": 0,
+  "compound:kpv": 1,
+  "compound:ll-37": 1,
+  "compound:ara-290": 1,
+  "compound:oxytocin": 2,
+  "compound:dsip": 2,
+  "compound:semax": 1,
+  "compound:selank": 1,
+  "compound:cerebrolysin": 1,
+  "compound:dihexa": 1,
+  "compound:p21": 1,
+  "compound:pinealon": 1,
+  "compound:aod-9604": 1,
+  "compound:nad": 1,
+  "compound:mots-c": 0,
+  "compound:epitalon": 1,
+  "compound:5-amino-1mq": 1,
+  "compound:glutathione": 1,
+  "compound:thymosin-alpha-1": 0,
+  "compound:tesofensine": 0,
+  "compound:ss-31": 0,
+  "compound:humanin": 1,
+  "compound:slu-pp-332": 1,
+  "compound:foxo4-dri": 0,
+  "compound:pt-141": 3,
+  "compound:melanotan-ii": 2,
+  "compound:kisspeptin-10": 2,
+  "compound:melanotan-i": 2,
+  "compound:gonadorelin": 1,
+  "class:incretin": 4,
+  "class:gh-secretagogue": 3,
+  "class:tissue-repair": 4,
+  "class:neuro": 4,
+  "class:metabolic": 3,
+  "class:sexual-hormonal": 4
+ },
+ "units": {
+  "class:gh-secretagogue": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 158,
+   "tier": 3,
+   "parts": {
+    "compound:cjc-1295-ipamorelin-blend": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:ipamorelin": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:tesamorelin": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:mk-677": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:somatropin": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:cjc-1295-without-dac": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:sermorelin": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:cjc-1295-with-dac": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:ghrp-6": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:ghrp-2": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "class:gh-secretagogue/pool": {
+     "leaves": 1500,
+     "date": "2026-12-31",
+     "members": [
+      "hexarelin"
+     ]
+    }
+   }
+  },
+  "class:gh-secretagogue/pool": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 8,
+   "members": [
+    "hexarelin"
+   ]
+  },
+  "class:incretin": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 227,
+   "tier": 4,
+   "parts": {
+    "compound:retatrutide": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:tirzepatide": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:semaglutide": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:cagrilintide": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:mazdutide": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:survodutide": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:liraglutide": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "class:incretin/pool": {
+     "leaves": 1500,
+     "date": "2026-12-31",
+     "members": []
+    }
+   }
+  },
+  "class:incretin/pool": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 0,
+   "members": []
+  },
+  "class:metabolic": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 114,
+   "tier": 3,
+   "parts": {
+    "compound:aod-9604": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:nad": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:epitalon": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:5-amino-1mq": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:glutathione": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:humanin": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:slu-pp-332": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "class:metabolic/pool": {
+     "leaves": 1500,
+     "date": "2026-12-31",
+     "members": [
+      "mots-c",
+      "thymosin-alpha-1",
+      "tesofensine",
+      "ss-31",
+      "foxo4-dri"
+     ]
+    }
+   }
+  },
+  "class:metabolic/pool": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 35,
+   "members": [
+    "mots-c",
+    "thymosin-alpha-1",
+    "tesofensine",
+    "ss-31",
+    "foxo4-dri"
+   ]
+  },
+  "class:neuro": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 232,
+   "tier": 4,
+   "parts": {
+    "compound:oxytocin": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:dsip": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:semax": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:selank": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:cerebrolysin": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:dihexa": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:p21": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:pinealon": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "class:neuro/pool": {
+     "leaves": 1500,
+     "date": "2026-12-31",
+     "members": []
+    }
+   }
+  },
+  "class:neuro/pool": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 0,
+   "members": []
+  },
+  "class:sexual-hormonal": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 409,
+   "tier": 4,
+   "parts": {
+    "compound:pt-141": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:melanotan-ii": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:kisspeptin-10": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:melanotan-i": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:gonadorelin": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "class:sexual-hormonal/pool": {
+     "leaves": 1500,
+     "date": "2026-12-31",
+     "members": []
+    }
+   }
+  },
+  "class:sexual-hormonal/pool": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 0,
+   "members": []
+  },
+  "class:tissue-repair": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 333,
+   "tier": 4,
+   "parts": {
+    "compound:ghk-cu": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:bpc-157": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:tb-500": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:kpv": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:ll-37": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "compound:ara-290": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "class:tissue-repair/pool": {
+     "leaves": 1500,
+     "date": "2026-12-31",
+     "members": [
+      "bpc-157-tb-500-blend"
+     ]
+    }
+   }
+  },
+  "class:tissue-repair/pool": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 7,
+   "members": [
+    "bpc-157-tb-500-blend"
+   ]
+  },
+  "compound:5-amino-1mq": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 11,
+   "tier": 1
+  },
+  "compound:aod-9604": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 10,
+   "tier": 1
+  },
+  "compound:ara-290": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 10,
+   "tier": 1
+  },
+  "compound:bpc-157": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 11,
+   "tier": 1
+  },
+  "compound:cagrilintide": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 28,
+   "tier": 1
+  },
+  "compound:cerebrolysin": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 16,
+   "tier": 1
+  },
+  "compound:cjc-1295-ipamorelin-blend": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 16,
+   "tier": 1
+  },
+  "compound:cjc-1295-with-dac": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 11,
+   "tier": 1
+  },
+  "compound:cjc-1295-without-dac": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 12,
+   "tier": 1
+  },
+  "compound:dihexa": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 19,
+   "tier": 1
+  },
+  "compound:dsip": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 54,
+   "tier": 2
+  },
+  "compound:dsip/T12/stopped": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 32
+  },
+  "compound:epitalon": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 10,
+   "tier": 1
+  },
+  "compound:ghk-cu": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 272,
+   "tier": 4
+  },
+  "compound:ghk-cu/T11/nausea": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 25
+  },
+  "compound:ghk-cu/T12/stopped": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 122
+  },
+  "compound:ghk-cu/T8/hair": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 44
+  },
+  "compound:ghk-cu/T8/injury-healing": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 31
+  },
+  "compound:ghk-cu/T8/skin-aging": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 101
+  },
+  "compound:ghk-cu/T8/skin-tone": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 29
+  },
+  "compound:ghk-cu/T8/wound-scar": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 40
+  },
+  "compound:ghrp-2": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 17,
+   "tier": 1
+  },
+  "compound:ghrp-6": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 14,
+   "tier": 1
+  },
+  "compound:glutathione": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 14,
+   "tier": 1
+  },
+  "compound:gonadorelin": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 47,
+   "tier": 1
+  },
+  "compound:humanin": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 11,
+   "tier": 1
+  },
+  "compound:ipamorelin": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 18,
+   "tier": 1
+  },
+  "compound:kisspeptin-10": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 86,
+   "tier": 2
+  },
+  "compound:kisspeptin-10/T12/stopped": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 40
+  },
+  "compound:kpv": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 12,
+   "tier": 1
+  },
+  "compound:liraglutide": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 22,
+   "tier": 1
+  },
+  "compound:ll-37": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 11,
+   "tier": 1
+  },
+  "compound:mazdutide": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 30,
+   "tier": 1
+  },
+  "compound:melanotan-i": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 50,
+   "tier": 2
+  },
+  "compound:melanotan-ii": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 89,
+   "tier": 2
+  },
+  "compound:melanotan-ii/T12/stopped": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 40
+  },
+  "compound:mk-677": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 10,
+   "tier": 1
+  },
+  "compound:nad": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 13,
+   "tier": 1
+  },
+  "compound:oxytocin": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 62,
+   "tier": 2
+  },
+  "compound:oxytocin/T12/stopped": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 22
+  },
+  "compound:p21": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 20,
+   "tier": 1
+  },
+  "compound:pinealon": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 11,
+   "tier": 1
+  },
+  "compound:pt-141": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 137,
+   "tier": 3
+  },
+  "compound:pt-141/T12/stopped": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 64
+  },
+  "compound:pt-141/T8/ed-adjunct": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 24
+  },
+  "compound:pt-141/T8/erections": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 30
+  },
+  "compound:pt-141/T8/libido": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 59
+  },
+  "compound:retatrutide": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 43,
+   "tier": 1
+  },
+  "compound:selank": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 29,
+   "tier": 1
+  },
+  "compound:semaglutide": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 35,
+   "tier": 1
+  },
+  "compound:semax": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 21,
+   "tier": 1
+  },
+  "compound:sermorelin": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 19,
+   "tier": 1
+  },
+  "compound:slu-pp-332": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 10,
+   "tier": 1
+  },
+  "compound:somatropin": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 12,
+   "tier": 1
+  },
+  "compound:survodutide": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 33,
+   "tier": 1
+  },
+  "compound:tb-500": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 10,
+   "tier": 1
+  },
+  "compound:tesamorelin": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 21,
+   "tier": 1
+  },
+  "compound:tirzepatide": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 36,
+   "tier": 1
+  },
+  "overall": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 1500,
+   "tier": 5,
+   "parts": {
+    "class:incretin": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "class:gh-secretagogue": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "class:tissue-repair": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "class:neuro": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "class:metabolic": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "class:sexual-hormonal": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    },
+    "overall/other": {
+     "leaves": 1500,
+     "date": "2026-12-31"
+    }
+   }
+  },
+  "overall/other": {
+   "release": "EXAMPLE-SYNTHETIC",
+   "date": "2026-12-31",
+   "leaves": 1500,
+   "n": 27
+  }
+ },
+ "held": [],
+ "files": {
+  "exclusions.json": "7edad3ec83d139149b7d5be3c42c7ee29838f11fb31f353a34854639add57413",
+  "figures/_overall/T13-age_band.svg": "034c97faeb72dc96f6de14a1ae127bc7c8a58b9a18ab2c674d4d5134a1ff3ec5",
+  "figures/_overall/T13-sex.svg": "57233133483caa7c3d6935c7c89f6ff06cdba71f4632d7d7b0e2d88f044faa72",
+  "figures/_overall/T6.svg": "1de480bac4b76c34f613147810d6571adb8e94bad24c7b29f4126e7805785650",
+  "figures/class-gh-secretagogue/T1.svg": "d4f580c4c578843f2e1657d3049a57e8e2222e230e0f8d26291cec0e76c7215a",
+  "figures/class-gh-secretagogue/T10.svg": "f97bd7db21d156a0e6515cb93f7c0f65e481155e03023c66ad236ed6849d8b0e",
+  "figures/class-gh-secretagogue/T12-status.svg": "58bc1313bd3096fe1fe8b664745394245fcdb93d02855ae17f4cde599e536f4e",
+  "figures/class-gh-secretagogue/T16.svg": "b9dafaed3015104922499f43c45a7ce080c5ccecee196b3d9b1c1547b4fa0337",
+  "figures/class-gh-secretagogue/T2.svg": "4472892a62f383e405b856f5401ea5931b65ccd08ca8dcbc6b2a993e506bab5b",
+  "figures/class-gh-secretagogue/T4.svg": "5bc7125c2e5d2b3b89da92205aea368f018785da63f3ca44fab55deff7171981",
+  "figures/class-gh-secretagogue/T5.svg": "97d1665a05455ad2f65b84edc52e85b205ad4ee64bc8c94d86a8e8602fe6d66e",
+  "figures/class-gh-secretagogue/T6.svg": "274a0feaa9396246dff2f6571c9f9192dbb99d4941f19b844536f9b89867a003",
+  "figures/class-incretin/T1.svg": "0fb225237d0096baf74caee738838c2d384be25f142367c77db95d49f792d3c5",
+  "figures/class-incretin/T10.svg": "99d9edd37ae93c4ae8406b913143d913ab3345463a061f785b6b7dcc283d1a5c",
+  "figures/class-incretin/T12-status.svg": "e43853c937137ef0f35e996a0e8d0303089949b7c1d29d5329e0aebf6041abdf",
+  "figures/class-incretin/T16.svg": "e002a1914f24de913cbdd48e4a9424c7deeecf95736538a9fe030720bf7e117c",
+  "figures/class-incretin/T2.svg": "05613467d5b072fdbc473d89de499145c3a72f19343d69510c4e8b0893ae4c2b",
+  "figures/class-incretin/T4.svg": "666c13e75f53d80cbc2471847354cc1eec98679dda7a04469f255dd389061416",
+  "figures/class-incretin/T5.svg": "4a95bd777531d9032f71e9260b5ee22852e097b425811ff7b8ea8256814f21d2",
+  "figures/class-incretin/T6.svg": "306a15a83945b787e1a8a827947e513a37464f02a38095dc6ac7cf18e5e36d61",
+  "figures/class-metabolic/T1.svg": "2920a83ba75e15d251f02b6bb283d0a5d2b3eca118e180107ef76cbc1971e61e",
+  "figures/class-metabolic/T10.svg": "5e5f74462eacf59335e9903a74a950e18e8103771739f66a957bb4a0a5928cc1",
+  "figures/class-metabolic/T12-status.svg": "9472029652a56c132de11c2da240857979f4b5728cae9d2d62bd7814202a176d",
+  "figures/class-metabolic/T16.svg": "a9f1b1a0c48dbf5d893c320467e33317b2612eca4b8ec6fb6ce4c720a1e5aa00",
+  "figures/class-metabolic/T2.svg": "3878ec2e4444cfbe44cdd1854c21409c9e5317dbf2190306effa37c0bb980ae7",
+  "figures/class-metabolic/T4.svg": "dfd17c1be0b890fab1f93032861acaeebf176d488fdbd43a872d13362ba6f2f5",
+  "figures/class-metabolic/T5.svg": "919796b4528712a79140dd40c006c1e14ba8a97c6c78e33bee24ba9e76420ea0",
+  "figures/class-metabolic/T6.svg": "70cab94220e45b304b16a59a5bf74777e1f7430727573a4bccb50b723955aa0a",
+  "figures/class-neuro/T1.svg": "d0afed50c86a8850d20ff7db60a08abd981302ace0e86a9572c2ead45ddbb3f5",
+  "figures/class-neuro/T10.svg": "ad9d5edca043e83aa4f1136ca95f45e905948fa7bc1171accaca03696ac3d868",
+  "figures/class-neuro/T12-status.svg": "b9e4da7bae9a18f0a300ebb7d1bcb3b2655483d8df464af09dcfb59e025ddcc4",
+  "figures/class-neuro/T16.svg": "8a13697d86da375637caf8a16f815fb3a17cb1dd568e0a800cdc81c73d878395",
+  "figures/class-neuro/T2.svg": "f8e8fe6e958594d24d133a610792387623e79937cf59dc15b6cf780e9831aac0",
+  "figures/class-neuro/T4.svg": "1a7b09c576c3b635730804f5c6608d136a1ab082b715abb8192c847d91f3c8ea",
+  "figures/class-neuro/T5.svg": "a35ae19c8e25d8f2d4c884ba75b2019974aed44fdeeea0bd25a14d83a46db3e4",
+  "figures/class-neuro/T6.svg": "6fd0264ea8d3b20437cd7837b90dae3bc186c454b8009c7189f971922c838fb4",
+  "figures/class-sexual-hormonal/T1.svg": "0ffb773447d777ec1f3f6453ea761a65f0a6c2b7fc3b0d28ea25c6669ba890d3",
+  "figures/class-sexual-hormonal/T10.svg": "35590be70d627eaba843af0dcf466568a605e4f7af6cb81c3bf8850fcafe16c7",
+  "figures/class-sexual-hormonal/T12-status.svg": "22a0f702af36e238a3737e0139e7a08595e697c5c11e3de9a2899b473488e207",
+  "figures/class-sexual-hormonal/T16.svg": "d0c1958ae0f087f6791332fd3f97b8e6fa5fbf38f6ea229257e1abf013b3c492",
+  "figures/class-sexual-hormonal/T2.svg": "f4293fc9934d5325dab412c5021d1319955c78d1288d6436df6a69c765dab603",
+  "figures/class-sexual-hormonal/T4.svg": "bb585d0c0f356a4630aa0d4a3ad2c2ec81e63f397c2e5516d2d940f800a7be21",
+  "figures/class-sexual-hormonal/T5.svg": "7ab14e41ddb86183e431ce80da459c3c67de11365e35d215c60dc2394c76324d",
+  "figures/class-sexual-hormonal/T6.svg": "2252dbd4ec4e5ad613bc5428203951cdf788b1690ecf4f700d0064e8280c309a",
+  "figures/class-tissue-repair/T1.svg": "ce466ab359ce9dd887d7b1f936bad2b7bd5fcbd6526ae0afece31265058926ee",
+  "figures/class-tissue-repair/T10.svg": "b1e774ef2bfcb5029d2ee731fbfcf78e9337aa9381ac511ca79a9f02d53f7ef5",
+  "figures/class-tissue-repair/T12-status.svg": "240ce9353eb1e73cfbbd94266f422395261fba59514a4883edc767b99b7bee1d",
+  "figures/class-tissue-repair/T16.svg": "7748b1c8075e93aa5c2ee9727e365ea4a2a91953b8ed550f2161f31a4c7c18cf",
+  "figures/class-tissue-repair/T2.svg": "c9954df86e1fd065e92e2e2570ddd302d27070fabfb8d8cd6ad2b7942ad80f5c",
+  "figures/class-tissue-repair/T4.svg": "080c7a288c6c69abd7a0da03073feb0f3cb8c38b9082db4898b9ec6a480847e3",
+  "figures/class-tissue-repair/T5.svg": "e4f6aabddc141325c36dce2d1c8a60dc0d6458f90650d521a63401f400bd7c44",
+  "figures/class-tissue-repair/T6.svg": "4f658b0bfb9a1635c20b5e3b634281f16994e8e2ea4b4a89d1002b3fb84e392a",
+  "figures/compound-5-amino-1mq/T1.svg": "6fb376c981bd2a8d76d76054334779fc7da9da41ad7b2b95935a946a477c3df6",
+  "figures/compound-5-amino-1mq/T2.svg": "d00126fa3d2d3990fdf888e48fe4bd3d352dad74c3df83d56413dfc961eabc48",
+  "figures/compound-aod-9604/T1.svg": "3c5850387cc21e433ebedd1701a62b06c3d5fd67df5615aa4cf115c51b7e0cf7",
+  "figures/compound-aod-9604/T2.svg": "40d8c00c7b7687cd8235b90dc15993faecb3f118423786bde8d4ea5972315405",
+  "figures/compound-ara-290/T1.svg": "0307b76534b9d28e6dfad2e5c30092fdbf3277fb503b33bd6f33200ffddc25cc",
+  "figures/compound-ara-290/T2.svg": "02066d41fd5ac669d9dfa3bf52c7b6105995f85ca89591af4a2594e2f19b6791",
+  "figures/compound-bpc-157/T1.svg": "f31f2fd41f5775ff74115b8eee185fc7bd466502ddb5bc9e186d238365a561c4",
+  "figures/compound-bpc-157/T2.svg": "bfe197e5fd2ed1753e971a8d54e4c12a27d0fa514f00bebd628532be8b5fa298",
+  "figures/compound-cagrilintide/T1.svg": "bd1bd99de4b3c016ef45500b1bf0b9f9730b25edbef94d5cedeaf6fe2687f29b",
+  "figures/compound-cagrilintide/T2.svg": "8540b106575a491ec0fbc17002fe88d48482b9c436591f8ec4f2a9be2fff06b2",
+  "figures/compound-cerebrolysin/T1.svg": "a1324a79a4d710b1a6b5fa56c3c97ebd8a4e521b667b3fd9bade3108a3b7e538",
+  "figures/compound-cerebrolysin/T2.svg": "728968ed14e7fa8fea6bff577a1bd9c4fa4b92d0a71a022a6dcccebe26d1c9e3",
+  "figures/compound-cjc-1295-ipamorelin-blend/T1.svg": "6792a2b6f3ce9d0ff77654b3dadf6c601bc54bcb7bd67a3ee293bba1747e631b",
+  "figures/compound-cjc-1295-ipamorelin-blend/T2.svg": "75b88ee4dd6f054ab9c63352620488f543c15ea709b3f137202bdea7ba3bdffa",
+  "figures/compound-cjc-1295-with-dac/T1.svg": "e548896983343dce871e30f2952975ac4754ced303b353cb7bf82fb3583109cb",
+  "figures/compound-cjc-1295-with-dac/T2.svg": "ae63ef4f48ab7d1119b340e13297029685de76ab090fcdc0e71a1e8e971b3695",
+  "figures/compound-cjc-1295-without-dac/T1.svg": "63d1b5c9817f8e16ad43d0366897d0a8a6fb5d196dbea505063bc548422ba4d5",
+  "figures/compound-cjc-1295-without-dac/T2.svg": "a80d415f0c1ce00b0024999e954b7214b6492dd298901b41c2ad9b2329881d44",
+  "figures/compound-dihexa/T1.svg": "c093ad8bea534e32b3ceb60e4b169510e3a5b885006ca0ac6ed29a3e4af7d7e3",
+  "figures/compound-dihexa/T2.svg": "a30875aaead7e4b7140ee83f17aff12e7610ff93bd405bc008ea69eb80c4194f",
+  "figures/compound-dsip/T1.svg": "c86cc66eb5834fdfe43472d2274f607eca14736f1c891220ffba0165aa217994",
+  "figures/compound-dsip/T10.svg": "c81edba4c7016c9c34449fbfd47ff259e609aaf249424db8c10eba92721122d9",
+  "figures/compound-dsip/T12-status.svg": "b1f14eab3740f702b932e5e27a0118c11024cb36f726e14a9bbf056d01c44010",
+  "figures/compound-dsip/T12-stop_reason.svg": "c09df103fa89edab1214341d3c515938bb52c16f37ecd0c63c5e8c2f22a4cebe",
+  "figures/compound-dsip/T16.svg": "daa11e62e871f40df3fb3b3de1007cb311e69c0e98d15e3f64aed1adc5893edc",
+  "figures/compound-dsip/T2.svg": "969c75f598ca7405212480eda4578572513600be4f49283b987aed32a8e22333",
+  "figures/compound-dsip/T3-current_dose.svg": "0fe377831d00a753bb00401334f5a29a57b3c785c6aa6c439d1c07f2bd15441a",
+  "figures/compound-dsip/T3-start_dose.svg": "95bff48296f67dab649783c34b7a6224cbc4e23fb9ffcc3d7bbec0d1c316c235",
+  "figures/compound-dsip/T4.svg": "27466383084a0031283a780d1bad5b7cce4796712bf5705fc149b43c47876a90",
+  "figures/compound-dsip/T5.svg": "555199d3eacfd646829b234f4dc9f20806e6c526ed52a34449e0d14c16b98286",
+  "figures/compound-dsip/T6.svg": "84911ef2f77ecc9b1ec8de7f3a3b2377944d818fa0f5855849afbb8236431f5f",
+  "figures/compound-epitalon/T1.svg": "67d3cbd4c7943f2d0d4ac2d6c70fcad94fb65a0d599537f1b77f4920546ca100",
+  "figures/compound-epitalon/T2.svg": "b3d9eae45202688bcc423283d496cc12bb7d92e67edb313987d74c8bc02a078c",
+  "figures/compound-ghk-cu/T1.svg": "3234ad3c8a5471928e53a98710e8b79b8105d486ba7faa8a0a408e11593e7d6a",
+  "figures/compound-ghk-cu/T10.svg": "5e402b1990da7bdf09f93ad6c518c399c1e61baad52970c6ac3e75113163c292",
+  "figures/compound-ghk-cu/T11-nausea-dechallenge.svg": "827774f971c24e3bdb7cb6a5b6cead9bcb180279ed4901a0420ab5ad224349d2",
+  "figures/compound-ghk-cu/T11-nausea-onset.svg": "d63880266c5e491a338ab1239015e6b65d5195429059eddbfd59f17505ee0a87",
+  "figures/compound-ghk-cu/T12-status.svg": "85d6af448a3899eedfb48218d685f21238f21859ae9b572c56a2862d853b8879",
+  "figures/compound-ghk-cu/T12-stop_reason.svg": "7733fa235dae74443adce4d371f139d9feada7f3a93f535761c3bd9568b552e0",
+  "figures/compound-ghk-cu/T16.svg": "7e57c3911be6a6d40fc22d6ad8255d6f7fc8e48e2623c69dd37703cdfcdfe629",
+  "figures/compound-ghk-cu/T2.svg": "f09d99633ca5227890ff28dd99efba1b7a6d58613b2007c7a441afde83f1bf91",
+  "figures/compound-ghk-cu/T3-current_dose.svg": "92f87afa2848447c71cc4aa4efbdacbbaf2faa52f0e11a974cb87e8761fb3091",
+  "figures/compound-ghk-cu/T3-start_dose.svg": "53f6fb5c36d0edd1fe15f6f71fabdb7ea58ca1a2a50e3fefe5f4173abca2c89b",
+  "figures/compound-ghk-cu/T4.svg": "0fe6cdaf2c70322b98cc3b7c8c9e5b6c874271d0ae01e4eadae1d805236aae2c",
+  "figures/compound-ghk-cu/T5.svg": "4caba75e27a9c17387019c42706a15a5e629e92802efd9bd008492df69be8302",
+  "figures/compound-ghk-cu/T6.svg": "0c0f4c9a20a8d85b39c2171ac5c2ef372a7fcd6e70591a3cf8ac466ab73b3122",
+  "figures/compound-ghk-cu/T8.svg": "2e936c3ed65314b98188fc1864d7d3407c6a9be0edef90e5fdb3408ba0f5c7ec",
+  "figures/compound-ghrp-2/T1.svg": "e0cde5957c638be9a0f6edff7807525d5af857b586053997c6f29da72654370c",
+  "figures/compound-ghrp-2/T2.svg": "19a7e881e6f2b85965b18c55813f745843ca9eb2817bc5196247c399add39191",
+  "figures/compound-ghrp-6/T1.svg": "3cba1958ab68e70abad84f305d2c681ca731561ca90ff95ecc5aef08259fdfa7",
+  "figures/compound-ghrp-6/T2.svg": "a9b1863e11759c619784011e195056d631ea35494a7d48e32ad038450d54d3b9",
+  "figures/compound-glutathione/T1.svg": "a25c3acb1d8ccd0dcff8938c423a074c82a5107f74ecf230afe89d915bf46a08",
+  "figures/compound-glutathione/T2.svg": "25b6f2a19c816487f68ad9f10a85b4729817793841e1d1a751c2e762710482ed",
+  "figures/compound-gonadorelin/T1.svg": "c267a848a3dec6e874d223c9db9bc21aa4a76ea1c1ae1116b22062728921dff0",
+  "figures/compound-gonadorelin/T2.svg": "5c2c64f5ab64bd95c3952e1c43d14614a81e7a7fb4224d5bdd390b3f7a67a759",
+  "figures/compound-humanin/T1.svg": "67d86a8b3b97ca8aa140d33553827c5b630ef8d6c8a37a15d7c0cb0387425343",
+  "figures/compound-humanin/T2.svg": "76661da035930ce6695844975060f440a563099019320be0d73364efe32f2c99",
+  "figures/compound-ipamorelin/T1.svg": "63903b7c9dcd77733e1b6670a8795c1989dfab6589b1f2e996a4a56638ed69a9",
+  "figures/compound-ipamorelin/T2.svg": "7f8f0c1981c2513ebd6a2ca53f71aea1157879360534750f0a17a4332fc6b5d2",
+  "figures/compound-kisspeptin-10/T1.svg": "e3cbb5f986c420e9a3d48ee055e9e896517fae9a8f6dac0c382b94a673bf35ae",
+  "figures/compound-kisspeptin-10/T10.svg": "cb6a60c662cb8fe2fe1421515d96ee5c526871bff6269b8db64989a84c4e1806",
+  "figures/compound-kisspeptin-10/T12-status.svg": "19a90752d4bb9e52bb3e39ebc8f6c2ce857cf1c0d5f8c5ff3932be7ddc6a8bff",
+  "figures/compound-kisspeptin-10/T12-stop_reason.svg": "b281306be9fc0f2adb2a77cc6d2465b3dbe1f245a8d0304f8b525c9c45265414",
+  "figures/compound-kisspeptin-10/T16.svg": "d1973a54cfd2e6b4e21000b714269602db8df57651439557fcc9eaab9b5a16e6",
+  "figures/compound-kisspeptin-10/T2.svg": "3483719bda8b022377003ee40ac8e346dcbabf28407cfdfd263fc18245057a81",
+  "figures/compound-kisspeptin-10/T3-current_dose.svg": "12eb8a127f06a87495264bc459a42d06d245c494671db1374c49de69d610ac73",
+  "figures/compound-kisspeptin-10/T3-start_dose.svg": "043c365dea1db39a971aa82da315762a7507506c4a8ac269ef21488355f802b2",
+  "figures/compound-kisspeptin-10/T4.svg": "7f48948a7fbd8d251208dfa841be00dbfc86f12d4e85924918e9bbccb4c5e792",
+  "figures/compound-kisspeptin-10/T5.svg": "b453bf186c0ec92ec7c5e96b09cc381c504046d53d3e6d5cd013e06395f33cb1",
+  "figures/compound-kisspeptin-10/T6.svg": "a745247a94687974dd5e15f8ba1bc4f8f605a1033519524a710d5631f5214ac4",
+  "figures/compound-kpv/T1.svg": "50b065ae43d758240c24433278f03baa4db3beb17b5231156c2bba89f06b1691",
+  "figures/compound-kpv/T2.svg": "d9898260856f5babf67f41a4b78a1dfbef306f2e0c5cfedaa8a637df43b23760",
+  "figures/compound-liraglutide/T1.svg": "3ba0844eae18183cb37e424aa583014b2bde4c03f80f3ea1eacc0c0739c0490a",
+  "figures/compound-liraglutide/T2.svg": "fabe5bb8bf3dbbc72d526b3677a4fddaa816dc935cbfd8001bf22ab762607a49",
+  "figures/compound-ll-37/T1.svg": "d75a12b6811fc60fdfa2ff6386f04020391c4c25fa9898b009b1e63e9de6a067",
+  "figures/compound-ll-37/T2.svg": "c324441c0c15ddf286dcce49bbcf81c31322f467021d5503a8420dfcb7c98017",
+  "figures/compound-mazdutide/T1.svg": "e2edc11e8ef0093c8ac3496edc6a1e7cdccab3f6adb7ca95e5f5e06ee7978b14",
+  "figures/compound-mazdutide/T2.svg": "d5d595015b13b059b37786384fcdf2cc25724d7574e621644cda23686c23aea5",
+  "figures/compound-melanotan-i/T1.svg": "b3cd63110988010033bb087d828dcaa7c4f4ff0acbafbf51c8b9653931ac9741",
+  "figures/compound-melanotan-i/T10.svg": "b9dac2db024066643fe528043ac9015b3df61abd793fb24e3d72f75fa597350f",
+  "figures/compound-melanotan-i/T12-status.svg": "e7819c07a8c58d64e37403a7ac5e4d49496877625128775f55da27d6cf18f022",
+  "figures/compound-melanotan-i/T16.svg": "6b6806d200aec00a2bc8f784d9b074628afd791bef8ff915718c4d95d746872d",
+  "figures/compound-melanotan-i/T2.svg": "c8991ac846dbfb16f77f4a84323e35b5b373ed984ae7eb11a77a889e5ba5eb57",
+  "figures/compound-melanotan-i/T3-current_dose.svg": "f52d3bc243e695459e51f1bdc52ae1eb839f1ba76f60104acc16ba167cd13cd8",
+  "figures/compound-melanotan-i/T3-start_dose.svg": "17d08311c3e42db7239d1d64328d1fbafb9136e38d0d15416f74ca1ada451491",
+  "figures/compound-melanotan-i/T4.svg": "99a6c19cfc32557080a503f668dcd6c8e6ea40043200f09a7fab893db66c62ae",
+  "figures/compound-melanotan-i/T5.svg": "5db352f9a71886270227bac85cfc0b90ee534b1092ee9796e87ba2326b574cfe",
+  "figures/compound-melanotan-i/T6.svg": "53cfd0879d4f691cb0017a66fff33488815dbe54b4c61716105b190f4d1786c0",
+  "figures/compound-melanotan-ii/T1.svg": "6b7ea154683c4d6ca3d5a1d576a93ba2b3876b5ee05193fdfbe4c0975cc2827d",
+  "figures/compound-melanotan-ii/T10.svg": "d8f401ee01d53b10ab6801a96b86c47a0b6622ba5b2746fc4e80d20dbe4b2ec2",
+  "figures/compound-melanotan-ii/T12-status.svg": "46ed8e920521964303606ce786a1938e1703e5ff89429161fdf9bfc64ebbf901",
+  "figures/compound-melanotan-ii/T12-stop_reason.svg": "fecc2ef21677c0674a40ebbe14526dfcad0ab619647e2ecf94b8f2e5adcbd02a",
+  "figures/compound-melanotan-ii/T16.svg": "3ed6361d9ce059efb5c32cdad5e60b59edc86269cc4deb873b097ef25e39c01d",
+  "figures/compound-melanotan-ii/T2.svg": "c231a2bc77ab98c076f81fce103f74c275155ec02f11bf90e9a29b58b89f4c60",
+  "figures/compound-melanotan-ii/T3-current_dose.svg": "924d8483b2e0ecefac3e04f5768fc8c1a3d5d509dd8cf30fcc4f07f2cb84abfb",
+  "figures/compound-melanotan-ii/T3-start_dose.svg": "e9c684173524ea3960c0b6973d2b5d171dcda193f6aa5ddddd7af69e3a7f08df",
+  "figures/compound-melanotan-ii/T4.svg": "eee890463126f664542ce9681fca7278696f778ebe06dd2a1d029b1195141cd0",
+  "figures/compound-melanotan-ii/T5.svg": "c38533fa696eb059a38055349ed216318ef96e5a16662d2f3134ba659afc3e3c",
+  "figures/compound-melanotan-ii/T6.svg": "f8c9134084f0a9174f2f3245abcd958e31bede8198f6b1d6b74e3b8e0030e1e0",
+  "figures/compound-mk-677/T1.svg": "98d7ed9bae23d1f729be9ee1dc13cc57028e4b9778bafcb87021334967ef3440",
+  "figures/compound-mk-677/T2.svg": "71519c08dabd21c7687fdae460428caa44e59791ae43f4ed402cbf5754fde05c",
+  "figures/compound-nad/T1.svg": "1becc63054f5a684b0afdba4b1031008708fac8f8a1702ff449391e6f6166de2",
+  "figures/compound-nad/T2.svg": "f3ac10ff2f039273255d643ccc2c2c78b013b62c244fe1f1cd5d9a620ddb1c3e",
+  "figures/compound-oxytocin/T1.svg": "109470a56a84b095a16c0ece17b84bc838e856f506aca4fbc0d07a4013948c5b",
+  "figures/compound-oxytocin/T10.svg": "b60356d5fcf577e89286ef6b0af267d85c2b2e80c48f068e8479b9059735abe9",
+  "figures/compound-oxytocin/T12-status.svg": "d1d7818821c90ce17a928bb5149dfd86b6e1ee0587e00f937022c815dd1abdb4",
+  "figures/compound-oxytocin/T12-stop_reason.svg": "049b2d372f246374aff301dc74cf310ea839f8e0fbb7c8dea1ad14faaef24468",
+  "figures/compound-oxytocin/T16.svg": "4fd6dbeee73a9d322eeaec4a417cc43bd5ff8e257cf3e3d1aaf7a7589bebaa8b",
+  "figures/compound-oxytocin/T2.svg": "e4f4fd39b2df12ea2b7f19843549df18a082066b79dc4a6299d1d3011ac12a76",
+  "figures/compound-oxytocin/T3-current_dose.svg": "81488b1e585bb57c8772931e2a93d3fdd1ffb2c2ddc39ac20177c88785865d91",
+  "figures/compound-oxytocin/T3-start_dose.svg": "64bb6943f4c03b8b2e43503601c3c3319a01a19d3147ca06503e548561e88bb5",
+  "figures/compound-oxytocin/T4.svg": "4ee6c015a90e87af7093e0f7ff2c2bb90b98a83a823acfae60b0ce56c1fb6534",
+  "figures/compound-oxytocin/T5.svg": "ca0383ece77bf04b2a2978568d278d6772ffe714c467ca28065682ab7809d907",
+  "figures/compound-oxytocin/T6.svg": "503c17f68199ff7c250abb1bb1b3427cf29af9bee278941c1b99c815aebd158c",
+  "figures/compound-p21/T1.svg": "25b957b1acb66e7070c008b69017a182d67ff2363ce771d258ff0298f5f1fbe2",
+  "figures/compound-p21/T2.svg": "8d94018e3a38d19dbbcdb71e05323cfaa60ea96c80d62e52f66e2fde10a1ef96",
+  "figures/compound-pinealon/T1.svg": "025de1fd5583bf655ee3c45ac1a99a6299c62aead5f4a37d96d5bfce56a2660d",
+  "figures/compound-pinealon/T2.svg": "f5f622328564739add7cc156985eaba096752d31186b000358f6843531a89c96",
+  "figures/compound-pt-141/T1.svg": "ea936f71e77056cea44a2188516a68b391ee72d2e3726b521726b8c772b33a6e",
+  "figures/compound-pt-141/T10.svg": "2cc6e72a7292ca5c40543469285657e9551dd97c2db4828bd86697a2bc7e3645",
+  "figures/compound-pt-141/T12-status.svg": "444f485838f37a106e3cf80007e4c01002deb5bcb38a39ccdcb0fe7e25397ab4",
+  "figures/compound-pt-141/T12-stop_reason.svg": "db21c0212f93370d5cc16e50af73ba131d3108ab4164d1728125d137d33d1c04",
+  "figures/compound-pt-141/T16.svg": "2492febc7fc8c411c100514f8f72bcb1a8fbab1d1a84d2d2831e636bf0c8b4b8",
+  "figures/compound-pt-141/T2.svg": "6f6d437e8e26927c5af9636d04f6e74162990379069687418f99ec6625105b6d",
+  "figures/compound-pt-141/T3-current_dose.svg": "df0580d8179ec3761016df0e5179a0c5158598fe77350a7060ef616f1281109d",
+  "figures/compound-pt-141/T3-start_dose.svg": "b4a43a88eccf2f3b4e3cf7ee8ff71054a4424afeaff002fb3d952f0ba5ddeb36",
+  "figures/compound-pt-141/T4.svg": "ad287b0701465e29527c7e8d3184af20a36a52df55bf9f6a833922a5f0a1d5d2",
+  "figures/compound-pt-141/T5.svg": "172670574acec269a7855da3d273fa34d778e0208cc76a28bc1e3b68f07bef8e",
+  "figures/compound-pt-141/T6.svg": "e5a0d3891230ab814e15d5426a82c5974ebe0528780f133e88235b15ee5bd5d8",
+  "figures/compound-pt-141/T8.svg": "a628adb8cd0d3179c17addb68317e15facd15d59cd865d9fb0f13368073eb0db",
+  "figures/compound-retatrutide/T1.svg": "690bc67649ce55eb2cd3e7dad6348330c7d75c24e1b6a1abb7293f5e3ff203c9",
+  "figures/compound-retatrutide/T2.svg": "4ce83995e4685a52025981f0d4b76a86311fa143bbaac3cedab3d8459cdb108d",
+  "figures/compound-selank/T1.svg": "2769f2511ca7c79e746eaf92602d062e4b711ca9c9911b123c60676c7020eb06",
+  "figures/compound-selank/T2.svg": "b8f8339e728677b955f7c1ae9fc7b9794d252bd853bdbdad244a4549df31f3a4",
+  "figures/compound-semaglutide/T1.svg": "9dca42586ac124529b921957542279af257cd29b0b054fbc8ba59e0e40db738f",
+  "figures/compound-semaglutide/T2.svg": "f7c316e90ade3d3cc6f892887569db37200f7c4b61da8402bf8a0fb1b142eded",
+  "figures/compound-semax/T1.svg": "82682a2e511b9bf3a3ab04d7e8e2c273783a28c2d7f32742c4b721fe7df32b4d",
+  "figures/compound-semax/T2.svg": "a37e5e12d20d06f7f41d494ca791c0026fbef93f2ab0c7ad195c8e40d4ee5fc1",
+  "figures/compound-sermorelin/T1.svg": "36a04ce8c4fe8c38ea3d90ebc4ffb4f0159ee6122655987a129a3b08a540fcb0",
+  "figures/compound-sermorelin/T2.svg": "a4efb454401e2e71d0eb67aea34180bc3303a8c0c9e33414a9b29525116bc2bd",
+  "figures/compound-slu-pp-332/T1.svg": "baa8649a2804a5cfffea89bf3f314398492acb5323ca138f21693288e129e5a0",
+  "figures/compound-slu-pp-332/T2.svg": "b9d9a0ab234f99646210721b6122b3d2a16abc95205f4aaae2444597de1e5834",
+  "figures/compound-somatropin/T1.svg": "5531669d6eed5e71f79f42252ed5572c800756acf6ab7d0a264a98e7fa1837cc",
+  "figures/compound-somatropin/T2.svg": "082c62cfceffbb75ea1733b001bdbf2483ccccb39b48f6121eb54c25163ee782",
+  "figures/compound-survodutide/T1.svg": "5c27974c1be43b6be5c332f7d7e9601728efcded0e48b69b70ab071cda2c8a82",
+  "figures/compound-survodutide/T2.svg": "2b9a63a50f2f5e6438b0a2ad06a2c92f60278b7af2592d454b20cd1f51098c39",
+  "figures/compound-tb-500/T1.svg": "626dcd6f2f7c588806128c4d9dbc4a6b8eeed4c6d6221a7a715af17fac66db45",
+  "figures/compound-tb-500/T2.svg": "dde6a8543bdcfacbcadd69d16f80d8aee91833aacc07df3781600b5c824bb8db",
+  "figures/compound-tesamorelin/T1.svg": "ab9bcd84b581ffe589de0c0d29634ccd8ee9c72423a13df700f00731317fce3d",
+  "figures/compound-tesamorelin/T2.svg": "a360bc0d391340128fa200911567818c97f68e0ed0997b5a90f721efd08ed930",
+  "figures/compound-tirzepatide/T1.svg": "27aff22bbe9758f8db73b07513d2ceb6580a1389a91568529c74a9b18db5730e",
+  "figures/compound-tirzepatide/T2.svg": "82aecb3e190cf686423273cb1c322d3e4e67287e62dcd05f9e56ccfdd053d749",
+  "merkle/leaves.txt": "da438c1d78f2075886d157276eb67f5073b941ae4b4d6f153faa378d79294526",
+  "tables/T0.json": "5ef1b60b516c0f180e9304263ae7f5327b294cd5bbd5ac3ab227ff825eb679d8",
+  "tables/T1.json": "219a2521174e20d21e1350fa08b342ce1765d38ce6b26fd8dccc7689c890e4dc",
+  "tables/T10.json": "f60360b6d3a5a5ea4a66a7bbb567f405dec452173f8685285591e38c1a6e7876",
+  "tables/T11.json": "351c061bb7a4228ccdb927e78178800f3fd150513f6e33171ad70c8103fb83bc",
+  "tables/T12.json": "c3c8e19bbdde2ad145d832a4717c98adcb1fcd2118dedf2045dfbd43d7710a24",
+  "tables/T13.json": "278aaa03a5c9a82a4865577a91b60730dc9f605c261ecabaf253916a3e2d1438",
+  "tables/T14.json": "1191ccd0c2d81469f7f08379f9e1dac0eb3ae9e45f187541aa2354dfa0a51d1d",
+  "tables/T15.json": "2f73e3fbb42d136882a50a9f639503a846ffc94a822fd908b11e8f455f3979a0",
+  "tables/T16.json": "b552fbffd86cf0c658a0b3b9c5816d74df448d034b2b08cd9f8b529760b8f146",
+  "tables/T2.json": "0378d011bdf67be803044b82e7703155ecfcb98066509e6e74e5d476a0b9b80f",
+  "tables/T3.json": "8a567dcdf9e2af492d2bfa15e23cebd0cfe74cd01be0b7668863a19ab994e269",
+  "tables/T4.json": "c6a50788802a200796d9c4d989a1f46228275a9cffd25af8234820c27a2e973d",
+  "tables/T5.json": "2eb2e3a088f8a80975bb2aaa9bdba6e23fa401c176f5ece63f7f72552d36bde5",
+  "tables/T6.json": "fe6c31e640ba0da6be5a9c0e79b8d938ed4ea7962fd206d8e08e5c09847a4615",
+  "tables/T8.json": "3f53aa194b8304135768377533094c29ec8735574e6ec8793e6763cb48dc6303",
+  "tables/T9.json": "96346e0231a6da5f77b5a227eaa1741932ac90bfe85b6e802abc4146a43f2752"
+ },
+ "witness": "witness/ — signature, Rekor entry and OpenTimestamps proof are written beside this file by tools/witness.sh. This file is the signed artifact and is never modified after signing."
+}

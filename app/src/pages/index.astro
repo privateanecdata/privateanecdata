@@ -1,38 +1,45 @@
 ---
 import Base from '../layouts/Base.astro';
 ---
-<Base title="Private Anecdata" description="A structured, identifier-free record of what people report about gray-market peptides.">
-  <h1>What are people actually experiencing with these compounds?</h1>
-  <p class="lede">Most of what is being taken has little or no human data. The only record is scattered across forum posts. This site collects structured, one-time reports — no name, no email, no account, nowhere to type — and publishes grouped statistics under rules fixed before the first report arrived.</p>
+<Base title="Private Anecdata" description="Structured, identifier-free reports of what people experience when they take peptides, published as honest counts.">
+  <section class="hero">
+    <h1>What do people experience when they take peptides?</h1>
+    <p class="lede">Most peptides have little or no human data. This site helps fill that gap by collecting peptide users' <a href="#why-anecdata">anecdata</a>. We encourage honest reporting through our <a href="#privacy-first">privacy-first methodology</a> and <a href="#public-interest">public interest commitment</a>.</p>
+    <div class="cta">
+      <a class="btn-primary" href="/contribute">Contribute a report</a>
+      <a class="alt" href="/data">See what is published</a>
+    </div>
+  </section>
 
-  <div class="actions">
-    <a class="btn-primary" href="/contribute">Contribute a report</a>
-    <a href="/data">See what is published</a>
-  </div>
+  <section class="how" id="how-this-works">
+    <h2>How this works</h2>
+    <p>You submit your experience without telling us who you are. We aggregate submissions and report them honestly.</p>
+  </section>
 
-  <h2>What leaves your browser</h2>
-  <p>The form never asks for the precise thing, only the rounded one: a dose <em>range</em> instead of the milligram, a duration <em>bucket</em> instead of a start date, the <em>kind</em> of source instead of the vendor. We never ask where you are — not your country, not your state, not your region. There are no free-text fields anywhere on the form, so there is nothing to accidentally identify you.</p>
+  <details class="sec">
+    <summary><h2>Why anecdata?</h2><span class="kicker">Anecdata can't replace randomized controlled trials. But anecdata &gt; no data.</span></summary>
+    <div class="sec-body"><span id="why-anecdata" class="anchor"></span>
+      <p>Anecdotal data (or "anecdata") cannot replace randomized controlled trials. Everything collected and published by this site is self-reported and unverified. Anecdotal evidence is never sufficient to substantiate claims about a health product. Nothing here is evidence that any compound is effective or safe. Nothing here is a recommendation.</p>
+      <p>But anecdata is better than no data. Millions of people are already using peptides with limited understanding of the potential benefits and risks. Regulators are scrambling to make critical decisions with little to go on.</p>
+      <p>Honest, structured anecdata is better than the anecdotal reports currently available on the internet. Peptide users have real experience, but their reports are scattered across unstructured forum posts and for-profit websites with questionable privacy practices.</p>
+    </div>
+  </details>
 
-  <h2>What we never ask for</h2>
-  <p>No account, no email, no name, no phone, no cookie, no key. We do not record IP addresses at any layer we control, and the hosting configuration is public so you can check. The site is also reachable as a Tor onion service.</p>
+  <details class="sec">
+    <summary><h2>Privacy-first methodology</h2><span class="kicker">Strong privacy encourages more reporting.</span></summary>
+    <div class="sec-body"><span id="privacy-first" class="anchor"></span>
+      <p>We don't want to know who you are and will never ask. No name, no email, no IP address logging. We publish only aggregate statistics and will never publish, sell, or voluntarily share individual reports.</p>
+      <p>Because no report is linked to a person, we cannot find and delete your report after you submit it. Submission is final. If that is not acceptable to you, please do not submit.</p>
+      <p>Read our <a href="/docs/privacy-protocol">privacy protocol</a> before you submit.</p>
+    </div>
+  </details>
 
-  <h2>What we load</h2>
-  <p>This page loads nothing from anyone but us — no analytics, no fonts, no CDN, no error reporting, no CAPTCHA, no JavaScript. Your browser's network panel should show exactly one host.</p>
-
-  <h2>What we publish</h2>
-  <p>Only grouped statistics, released under a <a href="/docs/release-spec">specification we wrote down and published before the first report was collected</a>. Individual reports are never displayed, shared, licensed, or given to researchers, in any form. Our code, schema, rounding rules, and threat model are public.</p>
-
-  <h2>Counting honestly</h2>
-  <p>Every accepted report is committed to a public append-only log. Anyone can confirm that the number we display is the number of reports that exist. We cannot independently verify report counts published elsewhere, and we do not claim they are wrong — we can only say that ours is checkable.</p>
-  <p class="muted">The count appears with each release, never live — a live counter is a timing signal. See <a href="/data">what is published</a>.</p>
-
-  <h2>What this design cannot do</h2>
-  <p>Because no report is linked to a person, we cannot find and delete your report after you submit it. Submission is final. If that is not acceptable to you, please do not submit. The full list of what we cannot protect you from is <a href="/docs/what-we-cannot-protect-you-from">here</a>, and it is worth reading before you contribute.</p>
-
-  <h2>Money</h2>
-  <p>Nobody pays us and we pay nobody. No affiliate links, no vendor listings, no sponsors, no paid tier, now or later.</p>
-
-  <div class="notice">
-    <p>Everything on this site is self-reported and unverified. The Federal Trade Commission's own guidance states that anecdotal evidence, including surveys of consumer experiences, is never sufficient to substantiate claims about a health product. We agree. Nothing here is evidence that any compound is effective or safe.</p>
-  </div>
+  <details class="sec">
+    <summary><h2>Public interest commitment and honest reporting</h2><span class="kicker">Rejecting profit helps ensure accurate reporting.</span></summary>
+    <div class="sec-body"><span id="public-interest" class="anchor"></span>
+      <p>Nobody pays us for this, and that will never change. No ads, no affiliate links, no sponsors, no selling or licensing of data, no paid tier.</p>
+      <p>Other websites and apps that collect peptide anecdata are typically funded by advertisers, affiliates, sponsors, and/or data brokers. This raises questions about the accuracy of their reporting. We cannot say whether any for-profit site reports dishonestly. We can say that we have avoided the question altogether.</p>
+      <p>Every accepted report is committed to a public append-only log. Anyone can confirm that the number we display is the number of reports that exist. Learn more about <a href="/docs/release-spec#how-we-count">how we count reports</a>.</p>
+    </div>
+  </details>
 </Base>

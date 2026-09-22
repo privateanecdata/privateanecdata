@@ -32,21 +32,19 @@ if (Astro.request.method === 'POST') {
     if (go === 'back') {
       screen = '6-about';
     } else if (go === 'confirm') {
-      if (fd.get('consent') !== '1') {
+      // Pressing "Agree and submit" is the act of assent (Berman: conspicuous notice in the same
+      // box, plus an unambiguous act). There is deliberately no checkbox: the permanence notice
+      // is a disclosure, not a consent, and a forced tick would make it read as one.
+      const bad = validateComplete(state);
+      if (bad) {
+        screen = bad;
+        errors.form = 'Something was missing or changed. Please check this screen and continue.';
+      } else if (!allowSubmit(Astro.clientAddress)) {
         screen = 'review';
-        errors.consent = 'To submit, confirm that you have read the statement above.';
+        blocked = 'Too many submissions from this connection in the last hour. Please try again later.';
       } else {
-        const bad = validateComplete(state);
-        if (bad) {
-          screen = bad;
-          errors.form = 'Something was missing or changed. Please check this screen and continue.';
-        } else if (!allowSubmit(Astro.clientAddress)) {
-          screen = 'review';
-          blocked = 'Too many submissions from this connection in the last hour. Please try again later.';
-        } else {
-          insertReport(rowFromState(state, tax.version));
-          return Astro.redirect('/contribute/done', 303);
-        }
+        insertReport(rowFromState(state, tax.version));
+        return Astro.redirect('/contribute/done', 303);
       }
     } else {
       screen = 'review';
@@ -85,10 +83,9 @@ const title = screen === 'intro' ? 'Contribute' : screen === 'review' ? 'Review 
   <>
     <p class="eyebrow">Contribute</p>
     <h1>Tell us what happened.</h1>
-    <p class="lede">Seven short screens. Every answer is a choice from a fixed list — there is nowhere to type. It takes about four minutes.</p>
+    <p class="lede">Take roughly four minutes to answer some multiple choice questions.</p>
     <div class="notice">
-      <p><strong>Before you start.</strong> We do not ask who you are, and we never learn it. That also means that once you submit, we cannot find your report to change or delete it. You will see everything you are about to send, and you can go back and change it, before anything is stored.</p>
-      <p>Read <a href="/docs/what-we-cannot-protect-you-from">what we cannot protect you from</a> first if you have not.</p>
+      <p><strong>Privacy first.</strong> We don't want to know who you are, and do not ask. We do not store persistent identifiers about you (such as name, email, or IP address) and take additional measures to prevent reidentification. That also means that after you submit, we cannot find your report to change or delete it. Read our <a href="/docs/privacy-protocol">privacy protocol</a>.</p>
     </div>
     <form method="post" action="/contribute">
       <input type="hidden" name="at" value="start">
@@ -150,19 +147,17 @@ const title = screen === 'intro' ? 'Contribute' : screen === 'review' ? 'Review 
             <OptionGroup name="current_dose" legend="Dose range you ended up at (or are on now)" options={doseBandOptions(c)} value={state.current_dose} error={errors.current_dose} />
           </>
         )}
-        <OptionGroup name="frequency" legend="How often?" options={[...compoundOptions(c, 'frequency'), { id: OTHER, label: 'Other (not listed)' }]} value={state.frequency} error={errors.frequency} />
-        <OptionGroup name="titration" legend="How did the dose change over time?" options={shared.titration} value={state.titration} error={errors.titration} />
       </>
     )}
 
-    {screen === '3-course' && (
+    {screen === '3-course' && c && (
       <>
-        <h1>Duration and handling</h1>
-        <OptionGroup name="duration" legend="How long did you take it, in total?" options={shared.duration} value={state.duration} error={errors.duration} />
-        <OptionGroup name="purity_tested" legend="Did you have it independently tested?" help="Any third-party purity or identity test on the product you actually used." options={shared.purityTested} value={state.purity_tested} error={errors.purity_tested} />
-        <OptionGroup name="reconstitution" legend="How did you prepare and store it?" options={shared.reconstitution} value={state.reconstitution} error={errors.reconstitution} />
+        <h1>Your course of {c.label}</h1>
+        <OptionGroup name="frequency" legend="How often did you take it?" options={[...compoundOptions(c, 'frequency'), { id: OTHER, label: 'Other (not listed)' }]} value={state.frequency} error={errors.frequency} />
+        <OptionGroup name="duration" legend="For how long, in total?" options={shared.duration} value={state.duration} error={errors.duration} />
+        <OptionGroup name="purity_tested" legend="Did you have it independently tested?" help="A third-party purity or identity test on the product you actually used." options={shared.purityTested} value={state.purity_tested} error={errors.purity_tested} />
         <OptionGroup name="status" legend="Are you still taking it?" options={shared.status} value={state.status} error={errors.status} />
-        <OptionGroup name="stop_reason" legend="If you stopped, what was the main reason?" help="Skip this if you are still taking it or finished a planned course." options={shared.stopReason} value={state.stop_reason} error={errors.stop_reason} required={false} />
+        <OptionGroup name="stop_reason" legend="If you stopped early, why?" help="Skip this if you are still taking it or finished what you planned." options={shared.stopReason} value={state.stop_reason} error={errors.stop_reason} required={false} />
       </>
     )}
 
@@ -189,7 +184,7 @@ const title = screen === 'intro' ? 'Contribute' : screen === 'review' ? 'Review 
 
     {screen === '5-effects' && (
       <>
-        <h1>About those effects</h1>
+        <h1>About those side effects</h1>
         <p class="help">For each one: roughly when it started, and what happened if you stopped.</p>
         {(state.adverse_effects ?? []).map((id) => (
           <div>
@@ -205,8 +200,8 @@ const title = screen === 'intro' ? 'Contribute' : screen === 'review' ? 'Review 
       <>
         <h1>About you</h1>
         <p class="help">Both optional. We publish these only as overall totals, never crossed with any compound or any other answer.</p>
-        <OptionGroup name="age_band" legend="Age" options={shared.ageBand} value={state.age_band} required={false} />
-        <OptionGroup name="sex" legend="Sex" options={shared.sex} value={state.sex} required={false} />
+        <OptionGroup name="age_band" help="Reported only as a total across all contributors." legend="Age" options={shared.ageBand} value={state.age_band} required={false} />
+        <OptionGroup name="sex" legend="Sex or gender" help="One question, whichever fits you best. This is only ever reported as a total across all contributors, never alongside any other answer." options={shared.sex} value={state.sex} error={errors.sex} required={false} />
       </>
     )}
 
@@ -222,29 +217,25 @@ const title = screen === 'intro' ? 'Contribute' : screen === 'review' ? 'Review 
             <dt>Source</dt><dd>{sharedLabel('sourceChannel', state.source_channel)}</dd>
             {c.doseBands.length > 0 && <><dt>Starting dose</dt><dd>{bandLabel(state.start_dose)}</dd><dt>Current / final dose</dt><dd>{bandLabel(state.current_dose)}</dd></>}
             <dt>Frequency</dt><dd>{state.frequency === OTHER ? 'Other (not listed)' : labelOf(freqLabel, state.frequency)}</dd>
-            <dt>Dose over time</dt><dd>{sharedLabel('titration', state.titration)}</dd>
             <dt>Duration</dt><dd>{sharedLabel('duration', state.duration)}</dd>
             <dt>Tested</dt><dd>{sharedLabel('purityTested', state.purity_tested)}</dd>
-            <dt>Preparation</dt><dd>{sharedLabel('reconstitution', state.reconstitution)}</dd>
             <dt>Status</dt><dd>{sharedLabel('status', state.status)}{STOPPED(state.status) && ` — ${sharedLabel('stopReason', state.stop_reason)}`}</dd>
             {c.goals.length > 0 && <><dt>Outcome for goal</dt><dd>{sharedLabel('outcome', state.outcome)}</dd></>}
-            <dt>Effects noticed</dt>
+            <dt>Side effects noticed</dt>
             <dd>{(state.adverse_effects ?? []).length === 0 ? 'None' : (state.adverse_effects ?? []).map((id) => `${labelOf(aeLabel, id)} (${sharedLabel('onset', state.effect_detail?.[id]?.onset)}; ${sharedLabel('dechallenge', state.effect_detail?.[id]?.dechallenge)})`).join('; ')}</dd>
             <dt>Age</dt><dd>{sharedLabel('ageBand', state.age_band) === '—' ? 'Not given' : sharedLabel('ageBand', state.age_band)}</dd>
-            <dt>Sex</dt><dd>{sharedLabel('sex', state.sex) === '—' ? 'Not given' : sharedLabel('sex', state.sex)}</dd>
+            <dt>Sex or gender</dt><dd>{sharedLabel('sex', state.sex) === '—' ? 'Not given' : sharedLabel('sex', state.sex)}</dd>
           </dl>
         </div>
         <p class="muted">Not shown because not collected: your name, email, IP address, location, the vendor, an exact dose, or a date.</p>
 
         <div class="consent">
           <h2>Before you submit</h2>
-          <p><strong>Submission is final.</strong> Because no report is linked to a person, we cannot find and delete yours afterward. If that is not acceptable, use Back and close this page — nothing has been stored.</p>
-          <p>What you send will be published only inside grouped statistics, under the <a href="/docs/release-spec">release specification</a>, and never as an individual report. It will never be sold, licensed, or transferred.</p>
-          <p>By pressing Submit you agree to the <a href="/docs/terms">terms</a>, including that we may exclude a report from published statistics if it appears to be fabricated.</p>
-          {errors.consent && <p class="field-error">{errors.consent}</p>}
-          <label class="opt"><input type="checkbox" name="consent" value="1" /><span>I have read this and I want to submit.</span></label>
+          <p><strong>Submission is final.</strong> Because no report is linked to a person, we cannot find and delete yours afterward. If that is not acceptable, close this page — nothing has been stored. We will only store your report after you click “Agree and submit.”</p>
+          <p>What you submit will be published only as part of aggregate statistics subject to our <a href="/docs/release-spec">release specification</a>. We will never publish, sell, license, or voluntarily share your individual report. The one exception is valid legal process, explained on the <a href="/legal#doc-legal-process">legal page</a>: a court could compel us to hand over the store, and it contains nothing that identifies you.</p>
+          <p><strong>By pressing “Agree and submit” you agree to the <a href="/docs/terms">terms</a>.</strong></p>
           <div class="actions">
-            <button class="primary" type="submit" name="go" value="confirm">Submit</button>
+            <button class="primary" type="submit" name="go" value="confirm">Agree and submit</button>
             <button class="back linkbtn" type="submit" name="go" value="back" formnovalidate>Back</button>
           </div>
         </div>

@@ -32,10 +32,8 @@ export function getDb(): Database.Database {
       start_dose       TEXT,
       current_dose     TEXT,
       frequency        TEXT    NOT NULL,
-      titration        TEXT    NOT NULL,
       duration         TEXT    NOT NULL,
       purity_tested    TEXT    NOT NULL,
-      reconstitution   TEXT    NOT NULL,
       status           TEXT    NOT NULL,
       stop_reason      TEXT,
       outcome          TEXT,
@@ -78,10 +76,8 @@ export type StoredRow = {
   start_dose: string | null;
   current_dose: string | null;
   frequency: string;
-  titration: string;
   duration: string;
   purity_tested: string;
-  reconstitution: string;
   status: string;
   stop_reason: string | null;
   outcome: string | null;
@@ -106,10 +102,8 @@ export function rowFromState(s: State, schemaVersion: string): StoredRow {
     start_dose: s.start_dose ?? null,
     current_dose: s.current_dose ?? null,
     frequency: s.frequency!,
-    titration: s.titration!,
     duration: s.duration!,
     purity_tested: s.purity_tested!,
-    reconstitution: s.reconstitution!,
     status: s.status!,
     stop_reason: s.stop_reason ?? null,
     outcome: s.outcome ?? null,
@@ -127,10 +121,10 @@ export function insertReport(row: StoredRow): void {
   const leaf = leafHash(salt, canonicalJson(row as unknown as Record<string, unknown>));
   const ins = d.prepare(`
     INSERT INTO reports (rowid, received_day, schema_version, compound, route, goal, source_channel,
-      start_dose, current_dose, frequency, titration, duration, purity_tested, reconstitution,
+      start_dose, current_dose, frequency, duration, purity_tested,
       status, stop_reason, outcome, adverse_effects, age_band, sex, salt)
     VALUES (@rowid, @received_day, @schema_version, @compound, @route, @goal, @source_channel,
-      @start_dose, @current_dose, @frequency, @titration, @duration, @purity_tested, @reconstitution,
+      @start_dose, @current_dose, @frequency, @duration, @purity_tested,
       @status, @stop_reason, @outcome, @adverse_effects, @age_band, @sex, @salt)`);
   const leafIns = d.prepare('INSERT INTO merkle_leaves (leaf) VALUES (?)');
   d.transaction(() => {

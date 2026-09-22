@@ -1,0 +1,12 @@
+---
+// "On this page": compact, inline, links to section anchors. Every fold on the site starts closed,
+// so this is how a reader finds a section without scrolling through the rest.
+interface Props { items: { id: string; text: string }[]; }
+const { items } = Astro.props;
+---
+{items.length >= 3 && (
+  <nav class="toc" aria-label="On this page">
+    <span class="toc-label">On this page</span>
+    <ol>{items.map((i) => <li><a href={`#${i.id}`}>{i.text}</a></li>)}</ol>
+  </nav>
+)}

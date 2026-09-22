@@ -1,0 +1,22 @@
+{
+ "table": "T14",
+ "title": "Integrity log",
+ "release": "EXAMPLE-SYNTHETIC",
+ "data": {
+  "flagged_this_period": {
+   "malformed": 0,
+   "implausible": 0,
+   "duplicate-pattern": 0,
+   "coordinated": 0,
+   "test": 0
+  },
+  "flagged_total": {
+   "malformed": 0,
+   "implausible": 0,
+   "duplicate-pattern": 0,
+   "coordinated": 0,
+   "test": 0
+  },
+  "note": "No coordinated-submission pattern was identified in this period."
+ }
+}

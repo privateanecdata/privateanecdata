@@ -1,0 +1,592 @@
+{
+ "table": "T0",
+ "title": "Counts",
+ "release": "EXAMPLE-SYNTHETIC",
+ "data": {
+  "committed": 1500,
+  "excluded": {
+   "total": 0,
+   "by_reason": {
+    "malformed": 0,
+    "implausible": 0,
+    "duplicate-pattern": 0,
+    "coordinated": 0,
+    "test": 0
+   }
+  },
+  "analyzed": 1500,
+  "received_since_prior_release": null,
+  "per_class": [
+   {
+    "id": "incretin",
+    "label": "GLP-1 / incretin agonists",
+    "tier": 4,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "count": 227
+   },
+   {
+    "id": "gh-secretagogue",
+    "label": "Growth hormone axis",
+    "tier": 3,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "count": 158
+   },
+   {
+    "id": "tissue-repair",
+    "label": "Tissue repair / healing",
+    "tier": 4,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "count": 333
+   },
+   {
+    "id": "neuro",
+    "label": "Nootropic / mood / sleep",
+    "tier": 4,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "count": 232
+   },
+   {
+    "id": "metabolic",
+    "label": "Metabolic / longevity",
+    "tier": 3,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "count": 114
+   },
+   {
+    "id": "sexual-hormonal",
+    "label": "Sexual function / hormonal",
+    "tier": 4,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "count": 409
+   }
+  ],
+  "per_compound": [
+   {
+    "id": "retatrutide",
+    "label": "Retatrutide",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "incretin",
+    "count": 43
+   },
+   {
+    "id": "tirzepatide",
+    "label": "Tirzepatide",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "incretin",
+    "count": 36
+   },
+   {
+    "id": "semaglutide",
+    "label": "Semaglutide",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "incretin",
+    "count": 35
+   },
+   {
+    "id": "cagrilintide",
+    "label": "Cagrilintide",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "incretin",
+    "count": 28
+   },
+   {
+    "id": "mazdutide",
+    "label": "Mazdutide",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "incretin",
+    "count": 30
+   },
+   {
+    "id": "survodutide",
+    "label": "Survodutide",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "incretin",
+    "count": 33
+   },
+   {
+    "id": "liraglutide",
+    "label": "Liraglutide",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "incretin",
+    "count": 22
+   },
+   {
+    "id": "cjc-1295-ipamorelin-blend",
+    "label": "CJC-1295 (no DAC) / ipamorelin blend",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "gh-secretagogue",
+    "count": 16
+   },
+   {
+    "id": "ipamorelin",
+    "label": "Ipamorelin",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "gh-secretagogue",
+    "count": 18
+   },
+   {
+    "id": "tesamorelin",
+    "label": "Tesamorelin",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "gh-secretagogue",
+    "count": 21
+   },
+   {
+    "id": "mk-677",
+    "label": "MK-677 (ibutamoren)",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "gh-secretagogue",
+    "count": 10
+   },
+   {
+    "id": "somatropin",
+    "label": "Somatropin (HGH)",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "gh-secretagogue",
+    "count": 12
+   },
+   {
+    "id": "cjc-1295-without-dac",
+    "label": "CJC-1295 without DAC (Mod GRF 1-29)",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "gh-secretagogue",
+    "count": 12
+   },
+   {
+    "id": "sermorelin",
+    "label": "Sermorelin",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "gh-secretagogue",
+    "count": 19
+   },
+   {
+    "id": "cjc-1295-with-dac",
+    "label": "CJC-1295 with DAC",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "gh-secretagogue",
+    "count": 11
+   },
+   {
+    "id": "ghrp-6",
+    "label": "GHRP-6",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "gh-secretagogue",
+    "count": 14
+   },
+   {
+    "id": "ghrp-2",
+    "label": "GHRP-2 (pralmorelin)",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "gh-secretagogue",
+    "count": 17
+   },
+   {
+    "id": "hexarelin",
+    "label": "Hexarelin",
+    "tier": 0,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "gh-secretagogue",
+    "count": null,
+    "display": "fewer than 10 reports — not enough to show"
+   },
+   {
+    "id": "ghk-cu",
+    "label": "GHK-Cu",
+    "tier": 4,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "tissue-repair",
+    "count": 272
+   },
+   {
+    "id": "bpc-157",
+    "label": "BPC-157",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "tissue-repair",
+    "count": 11
+   },
+   {
+    "id": "tb-500",
+    "label": "TB-500",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "tissue-repair",
+    "count": 10
+   },
+   {
+    "id": "bpc-157-tb-500-blend",
+    "label": "BPC-157 + TB-500 blend (Wolverine stack)",
+    "tier": 0,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "tissue-repair",
+    "count": null,
+    "display": "fewer than 10 reports — not enough to show"
+   },
+   {
+    "id": "kpv",
+    "label": "KPV",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "tissue-repair",
+    "count": 12
+   },
+   {
+    "id": "ll-37",
+    "label": "LL-37",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "tissue-repair",
+    "count": 11
+   },
+   {
+    "id": "ara-290",
+    "label": "ARA-290 (cibinetide)",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "tissue-repair",
+    "count": 10
+   },
+   {
+    "id": "oxytocin",
+    "label": "Oxytocin (intranasal)",
+    "tier": 2,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "neuro",
+    "count": 62
+   },
+   {
+    "id": "dsip",
+    "label": "DSIP (delta sleep-inducing peptide)",
+    "tier": 2,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "neuro",
+    "count": 54
+   },
+   {
+    "id": "semax",
+    "label": "Semax",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "neuro",
+    "count": 21
+   },
+   {
+    "id": "selank",
+    "label": "Selank",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "neuro",
+    "count": 29
+   },
+   {
+    "id": "cerebrolysin",
+    "label": "Cerebrolysin",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "neuro",
+    "count": 16
+   },
+   {
+    "id": "dihexa",
+    "label": "Dihexa",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "neuro",
+    "count": 19
+   },
+   {
+    "id": "p21",
+    "label": "P21 (P021)",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "neuro",
+    "count": 20
+   },
+   {
+    "id": "pinealon",
+    "label": "Pinealon",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "neuro",
+    "count": 11
+   },
+   {
+    "id": "aod-9604",
+    "label": "AOD-9604",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "metabolic",
+    "count": 10
+   },
+   {
+    "id": "nad",
+    "label": "NAD+ (injectable)",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "metabolic",
+    "count": 13
+   },
+   {
+    "id": "mots-c",
+    "label": "MOTS-c",
+    "tier": 0,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "metabolic",
+    "count": null,
+    "display": "fewer than 10 reports — not enough to show"
+   },
+   {
+    "id": "epitalon",
+    "label": "Epitalon",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "metabolic",
+    "count": 10
+   },
+   {
+    "id": "5-amino-1mq",
+    "label": "5-amino-1MQ",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "metabolic",
+    "count": 11
+   },
+   {
+    "id": "glutathione",
+    "label": "Glutathione (injectable)",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "metabolic",
+    "count": 14
+   },
+   {
+    "id": "thymosin-alpha-1",
+    "label": "Thymosin alpha-1",
+    "tier": 0,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "metabolic",
+    "count": null,
+    "display": "fewer than 10 reports — not enough to show"
+   },
+   {
+    "id": "tesofensine",
+    "label": "Tesofensine",
+    "tier": 0,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "metabolic",
+    "count": null,
+    "display": "fewer than 10 reports — not enough to show"
+   },
+   {
+    "id": "ss-31",
+    "label": "SS-31 (elamipretide)",
+    "tier": 0,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "metabolic",
+    "count": null,
+    "display": "fewer than 10 reports — not enough to show"
+   },
+   {
+    "id": "humanin",
+    "label": "Humanin",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "metabolic",
+    "count": 11
+   },
+   {
+    "id": "slu-pp-332",
+    "label": "SLU-PP-332",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "metabolic",
+    "count": 10
+   },
+   {
+    "id": "foxo4-dri",
+    "label": "FOXO4-DRI",
+    "tier": 0,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "metabolic",
+    "count": null,
+    "display": "fewer than 10 reports — not enough to show"
+   },
+   {
+    "id": "pt-141",
+    "label": "PT-141 (bremelanotide)",
+    "tier": 3,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "sexual-hormonal",
+    "count": 137
+   },
+   {
+    "id": "melanotan-ii",
+    "label": "Melanotan II",
+    "tier": 2,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "sexual-hormonal",
+    "count": 89
+   },
+   {
+    "id": "kisspeptin-10",
+    "label": "Kisspeptin-10",
+    "tier": 2,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "sexual-hormonal",
+    "count": 86
+   },
+   {
+    "id": "melanotan-i",
+    "label": "Melanotan I (afamelanotide)",
+    "tier": 2,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "sexual-hormonal",
+    "count": 50
+   },
+   {
+    "id": "gonadorelin",
+    "label": "Gonadorelin",
+    "tier": 1,
+    "tables_as_of": null,
+    "tables_n": null,
+    "tables_pending": false,
+    "class": "sexual-hormonal",
+    "count": 47
+   },
+   {
+    "id": "other",
+    "label": "Other (not listed)",
+    "class": null,
+    "tier": null,
+    "count": 27
+   }
+  ]
+ }
+}

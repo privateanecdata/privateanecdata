@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="383" viewBox="0 0 760 383" role="img">
+<rect width="760" height="383" fill="#FFFFFF"/>
+<text x="28" y="36" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="17" fill="#1A1A1A" text-anchor="start" font-weight="600">GHK-Cu — source channel</text>
+<text x="28" y="56" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#5F6B6A" text-anchor="start" font-weight="normal">272 reports on GHK-Cu. Percent of reports, with 95% interval and count.</text>
+<text x="28" y="110" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="start" font-weight="normal">Retail pharmacy (brand product,</text>
+<text x="28" y="124" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="start" font-weight="normal">prescription)</text>
+<rect x="278" y="100" width="14.5" height="12" fill="#1F6F6B"/>
+<text x="732" y="110" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="end" font-weight="normal">4.8%  (3–8)   n=13</text>
+<text x="28" y="150" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="start" font-weight="normal">Compounding pharmacy</text>
+<rect x="278" y="140" width="42.5" height="12" fill="#1F6F6B"/>
+<text x="732" y="150" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="end" font-weight="normal">14.0%  (10–19)   n=38</text>
+<text x="28" y="176" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="start" font-weight="normal">Telehealth or clinic</text>
+<text x="28" y="190" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="start" font-weight="normal">(compounded)</text>
+<rect x="278" y="166" width="60.4" height="12" fill="#1F6F6B"/>
+<text x="732" y="176" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="end" font-weight="normal">19.9%  (16–25)   n=54</text>
+<text x="28" y="216" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="start" font-weight="normal">Domestic research-chemical</text>
+<text x="28" y="230" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="start" font-weight="normal">vendor</text>
+<rect x="278" y="206" width="87.2" height="12" fill="#1F6F6B"/>
+<text x="732" y="216" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="end" font-weight="normal">28.7%  (24–34)   n=78</text>
+<text x="28" y="256" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="start" font-weight="normal">Overseas vendor</text>
+<rect x="278" y="246" width="67.1" height="12" fill="#1F6F6B"/>
+<text x="732" y="256" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="end" font-weight="normal">22.1%  (18–27)   n=60</text>
+<text x="28" y="282" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="start" font-weight="normal">From another person</text>
+<rect x="278" y="272" width="15.6" height="12" fill="#1F6F6B"/>
+<text x="732" y="282" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="end" font-weight="normal">5.1%  (3–8)   n=14</text>
+<text x="28" y="308" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="start" font-weight="normal">Don't know</text>
+<rect x="278" y="298" width="11.2" height="12" fill="#1F6F6B"/>
+<text x="732" y="308" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="end" font-weight="normal">3.7%  (2–7)   n=10</text>
+<text x="28" y="334" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="start" font-weight="normal">Other (not listed)</text>
+<rect x="278" y="324" width="5.6" height="12" fill="#1F6F6B"/>
+<text x="732" y="334" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="end" font-weight="normal">1.8%  (1–4)   n=5</text>
+<line x1="28" y1="351" x2="732" y2="351" stroke="#D8DEDD" stroke-width="1"/>
+<text x="28" y="369" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11" fill="#5F6B6A" text-anchor="start" font-weight="normal">Self-reported. Not evidence of effectiveness or safety. See methodology.</text>
+<text x="732" y="369" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11" fill="#5F6B6A" text-anchor="end" font-weight="normal">Private Anecdata · EXAMPLE-SYNTHETIC · n = 272</text>
+</svg>

@@ -1,0 +1,499 @@
+{
+ "table": "T3",
+ "title": "Dose bands",
+ "release": "EXAMPLE-SYNTHETIC",
+ "data": {
+  "compound:ghk-cu": {
+   "start_dose": {
+    "n": 272,
+    "percent": true,
+    "cells": [
+     {
+      "id": "b0",
+      "label": "Topical only (no injection)",
+      "count": 69,
+      "pct": 25.4,
+      "ci95": [
+       20.6,
+       30.9
+      ]
+     },
+     {
+      "id": "b1",
+      "label": "Under 1 mg per day injected",
+      "count": 86,
+      "pct": 31.6,
+      "ci95": [
+       26.4,
+       37.4
+      ]
+     },
+     {
+      "id": "b2",
+      "label": "1 to 2 mg per day injected",
+      "count": 60,
+      "pct": 22.1,
+      "ci95": [
+       17.5,
+       27.4
+      ]
+     },
+     {
+      "id": "b3",
+      "label": "2 to 4 mg per day injected",
+      "count": 35,
+      "pct": 12.9,
+      "ci95": [
+       9.4,
+       17.4
+      ]
+     },
+     {
+      "id": "b4",
+      "label": "Over 4 mg per day injected",
+      "count": 22,
+      "pct": 8.1,
+      "ci95": [
+       5.4,
+       11.9
+      ]
+     }
+    ]
+   },
+   "current_dose": {
+    "n": 272,
+    "percent": true,
+    "cells": [
+     {
+      "id": "b0",
+      "label": "Topical only (no injection)",
+      "count": 52,
+      "pct": 19.1,
+      "ci95": [
+       14.9,
+       24.2
+      ]
+     },
+     {
+      "id": "b1",
+      "label": "Under 1 mg per day injected",
+      "count": 81,
+      "pct": 29.8,
+      "ci95": [
+       24.7,
+       35.5
+      ]
+     },
+     {
+      "id": "b2",
+      "label": "1 to 2 mg per day injected",
+      "count": 61,
+      "pct": 22.4,
+      "ci95": [
+       17.9,
+       27.7
+      ]
+     },
+     {
+      "id": "b3",
+      "label": "2 to 4 mg per day injected",
+      "count": 46,
+      "pct": 16.9,
+      "ci95": [
+       12.9,
+       21.8
+      ]
+     },
+     {
+      "id": "b4",
+      "label": "Over 4 mg per day injected",
+      "count": 32,
+      "pct": 11.8,
+      "ci95": [
+       8.5,
+       16.1
+      ]
+     }
+    ]
+   }
+  },
+  "compound:oxytocin": {
+   "start_dose": {
+    "n": 62,
+    "percent": false,
+    "cells": [
+     {
+      "id": "b0",
+      "label": "Under 10 IU per dose",
+      "count": 13
+     },
+     {
+      "id": "b1",
+      "label": "10 to under 20 IU per dose",
+      "count": 17
+     },
+     {
+      "id": "b2",
+      "label": "20 to under 30 IU per dose",
+      "count": 20
+     },
+     {
+      "id": "b3",
+      "label": "30 to 50 IU per dose",
+      "count": 6
+     },
+     {
+      "id": "b4",
+      "label": "Over 50 IU per dose",
+      "count": 6
+     }
+    ]
+   },
+   "current_dose": {
+    "n": 62,
+    "percent": false,
+    "cells": [
+     {
+      "id": "b0",
+      "label": "Under 10 IU per dose",
+      "count": 10
+     },
+     {
+      "id": "b1",
+      "label": "10 to under 20 IU per dose",
+      "count": 11
+     },
+     {
+      "id": "b2",
+      "label": "20 to under 30 IU per dose",
+      "count": 25
+     },
+     {
+      "id": "b3",
+      "label": "30 to 50 IU per dose",
+      "count": 10
+     },
+     {
+      "id": "b4",
+      "label": "Over 50 IU per dose",
+      "count": 6
+     }
+    ]
+   }
+  },
+  "compound:dsip": {
+   "start_dose": {
+    "n": 54,
+    "percent": false,
+    "cells": [
+     {
+      "id": "b0",
+      "label": "Under 100 mcg per dose",
+      "count": 15
+     },
+     {
+      "id": "b1",
+      "label": "100 to under 200 mcg per dose",
+      "count": 19
+     },
+     {
+      "id": "b2",
+      "label": "200 to under 400 mcg per dose",
+      "count": 12
+     },
+     {
+      "id": "b3",
+      "label": "400 mcg to 1 mg per dose",
+      "count": null,
+      "display": "not shown"
+     },
+     {
+      "id": "b4",
+      "label": "Over 1 mg per dose",
+      "count": null,
+      "display": "not shown"
+     }
+    ]
+   },
+   "current_dose": {
+    "n": 54,
+    "percent": false,
+    "cells": [
+     {
+      "id": "b0",
+      "label": "Under 100 mcg per dose",
+      "count": 13
+     },
+     {
+      "id": "b1",
+      "label": "100 to under 200 mcg per dose",
+      "count": 16
+     },
+     {
+      "id": "b2",
+      "label": "200 to under 400 mcg per dose",
+      "count": 13
+     },
+     {
+      "id": "b3",
+      "label": "400 mcg to 1 mg per dose",
+      "count": null,
+      "display": "not shown"
+     },
+     {
+      "id": "b4",
+      "label": "Over 1 mg per dose",
+      "count": null,
+      "display": "not shown"
+     }
+    ]
+   }
+  },
+  "compound:pt-141": {
+   "start_dose": {
+    "n": 137,
+    "percent": false,
+    "cells": [
+     {
+      "id": "b0",
+      "label": "Under 0.5 mg per dose",
+      "count": 25
+     },
+     {
+      "id": "b1",
+      "label": "0.5 to under 1 mg per dose",
+      "count": 48
+     },
+     {
+      "id": "b2",
+      "label": "1 to under 1.5 mg per dose",
+      "count": 36
+     },
+     {
+      "id": "b3",
+      "label": "1.5 to 2 mg per dose",
+      "count": 17
+     },
+     {
+      "id": "b4",
+      "label": "Over 2 mg per dose",
+      "count": 11
+     }
+    ]
+   },
+   "current_dose": {
+    "n": 137,
+    "percent": false,
+    "cells": [
+     {
+      "id": "b0",
+      "label": "Under 0.5 mg per dose",
+      "count": 25
+     },
+     {
+      "id": "b1",
+      "label": "0.5 to under 1 mg per dose",
+      "count": 28
+     },
+     {
+      "id": "b2",
+      "label": "1 to under 1.5 mg per dose",
+      "count": 39
+     },
+     {
+      "id": "b3",
+      "label": "1.5 to 2 mg per dose",
+      "count": 29
+     },
+     {
+      "id": "b4",
+      "label": "Over 2 mg per dose",
+      "count": 16
+     }
+    ]
+   }
+  },
+  "compound:melanotan-ii": {
+   "start_dose": {
+    "n": 89,
+    "percent": false,
+    "cells": [
+     {
+      "id": "b0",
+      "label": "Under 100 mcg per dose",
+      "count": 32
+     },
+     {
+      "id": "b1",
+      "label": "100 to under 250 mcg per dose",
+      "count": 28
+     },
+     {
+      "id": "b2",
+      "label": "250 to under 500 mcg per dose",
+      "count": 12
+     },
+     {
+      "id": "b3",
+      "label": "500 mcg to 1 mg per dose",
+      "count": 9
+     },
+     {
+      "id": "b4",
+      "label": "Over 1 mg per dose",
+      "count": 8
+     }
+    ]
+   },
+   "current_dose": {
+    "n": 89,
+    "percent": false,
+    "cells": [
+     {
+      "id": "b0",
+      "label": "Under 100 mcg per dose",
+      "count": 29
+     },
+     {
+      "id": "b1",
+      "label": "100 to under 250 mcg per dose",
+      "count": 20
+     },
+     {
+      "id": "b2",
+      "label": "250 to under 500 mcg per dose",
+      "count": 17
+     },
+     {
+      "id": "b3",
+      "label": "500 mcg to 1 mg per dose",
+      "count": 12
+     },
+     {
+      "id": "b4",
+      "label": "Over 1 mg per dose",
+      "count": 11
+     }
+    ]
+   }
+  },
+  "compound:kisspeptin-10": {
+   "start_dose": {
+    "n": 86,
+    "percent": false,
+    "cells": [
+     {
+      "id": "b0",
+      "label": "Under 50 mcg per dose",
+      "count": 16
+     },
+     {
+      "id": "b1",
+      "label": "50 to under 100 mcg per dose",
+      "count": 29
+     },
+     {
+      "id": "b2",
+      "label": "100 to under 250 mcg per dose",
+      "count": 19
+     },
+     {
+      "id": "b3",
+      "label": "250 to 500 mcg per dose",
+      "count": 11
+     },
+     {
+      "id": "b4",
+      "label": "Over 500 mcg per dose",
+      "count": 11
+     }
+    ]
+   },
+   "current_dose": {
+    "n": 86,
+    "percent": false,
+    "cells": [
+     {
+      "id": "b0",
+      "label": "Under 50 mcg per dose",
+      "count": 15
+     },
+     {
+      "id": "b1",
+      "label": "50 to under 100 mcg per dose",
+      "count": 21
+     },
+     {
+      "id": "b2",
+      "label": "100 to under 250 mcg per dose",
+      "count": 21
+     },
+     {
+      "id": "b3",
+      "label": "250 to 500 mcg per dose",
+      "count": 14
+     },
+     {
+      "id": "b4",
+      "label": "Over 500 mcg per dose",
+      "count": 15
+     }
+    ]
+   }
+  },
+  "compound:melanotan-i": {
+   "start_dose": {
+    "n": 50,
+    "percent": false,
+    "cells": [
+     {
+      "id": "b0",
+      "label": "Under 0.5 mg per dose",
+      "count": 10
+     },
+     {
+      "id": "b1",
+      "label": "0.5 to under 1 mg per dose",
+      "count": 20
+     },
+     {
+      "id": "b2",
+      "label": "1 to 2 mg per dose",
+      "count": 10
+     },
+     {
+      "id": "b3",
+      "label": "Over 2 mg per dose",
+      "count": 10
+     }
+    ]
+   },
+   "current_dose": {
+    "n": 50,
+    "percent": false,
+    "cells": [
+     {
+      "id": "b0",
+      "label": "Under 0.5 mg per dose",
+      "count": 7
+     },
+     {
+      "id": "b1",
+      "label": "0.5 to under 1 mg per dose",
+      "count": 12
+     },
+     {
+      "id": "b2",
+      "label": "1 to 2 mg per dose",
+      "count": 18
+     },
+     {
+      "id": "b3",
+      "label": "Over 2 mg per dose",
+      "count": 13
+     }
+    ]
+   }
+  }
+ }
+}

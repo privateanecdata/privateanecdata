@@ -26,7 +26,7 @@ export const onRequest = defineMiddleware(async (ctx, next) => {
   res.headers.set('X-Frame-Options', 'DENY');
   res.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=(), interest-cohort=()');
   res.headers.set('Cross-Origin-Opener-Policy', 'same-origin');
-  if (url.pathname.startsWith('/contribute')) res.headers.set('Cache-Control', 'no-store');
+  if (url.pathname.startsWith('/contribute') || url.pathname.startsWith('/contact')) res.headers.set('Cache-Control', 'no-store');
   else if (!res.headers.has('Cache-Control')) res.headers.set('Cache-Control', 'no-cache');
   return res;
 });

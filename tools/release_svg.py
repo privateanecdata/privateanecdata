@@ -40,7 +40,7 @@ def wrap(label, width=32):
 
 def value_text(cell, percent):
     if cell.get("count") is None:
-        return cell.get("display", "fewer than 5")
+        return cell.get("display", "not shown")
     if percent and "pct" in cell:
         lo, hi = cell["ci95"]
         return f"{cell['pct']:.1f}%  ({lo:.0f}–{hi:.0f})   n={cell['count']}"
@@ -98,7 +98,7 @@ def bar_chart(title, subtitle, table, release):
 def grid_chart(title, subtitle, columns, rows, release, n_label):
     """
     Cross-tabulation rendered as a grid: one row per stratum, one column per category. Each cell
-    shows its count (or "fewer than 5") with a small inline bar proportional to the stratum.
+    shows its count (or "not shown") with a small inline bar proportional to the stratum.
     `rows` items: {label, n (or None), display (when n is None), cells:[...], percent}.
     """
     body, y = header(title, subtitle)
@@ -114,7 +114,7 @@ def grid_chart(title, subtitle, columns, rows, release, n_label):
     body.append(f'<line x1="{PAD}" y1="{y}" x2="{W - PAD}" y2="{y}" stroke="{RULE}" stroke-width="1"/>')
     for row in rows:
         lines = wrap(row["label"], 30)
-        h = 34 if len(lines) == 1 else 46
+        h = (46 if row.get("percent") else 34) if len(lines) == 1 else 52
         ty = y + 20
         for i, ln in enumerate(lines):
             body.append(text(PAD, ty + i * 14, ln, size=12))
@@ -126,12 +126,15 @@ def grid_chart(title, subtitle, columns, rows, release, n_label):
                 cx = grid_x + j * col_w
                 if cell.get("count") is None:
                     body.append(f'<rect x="{cx}" y="{y + 24}" width="6" height="4" fill="{SUPPRESSED}"/>')
-                    body.append(text(cx, ty, "fewer than 5", size=11, fill=MUTED))
+                    body.append(text(cx, ty, "not shown", size=11, fill=MUTED))
                 else:
                     frac = cell["count"] / n
                     body.append(f'<rect x="{cx}" y="{y + 24}" width="{max(2, round((col_w - 10) * frac, 1))}" height="4" fill="{ACCENT}"/>')
-                    label = f"{cell['pct']:.0f}% ({cell['ci95'][0]:.0f}–{cell['ci95'][1]:.0f})" if row.get("percent") and "pct" in cell else str(cell["count"])
-                    body.append(text(cx, ty, label, size=12))
+                    if row.get("percent") and "pct" in cell:
+                        body.append(text(cx, ty, f"{cell['pct']:.0f}% ({cell['ci95'][0]:.0f}–{cell['ci95'][1]:.0f})", size=12))
+                        body.append(text(cx, ty + 13, f"n={cell['count']}", size=10, fill=MUTED))
+                    else:
+                        body.append(text(cx, ty, str(cell["count"]), size=12))
             body.append(text(W - PAD, ty, str(n), size=12, anchor="end"))
         y += h
         body.append(f'<line x1="{PAD}" y1="{y}" x2="{W - PAD}" y2="{y}" stroke="{RULE}" stroke-width="0.5"/>')

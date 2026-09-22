@@ -1,0 +1,986 @@
+{
+ "table": "T1",
+ "title": "Route",
+ "release": "EXAMPLE-SYNTHETIC",
+ "data": {
+  "compound:retatrutide": {
+   "n": 43,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 43
+    }
+   ]
+  },
+  "compound:tirzepatide": {
+   "n": 36,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 23
+    },
+    {
+     "id": "oral",
+     "label": "Oral / sublingual / troche",
+     "count": 13
+    }
+   ]
+  },
+  "compound:semaglutide": {
+   "n": 35,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 26
+    },
+    {
+     "id": "oral",
+     "label": "Oral / sublingual / troche",
+     "count": 9
+    }
+   ]
+  },
+  "compound:cagrilintide": {
+   "n": 28,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 28
+    }
+   ]
+  },
+  "compound:mazdutide": {
+   "n": 30,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 30
+    }
+   ]
+  },
+  "compound:survodutide": {
+   "n": 33,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 33
+    }
+   ]
+  },
+  "compound:liraglutide": {
+   "n": 22,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 22
+    }
+   ]
+  },
+  "compound:cjc-1295-ipamorelin-blend": {
+   "n": 16,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 16
+    }
+   ]
+  },
+  "compound:ipamorelin": {
+   "n": 18,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 18
+    }
+   ]
+  },
+  "compound:tesamorelin": {
+   "n": 21,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 21
+    }
+   ]
+  },
+  "compound:mk-677": {
+   "n": 10,
+   "percent": false,
+   "cells": [
+    {
+     "id": "oral",
+     "label": "Oral / sublingual / troche",
+     "count": 10
+    }
+   ]
+  },
+  "compound:somatropin": {
+   "n": 12,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "intramuscular",
+     "label": "Intramuscular injection",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:cjc-1295-without-dac": {
+   "n": 12,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 12
+    }
+   ]
+  },
+  "compound:sermorelin": {
+   "n": 19,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 19
+    }
+   ]
+  },
+  "compound:cjc-1295-with-dac": {
+   "n": 11,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 11
+    }
+   ]
+  },
+  "compound:ghrp-6": {
+   "n": 14,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 14
+    }
+   ]
+  },
+  "compound:ghrp-2": {
+   "n": 17,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 17
+    }
+   ]
+  },
+  "compound:ghk-cu": {
+   "n": 272,
+   "percent": true,
+   "cells": [
+    {
+     "id": "topical",
+     "label": "Topical / transdermal",
+     "count": 192,
+     "pct": 70.6,
+     "ci95": [
+      64.9,
+      75.7
+     ]
+    },
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 80,
+     "pct": 29.4,
+     "ci95": [
+      24.3,
+      35.1
+     ]
+    }
+   ]
+  },
+  "compound:bpc-157": {
+   "n": 11,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 6
+    },
+    {
+     "id": "oral",
+     "label": "Oral / sublingual / troche",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "intranasal",
+     "label": "Nasal spray / drops",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "intramuscular",
+     "label": "Intramuscular injection",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "topical",
+     "label": "Topical / transdermal",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:tb-500": {
+   "n": 10,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 5
+    },
+    {
+     "id": "intramuscular",
+     "label": "Intramuscular injection",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "oral",
+     "label": "Oral / sublingual / troche",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "intranasal",
+     "label": "Nasal spray / drops",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:kpv": {
+   "n": 12,
+   "percent": false,
+   "cells": [
+    {
+     "id": "oral",
+     "label": "Oral / sublingual / troche",
+     "count": 7
+    },
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "intranasal",
+     "label": "Nasal spray / drops",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "topical",
+     "label": "Topical / transdermal",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:ll-37": {
+   "n": 11,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 5
+    },
+    {
+     "id": "intramuscular",
+     "label": "Intramuscular injection",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "intranasal",
+     "label": "Nasal spray / drops",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "topical",
+     "label": "Topical / transdermal",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "oral",
+     "label": "Oral / sublingual / troche",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:ara-290": {
+   "n": 10,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 10
+    }
+   ]
+  },
+  "compound:oxytocin": {
+   "n": 62,
+   "percent": false,
+   "cells": [
+    {
+     "id": "intranasal",
+     "label": "Nasal spray / drops",
+     "count": 32
+    },
+    {
+     "id": "oral",
+     "label": "Oral / sublingual / troche",
+     "count": 18
+    },
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 12
+    }
+   ]
+  },
+  "compound:dsip": {
+   "n": 54,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 35
+    },
+    {
+     "id": "intranasal",
+     "label": "Nasal spray / drops",
+     "count": 19
+    }
+   ]
+  },
+  "compound:semax": {
+   "n": 21,
+   "percent": false,
+   "cells": [
+    {
+     "id": "intranasal",
+     "label": "Nasal spray / drops",
+     "count": 13
+    },
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 8
+    }
+   ]
+  },
+  "compound:selank": {
+   "n": 29,
+   "percent": false,
+   "cells": [
+    {
+     "id": "intranasal",
+     "label": "Nasal spray / drops",
+     "count": 18
+    },
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 11
+    }
+   ]
+  },
+  "compound:cerebrolysin": {
+   "n": 16,
+   "percent": false,
+   "cells": [
+    {
+     "id": "intramuscular",
+     "label": "Intramuscular injection",
+     "count": 12
+    },
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "intravenous",
+     "label": "Intravenous (clinic)",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:dihexa": {
+   "n": 19,
+   "percent": false,
+   "cells": [
+    {
+     "id": "oral",
+     "label": "Oral / sublingual / troche",
+     "count": 9
+    },
+    {
+     "id": "topical",
+     "label": "Topical / transdermal",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 5
+    },
+    {
+     "id": "intranasal",
+     "label": "Nasal spray / drops",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:p21": {
+   "n": 20,
+   "percent": false,
+   "cells": [
+    {
+     "id": "intranasal",
+     "label": "Nasal spray / drops",
+     "count": 13
+    },
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 7
+    }
+   ]
+  },
+  "compound:pinealon": {
+   "n": 11,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 9
+    },
+    {
+     "id": "intranasal",
+     "label": "Nasal spray / drops",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "oral",
+     "label": "Oral / sublingual / troche",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:aod-9604": {
+   "n": 10,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 5
+    },
+    {
+     "id": "oral",
+     "label": "Oral / sublingual / troche",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "intramuscular",
+     "label": "Intramuscular injection",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:nad": {
+   "n": 13,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 6
+    },
+    {
+     "id": "intramuscular",
+     "label": "Intramuscular injection",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "intravenous",
+     "label": "Intravenous (clinic)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "intranasal",
+     "label": "Nasal spray / drops",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "oral",
+     "label": "Oral / sublingual / troche",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:epitalon": {
+   "n": 10,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "intramuscular",
+     "label": "Intramuscular injection",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "intranasal",
+     "label": "Nasal spray / drops",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "oral",
+     "label": "Oral / sublingual / troche",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:5-amino-1mq": {
+   "n": 11,
+   "percent": false,
+   "cells": [
+    {
+     "id": "oral",
+     "label": "Oral / sublingual / troche",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:glutathione": {
+   "n": 14,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 5
+    },
+    {
+     "id": "intramuscular",
+     "label": "Intramuscular injection",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "intravenous",
+     "label": "Intravenous (clinic)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "intranasal",
+     "label": "Nasal spray / drops",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:humanin": {
+   "n": 11,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 11
+    }
+   ]
+  },
+  "compound:slu-pp-332": {
+   "n": 10,
+   "percent": false,
+   "cells": [
+    {
+     "id": "oral",
+     "label": "Oral / sublingual / troche",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "compound:pt-141": {
+   "n": 137,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 97
+    },
+    {
+     "id": "intranasal",
+     "label": "Nasal spray / drops",
+     "count": 40
+    }
+   ]
+  },
+  "compound:melanotan-ii": {
+   "n": 89,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 65
+    },
+    {
+     "id": "intranasal",
+     "label": "Nasal spray / drops",
+     "count": 24
+    }
+   ]
+  },
+  "compound:kisspeptin-10": {
+   "n": 86,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 59
+    },
+    {
+     "id": "intranasal",
+     "label": "Nasal spray / drops",
+     "count": 27
+    }
+   ]
+  },
+  "compound:melanotan-i": {
+   "n": 50,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 50
+    }
+   ]
+  },
+  "compound:gonadorelin": {
+   "n": 47,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 34
+    },
+    {
+     "id": "intranasal",
+     "label": "Nasal spray / drops",
+     "count": 13
+    }
+   ]
+  },
+  "class:incretin": {
+   "n": 227,
+   "percent": true,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 205,
+     "pct": 90.3,
+     "ci95": [
+      85.8,
+      93.5
+     ]
+    },
+    {
+     "id": "oral",
+     "label": "Oral / sublingual / troche",
+     "count": 22,
+     "pct": 9.7,
+     "ci95": [
+      6.5,
+      14.2
+     ]
+    }
+   ]
+  },
+  "class:gh-secretagogue": {
+   "n": 158,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 145
+    },
+    {
+     "id": "oral",
+     "label": "Oral / sublingual / troche",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "intramuscular",
+     "label": "Intramuscular injection",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "class:tissue-repair": {
+   "n": 333,
+   "percent": true,
+   "cells": [
+    {
+     "id": "topical",
+     "label": "Topical / transdermal",
+     "count": 195,
+     "pct": 58.6,
+     "ci95": [
+      53.2,
+      63.7
+     ]
+    },
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 112,
+     "pct": 33.6,
+     "ci95": [
+      28.8,
+      38.9
+     ]
+    },
+    {
+     "id": "oral",
+     "label": "Oral / sublingual / troche",
+     "count": 14,
+     "pct": 4.2,
+     "ci95": [
+      2.5,
+      6.9
+     ]
+    },
+    {
+     "id": "intranasal",
+     "label": "Nasal spray / drops",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "intramuscular",
+     "label": "Intramuscular injection",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "class:neuro": {
+   "n": 232,
+   "percent": true,
+   "cells": [
+    {
+     "id": "intranasal",
+     "label": "Nasal spray / drops",
+     "count": 98,
+     "pct": 42.2,
+     "ci95": [
+      36.1,
+      48.7
+     ]
+    },
+    {
+     "id": "oral",
+     "label": "Oral / sublingual / troche",
+     "count": 28,
+     "pct": 12.1,
+     "ci95": [
+      8.5,
+      16.9
+     ]
+    },
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 90,
+     "pct": 38.8,
+     "ci95": [
+      32.8,
+      45.2
+     ]
+    },
+    {
+     "id": "intramuscular",
+     "label": "Intramuscular injection",
+     "count": 12,
+     "pct": 5.2,
+     "ci95": [
+      3.0,
+      8.8
+     ]
+    },
+    {
+     "id": "intravenous",
+     "label": "Intravenous (clinic)",
+     "count": null,
+     "display": "not shown"
+    },
+    {
+     "id": "topical",
+     "label": "Topical / transdermal",
+     "count": null,
+     "display": "not shown"
+    }
+   ]
+  },
+  "class:metabolic": {
+   "n": 114,
+   "percent": false,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 57
+    },
+    {
+     "id": "oral",
+     "label": "Oral / sublingual / troche",
+     "count": 31
+    },
+    {
+     "id": "intramuscular",
+     "label": "Intramuscular injection",
+     "count": 13
+    },
+    {
+     "id": "intravenous",
+     "label": "Intravenous (clinic)",
+     "count": 7
+    },
+    {
+     "id": "intranasal",
+     "label": "Nasal spray / drops",
+     "count": 6
+    }
+   ]
+  },
+  "class:sexual-hormonal": {
+   "n": 409,
+   "percent": true,
+   "cells": [
+    {
+     "id": "subcutaneous",
+     "label": "Subcutaneous injection",
+     "count": 305,
+     "pct": 74.6,
+     "ci95": [
+      70.1,
+      78.6
+     ]
+    },
+    {
+     "id": "intranasal",
+     "label": "Nasal spray / drops",
+     "count": 104,
+     "pct": 25.4,
+     "ci95": [
+      21.4,
+      29.9
+     ]
+    }
+   ]
+  }
+ }
+}

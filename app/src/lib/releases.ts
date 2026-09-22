@@ -1,6 +1,6 @@
 // Read-only access to published releases: static directories written by tools/release.py.
 // The site never computes a statistic; it only shows what the pipeline wrote.
-import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs';
+import { existsSync, readdirSync, readFileSync, realpathSync, statSync } from 'node:fs';
 import { resolve, sep } from 'node:path';
 
 export const RELEASES_DIR = resolve(process.env.PA_RELEASES_DIR ?? resolve(process.cwd(), '../releases'));
@@ -15,6 +15,10 @@ export type Release = {
   merkle: { root: string; leaves: number; leaves_file: string; prior_root: string | null };
   counts: { committed: number; excluded: number; analyzed: number };
   tiers: Record<string, number>;
+  /** Update floor (RELEASE_SPEC "Cadence"): per published unit, the release that computed it. */
+  units?: Record<string, { release: string; date: string; leaves: number; n: number; tier?: number }>;
+  /** Units this release republishes unchanged from the prior release. */
+  held?: string[];
   files: Record<string, string>;
   /** Directory name under RELEASES_DIR; the URL segment. Normally equals `release`. */
   dir: string;
@@ -48,9 +52,13 @@ export function getRelease(id: string): Release | null {
 /** Resolve a published path inside the releases directory, or null if it escapes or is absent. */
 export function releaseFile(path: string): { full: string; size: number } | null {
   if (path.includes('\0') || path.split('/').some((seg) => seg === '..' || seg === '')) return null;
-  const full = resolve(RELEASES_DIR, path);
-  if (!full.startsWith(RELEASES_DIR + sep)) return null;
-  if (!existsSync(full)) return null;
+  const lexical = resolve(RELEASES_DIR, path);
+  if (!lexical.startsWith(RELEASES_DIR + sep)) return null;
+  if (!existsSync(lexical)) return null;
+  // Follow symlinks and check again: a link placed inside a release must not reach outside.
+  const root = realpathSync(RELEASES_DIR);
+  const full = realpathSync(lexical);
+  if (!full.startsWith(root + sep)) return null;
   const st = statSync(full);
   if (!st.isFile()) return null;
   return { full, size: st.size };
@@ -69,7 +77,7 @@ export function witnessFiles(id: string): string[] {
 }
 
 /** Figure paths for one entity, in reading order (goal beside route and source, not by table number). */
-const ORDER = ['T1', 'T2', 'T16', 'T3', 'T4', 'T5', 'T6', 'T7', 'T8', 'T10', 'T11', 'T12'];
+const ORDER = ['T1', 'T2', 'T16', 'T3', 'T4', 'T5', 'T6', 'T8', 'T10', 'T11', 'T12'];
 export function figuresFor(rel: Release, dir: string): string[] {
   const prefix = `figures/${dir}/`;
   const num = (p: string) => { const i = ORDER.indexOf(p.slice(prefix.length).match(/^T\d+/)?.[0] ?? ''); return i < 0 ? 99 : i; };
@@ -95,21 +103,21 @@ export function sectionsFor(rel: Release, key: string, dir: string, labels: { ou
   one('T1', 'Route', T('T1'));
   one('T2', 'Source channel', T('T2'));
   one('T16', 'What people took it for', T('T16'));
+  const asOf = (x: any) => (x?.as_of ? ` (as of the ${x.as_of} release)` : '');
   const t3 = T('T3'); one('T3-start_dose', 'Starting dose', t3?.start_dose); one('T3-current_dose', 'Current or final dose', t3?.current_dose);
-  const t4 = T('T4'); one('T4-frequency', 'Frequency', t4?.frequency); one('T4-titration', 'How the dose changed', t4?.titration);
+  one('T4', 'Frequency', T('T4'));
   one('T5', 'Duration', T('T5'));
   one('T6', 'Independent purity testing', T('T6'));
-  one('T7', 'Handling', T('T7'));
   const t8 = T('T8');
-  if (t8) out.push({ name: 'T8', title: 'Outcome by goal', src: fig('T8'), grid: { columns: labels.outcome, rows: t8.strata } });
-  one('T10', 'Adverse effects reported', T('T10'));
+  if (t8) out.push({ name: 'T8', title: 'Outcome by goal', src: fig('T8'), grid: { columns: labels.outcome, rows: t8.strata.map((s: any) => ({ ...s, label: s.label + asOf(s) })) } });
+  one('T10', 'Side effects reported', T('T10'));
   const t11 = T('T11');
   for (const e of t11?.effects ?? []) {
     if (e.n === null) continue;
-    out.push({ name: `T11-${e.effect}-onset`, title: `${e.label}: when it started`, src: fig(`T11-${e.effect}-onset`), grid: { columns: labels.onset, rows: [{ label: 'When it started', n: e.n, percent: e.onset.percent, cells: e.onset.cells }] } });
-    out.push({ name: `T11-${e.effect}-dechallenge`, title: `${e.label}: after stopping`, src: fig(`T11-${e.effect}-dechallenge`), grid: { columns: labels.dechallenge, rows: [{ label: 'After stopping', n: e.n, percent: e.dechallenge.percent, cells: e.dechallenge.cells }] } });
+    out.push({ name: `T11-${e.effect}-onset`, title: `${e.label}: when it started${asOf(e)}`, src: fig(`T11-${e.effect}-onset`), grid: { columns: labels.onset, rows: [{ label: 'When it started', n: e.n, percent: e.onset.percent, cells: e.onset.cells }] } });
+    out.push({ name: `T11-${e.effect}-dechallenge`, title: `${e.label}: after stopping${asOf(e)}`, src: fig(`T11-${e.effect}-dechallenge`), grid: { columns: labels.dechallenge, rows: [{ label: 'After stopping', n: e.n, percent: e.dechallenge.percent, cells: e.dechallenge.cells }] } });
   }
   const t12 = T('T12'); one('T12-status', 'Still taking, stopped, or finished', t12?.status);
-  if (t12?.stop_reason?.n) one('T12-stop_reason', 'Main reason for stopping', t12.stop_reason);
+  if (t12?.stop_reason?.n) one('T12-stop_reason', 'Main reason for stopping' + asOf(t12.stop_reason), t12.stop_reason);
   return out;
 }

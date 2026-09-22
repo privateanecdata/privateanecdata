@@ -11,3 +11,4 @@ PID=$!
 trap 'kill $PID 2>/dev/null || true' EXIT
 for i in 1 2 3 4 5 6 7 8 9 10; do curl -sf "http://127.0.0.1:$PORT/" >/dev/null && break; sleep 0.5; done
 python3 ../tools/check_origin.py "http://127.0.0.1:$PORT" "$@"
+python3 ../tools/check_form.py "http://127.0.0.1:$PORT"

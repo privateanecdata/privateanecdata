@@ -9,7 +9,8 @@
     "build": "astro build",
     "start": "node ./dist/server/entry.mjs",
     "check": "astro check",
-    "check:origin": "sh ../tools/check_origin.sh"
+    "check:origin": "sh ../tools/check_origin.sh",
+    "build:prod": "sh -c 'test -n \"$PA_HOST\" || { echo \"PA_HOST must be set at build time (security.allowedDomains)\"; exit 1; }; astro build'"
   },
   "keywords": [],
   "author": "",

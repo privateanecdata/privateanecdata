@@ -691,13 +691,6 @@ def main():
             ("unknown", "Don't know"),
             ("other", "Other (not listed)"),
         ])),
-        ("titration", vocab([
-            ("no-change", "Stayed at the same dose"),
-            ("stepped-up", "Stepped the dose up over time"),
-            ("stepped-down", "Stepped the dose down over time"),
-            ("cycled", "Cycled on and off"),
-            ("other", "Other (not listed)"),
-        ])),
         ("duration", vocab([
             ("under-2wk", "Under 2 weeks"),
             ("2-4wk", "2 to 4 weeks"),
@@ -713,14 +706,6 @@ def main():
             ("yes-unsure", "Yes — unsure how to read the result"),
             ("dont-know", "Don't know"),
         ])),
-        ("reconstitution", vocab([
-            ("bac-water-refrigerated", "Bacteriostatic water, kept refrigerated"),
-            ("bac-water-room-temp", "Bacteriostatic water, kept at room temperature"),
-            ("sterile-water", "Sterile water"),
-            ("pre-mixed-or-pen", "Came pre-mixed or as a pen"),
-            ("no-reconstitution", "No reconstitution (oral, nasal, topical)"),
-            ("other", "Other (not listed)"),
-        ])),
         ("outcome", vocab([
             ("no-change", "No change"),
             ("slight", "Slight improvement"),
@@ -730,10 +715,7 @@ def main():
         ("status", vocab([
             ("still-taking", "Still taking it"),
             ("completed-planned-course", "Finished a planned course"),
-            ("stopped-under-2wk", "Stopped within 2 weeks"),
-            ("stopped-2-6wk", "Stopped after 2 to 6 weeks"),
-            ("stopped-6-12wk", "Stopped after 6 to 12 weeks"),
-            ("stopped-over-12wk", "Stopped after more than 12 weeks"),
+            ("stopped", "Stopped before I planned to"),
         ])),
         ("stopReason", vocab([
             ("achieved-goal", "Got what I wanted from it"),
@@ -762,7 +744,8 @@ def main():
             ("45-54", "45–54"), ("55-64", "55–64"), ("65+", "65 or over"),
         ])),
         ("sex", vocab([
-            ("male", "Male"), ("female", "Female"), ("prefer-not", "Prefer not to say"),
+            ("female", "Female"), ("male", "Male"), ("intersex", "Intersex"),
+            ("nonbinary", "Non-binary"), ("prefer-not", "Prefer not to say"),
         ])),
     ])
     taxonomy = OrderedDict([

@@ -2,11 +2,11 @@
 # Sign a release and witness it in two independent public logs.
 #
 #   tools/witness.sh keygen                       # once: creates the release signing key
-#   tools/witness.sh sign    releases/2027-Q1     # detached signature on release.json
-#   tools/witness.sh rekor   releases/2027-Q1     # Sigstore Rekor (public-good instance, v1 API)
-#   tools/witness.sh ots     releases/2027-Q1     # OpenTimestamps (Bitcoin-anchored)
-#   tools/witness.sh upgrade releases/2027-Q1     # after ~a day: upgrade the .ots proof (mandatory)
-#   tools/witness.sh all     releases/2027-Q1     # sign + rekor + ots
+#   tools/witness.sh sign    releases/2026-12     # detached signature on release.json
+#   tools/witness.sh rekor   releases/2026-12     # Sigstore Rekor (public-good instance, v1 API)
+#   tools/witness.sh ots     releases/2026-12     # OpenTimestamps (Bitcoin-anchored)
+#   tools/witness.sh upgrade releases/2026-12     # after ~a day: upgrade the .ots proof (mandatory)
+#   tools/witness.sh all     releases/2026-12     # sign + rekor + ots
 #   tools/witness.sh all     spec/RELEASE_SPEC.md # any single file: the spec freeze, a policy version
 #
 # DRY_RUN=1 prints the commands instead of running them. Test on a throwaway release first:

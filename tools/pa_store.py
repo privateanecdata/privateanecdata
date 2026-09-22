@@ -13,8 +13,8 @@ from collections import Counter
 # The stored row, exactly the columns that are hashed into the leaf (everything except rowid and salt).
 ROW_FIELDS = [
     "received_day", "schema_version", "compound", "route", "goal", "source_channel",
-    "start_dose", "current_dose", "frequency", "titration", "duration", "purity_tested",
-    "reconstitution", "status", "stop_reason", "outcome", "adverse_effects", "age_band", "sex",
+    "start_dose", "current_dose", "frequency", "duration", "purity_tested",
+    "status", "stop_reason", "outcome", "adverse_effects", "age_band", "sex",
 ]
 
 

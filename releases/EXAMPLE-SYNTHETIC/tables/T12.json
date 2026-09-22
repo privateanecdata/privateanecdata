@@ -1,0 +1,721 @@
+{
+ "table": "T12",
+ "title": "Status and discontinuation",
+ "release": "EXAMPLE-SYNTHETIC",
+ "data": {
+  "compound:ghk-cu": {
+   "status": {
+    "n": 272,
+    "percent": true,
+    "cells": [
+     {
+      "id": "still-taking",
+      "label": "Still taking it",
+      "count": 105,
+      "pct": 38.6,
+      "ci95": [
+       33.0,
+       44.5
+      ]
+     },
+     {
+      "id": "completed-planned-course",
+      "label": "Finished a planned course",
+      "count": 45,
+      "pct": 16.5,
+      "ci95": [
+       12.6,
+       21.4
+      ]
+     },
+     {
+      "id": "stopped",
+      "label": "Stopped before I planned to",
+      "count": 122,
+      "pct": 44.9,
+      "ci95": [
+       39.1,
+       50.8
+      ]
+     }
+    ]
+   },
+   "stop_reason": {
+    "stratum": "Stopped",
+    "n": 122,
+    "percent": true,
+    "cells": [
+     {
+      "id": "achieved-goal",
+      "label": "Got what I wanted from it",
+      "count": 31,
+      "pct": 25.4,
+      "ci95": [
+       18.5,
+       33.8
+      ]
+     },
+     {
+      "id": "no-effect",
+      "label": "It wasn't doing anything",
+      "count": 41,
+      "pct": 33.6,
+      "ci95": [
+       25.8,
+       42.4
+      ]
+     },
+     {
+      "id": "adverse-effect",
+      "label": "Side effects",
+      "count": 9,
+      "pct": 7.4,
+      "ci95": [
+       3.9,
+       13.4
+      ]
+     },
+     {
+      "id": "cost",
+      "label": "Cost",
+      "count": 12,
+      "pct": 9.8,
+      "ci95": [
+       5.7,
+       16.4
+      ]
+     },
+     {
+      "id": "supply",
+      "label": "Couldn't get more",
+      "count": 12,
+      "pct": 9.8,
+      "ci95": [
+       5.7,
+       16.4
+      ]
+     },
+     {
+      "id": "safety-concern",
+      "label": "Worried about safety",
+      "count": 9,
+      "pct": 7.4,
+      "ci95": [
+       3.9,
+       13.4
+      ]
+     },
+     {
+      "id": "other",
+      "label": "Other (not listed)",
+      "count": 8,
+      "pct": 6.6,
+      "ci95": [
+       3.4,
+       12.4
+      ]
+     }
+    ]
+   }
+  },
+  "compound:oxytocin": {
+   "status": {
+    "n": 62,
+    "percent": false,
+    "cells": [
+     {
+      "id": "still-taking",
+      "label": "Still taking it",
+      "count": 33
+     },
+     {
+      "id": "completed-planned-course",
+      "label": "Finished a planned course",
+      "count": 7
+     },
+     {
+      "id": "stopped",
+      "label": "Stopped before I planned to",
+      "count": 22
+     }
+    ]
+   },
+   "stop_reason": {
+    "stratum": "Stopped",
+    "n": 22,
+    "percent": false,
+    "cells": [
+     {
+      "id": "achieved-goal",
+      "label": "Got what I wanted from it",
+      "count": 7
+     },
+     {
+      "id": "no-effect",
+      "label": "It wasn't doing anything",
+      "count": 6
+     },
+     {
+      "id": "adverse-effect",
+      "label": "Side effects",
+      "count": null,
+      "display": "not shown"
+     },
+     {
+      "id": "cost",
+      "label": "Cost",
+      "count": null,
+      "display": "not shown"
+     },
+     {
+      "id": "supply",
+      "label": "Couldn't get more",
+      "count": null,
+      "display": "not shown"
+     },
+     {
+      "id": "safety-concern",
+      "label": "Worried about safety",
+      "count": null,
+      "display": "not shown"
+     },
+     {
+      "id": "other",
+      "label": "Other (not listed)",
+      "count": null,
+      "display": "not shown"
+     }
+    ]
+   }
+  },
+  "compound:dsip": {
+   "status": {
+    "n": 54,
+    "percent": false,
+    "cells": [
+     {
+      "id": "still-taking",
+      "label": "Still taking it",
+      "count": 16
+     },
+     {
+      "id": "completed-planned-course",
+      "label": "Finished a planned course",
+      "count": 6
+     },
+     {
+      "id": "stopped",
+      "label": "Stopped before I planned to",
+      "count": 32
+     }
+    ]
+   },
+   "stop_reason": {
+    "stratum": "Stopped",
+    "n": 32,
+    "percent": false,
+    "cells": [
+     {
+      "id": "achieved-goal",
+      "label": "Got what I wanted from it",
+      "count": 5
+     },
+     {
+      "id": "no-effect",
+      "label": "It wasn't doing anything",
+      "count": 12
+     },
+     {
+      "id": "adverse-effect",
+      "label": "Side effects",
+      "count": null,
+      "display": "not shown"
+     },
+     {
+      "id": "cost",
+      "label": "Cost",
+      "count": null,
+      "display": "not shown"
+     },
+     {
+      "id": "supply",
+      "label": "Couldn't get more",
+      "count": 5
+     },
+     {
+      "id": "safety-concern",
+      "label": "Worried about safety",
+      "count": null,
+      "display": "not shown"
+     },
+     {
+      "id": "other",
+      "label": "Other (not listed)",
+      "count": null,
+      "display": "not shown"
+     }
+    ]
+   }
+  },
+  "compound:pt-141": {
+   "status": {
+    "n": 137,
+    "percent": false,
+    "cells": [
+     {
+      "id": "still-taking",
+      "label": "Still taking it",
+      "count": 51
+     },
+     {
+      "id": "completed-planned-course",
+      "label": "Finished a planned course",
+      "count": 22
+     },
+     {
+      "id": "stopped",
+      "label": "Stopped before I planned to",
+      "count": 64
+     }
+    ]
+   },
+   "stop_reason": {
+    "stratum": "Stopped",
+    "n": 64,
+    "percent": false,
+    "cells": [
+     {
+      "id": "achieved-goal",
+      "label": "Got what I wanted from it",
+      "count": 17
+     },
+     {
+      "id": "no-effect",
+      "label": "It wasn't doing anything",
+      "count": 16
+     },
+     {
+      "id": "adverse-effect",
+      "label": "Side effects",
+      "count": 9
+     },
+     {
+      "id": "cost",
+      "label": "Cost",
+      "count": 7
+     },
+     {
+      "id": "supply",
+      "label": "Couldn't get more",
+      "count": 9
+     },
+     {
+      "id": "safety-concern",
+      "label": "Worried about safety",
+      "count": null,
+      "display": "not shown"
+     },
+     {
+      "id": "other",
+      "label": "Other (not listed)",
+      "count": null,
+      "display": "not shown"
+     }
+    ]
+   }
+  },
+  "compound:melanotan-ii": {
+   "status": {
+    "n": 89,
+    "percent": false,
+    "cells": [
+     {
+      "id": "still-taking",
+      "label": "Still taking it",
+      "count": 40
+     },
+     {
+      "id": "completed-planned-course",
+      "label": "Finished a planned course",
+      "count": 9
+     },
+     {
+      "id": "stopped",
+      "label": "Stopped before I planned to",
+      "count": 40
+     }
+    ]
+   },
+   "stop_reason": {
+    "stratum": "Stopped",
+    "n": 40,
+    "percent": false,
+    "cells": [
+     {
+      "id": "achieved-goal",
+      "label": "Got what I wanted from it",
+      "count": 7
+     },
+     {
+      "id": "no-effect",
+      "label": "It wasn't doing anything",
+      "count": 15
+     },
+     {
+      "id": "adverse-effect",
+      "label": "Side effects",
+      "count": null,
+      "display": "not shown"
+     },
+     {
+      "id": "cost",
+      "label": "Cost",
+      "count": 7
+     },
+     {
+      "id": "supply",
+      "label": "Couldn't get more",
+      "count": 6
+     },
+     {
+      "id": "safety-concern",
+      "label": "Worried about safety",
+      "count": null,
+      "display": "not shown"
+     },
+     {
+      "id": "other",
+      "label": "Other (not listed)",
+      "count": null,
+      "display": "not shown"
+     }
+    ]
+   }
+  },
+  "compound:kisspeptin-10": {
+   "status": {
+    "n": 86,
+    "percent": false,
+    "cells": [
+     {
+      "id": "still-taking",
+      "label": "Still taking it",
+      "count": 37
+     },
+     {
+      "id": "completed-planned-course",
+      "label": "Finished a planned course",
+      "count": 9
+     },
+     {
+      "id": "stopped",
+      "label": "Stopped before I planned to",
+      "count": 40
+     }
+    ]
+   },
+   "stop_reason": {
+    "stratum": "Stopped",
+    "n": 40,
+    "percent": false,
+    "cells": [
+     {
+      "id": "achieved-goal",
+      "label": "Got what I wanted from it",
+      "count": 13
+     },
+     {
+      "id": "no-effect",
+      "label": "It wasn't doing anything",
+      "count": 12
+     },
+     {
+      "id": "adverse-effect",
+      "label": "Side effects",
+      "count": null,
+      "display": "not shown"
+     },
+     {
+      "id": "cost",
+      "label": "Cost",
+      "count": null,
+      "display": "not shown"
+     },
+     {
+      "id": "supply",
+      "label": "Couldn't get more",
+      "count": 7
+     },
+     {
+      "id": "safety-concern",
+      "label": "Worried about safety",
+      "count": null,
+      "display": "not shown"
+     },
+     {
+      "id": "other",
+      "label": "Other (not listed)",
+      "count": null,
+      "display": "not shown"
+     }
+    ]
+   }
+  },
+  "compound:melanotan-i": {
+   "status": {
+    "n": 50,
+    "percent": false,
+    "cells": [
+     {
+      "id": "still-taking",
+      "label": "Still taking it",
+      "count": 23
+     },
+     {
+      "id": "completed-planned-course",
+      "label": "Finished a planned course",
+      "count": 9
+     },
+     {
+      "id": "stopped",
+      "label": "Stopped before I planned to",
+      "count": 18
+     }
+    ]
+   },
+   "stop_reason": {
+    "stratum": "Stopped",
+    "n": null,
+    "display": "fewer than 20 reports"
+   }
+  },
+  "class:incretin": {
+   "status": {
+    "n": 227,
+    "percent": true,
+    "cells": [
+     {
+      "id": "still-taking",
+      "label": "Still taking it",
+      "count": 95,
+      "pct": 41.9,
+      "ci95": [
+       35.6,
+       48.4
+      ]
+     },
+     {
+      "id": "completed-planned-course",
+      "label": "Finished a planned course",
+      "count": 26,
+      "pct": 11.5,
+      "ci95": [
+       7.9,
+       16.3
+      ]
+     },
+     {
+      "id": "stopped",
+      "label": "Stopped before I planned to",
+      "count": 106,
+      "pct": 46.7,
+      "ci95": [
+       40.3,
+       53.2
+      ]
+     }
+    ]
+   },
+   "stop_reason": {
+    "stratum": "Stopped",
+    "n": null,
+    "display": "not published for a class"
+   }
+  },
+  "class:gh-secretagogue": {
+   "status": {
+    "n": 158,
+    "percent": false,
+    "cells": [
+     {
+      "id": "still-taking",
+      "label": "Still taking it",
+      "count": 62
+     },
+     {
+      "id": "completed-planned-course",
+      "label": "Finished a planned course",
+      "count": 22
+     },
+     {
+      "id": "stopped",
+      "label": "Stopped before I planned to",
+      "count": 74
+     }
+    ]
+   },
+   "stop_reason": {
+    "stratum": "Stopped",
+    "n": null,
+    "display": "not published for a class"
+   }
+  },
+  "class:tissue-repair": {
+   "status": {
+    "n": 333,
+    "percent": true,
+    "cells": [
+     {
+      "id": "still-taking",
+      "label": "Still taking it",
+      "count": 132,
+      "pct": 39.6,
+      "ci95": [
+       34.5,
+       45.0
+      ]
+     },
+     {
+      "id": "completed-planned-course",
+      "label": "Finished a planned course",
+      "count": 55,
+      "pct": 16.5,
+      "ci95": [
+       12.9,
+       20.9
+      ]
+     },
+     {
+      "id": "stopped",
+      "label": "Stopped before I planned to",
+      "count": 146,
+      "pct": 43.8,
+      "ci95": [
+       38.6,
+       49.2
+      ]
+     }
+    ]
+   },
+   "stop_reason": {
+    "stratum": "Stopped",
+    "n": null,
+    "display": "not published for a class"
+   }
+  },
+  "class:neuro": {
+   "status": {
+    "n": 232,
+    "percent": true,
+    "cells": [
+     {
+      "id": "still-taking",
+      "label": "Still taking it",
+      "count": 97,
+      "pct": 41.8,
+      "ci95": [
+       35.6,
+       48.2
+      ]
+     },
+     {
+      "id": "completed-planned-course",
+      "label": "Finished a planned course",
+      "count": 28,
+      "pct": 12.1,
+      "ci95": [
+       8.5,
+       16.9
+      ]
+     },
+     {
+      "id": "stopped",
+      "label": "Stopped before I planned to",
+      "count": 107,
+      "pct": 46.1,
+      "ci95": [
+       39.8,
+       52.5
+      ]
+     }
+    ]
+   },
+   "stop_reason": {
+    "stratum": "Stopped",
+    "n": null,
+    "display": "not published for a class"
+   }
+  },
+  "class:metabolic": {
+   "status": {
+    "n": 114,
+    "percent": false,
+    "cells": [
+     {
+      "id": "still-taking",
+      "label": "Still taking it",
+      "count": 42
+     },
+     {
+      "id": "completed-planned-course",
+      "label": "Finished a planned course",
+      "count": 18
+     },
+     {
+      "id": "stopped",
+      "label": "Stopped before I planned to",
+      "count": 54
+     }
+    ]
+   },
+   "stop_reason": {
+    "stratum": "Stopped",
+    "n": null,
+    "display": "not published for a class"
+   }
+  },
+  "class:sexual-hormonal": {
+   "status": {
+    "n": 409,
+    "percent": true,
+    "cells": [
+     {
+      "id": "still-taking",
+      "label": "Still taking it",
+      "count": 170,
+      "pct": 41.6,
+      "ci95": [
+       36.9,
+       46.4
+      ]
+     },
+     {
+      "id": "completed-planned-course",
+      "label": "Finished a planned course",
+      "count": 58,
+      "pct": 14.2,
+      "ci95": [
+       11.1,
+       17.9
+      ]
+     },
+     {
+      "id": "stopped",
+      "label": "Stopped before I planned to",
+      "count": 181,
+      "pct": 44.3,
+      "ci95": [
+       39.5,
+       49.1
+      ]
+     }
+    ]
+   },
+   "stop_reason": {
+    "stratum": "Stopped",
+    "n": null,
+    "display": "not published for a class"
+   }
+  }
+ }
+}

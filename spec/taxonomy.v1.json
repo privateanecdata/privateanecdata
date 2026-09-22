@@ -1,5 +1,5 @@
 {
- "version": "0.1-draft",
+ "version": "1.0",
  "shared": {
   "sourceChannel": [
    {
@@ -29,28 +29,6 @@
    {
     "id": "unknown",
     "label": "Don't know"
-   },
-   {
-    "id": "other",
-    "label": "Other (not listed)"
-   }
-  ],
-  "titration": [
-   {
-    "id": "no-change",
-    "label": "Stayed at the same dose"
-   },
-   {
-    "id": "stepped-up",
-    "label": "Stepped the dose up over time"
-   },
-   {
-    "id": "stepped-down",
-    "label": "Stepped the dose down over time"
-   },
-   {
-    "id": "cycled",
-    "label": "Cycled on and off"
    },
    {
     "id": "other",
@@ -105,32 +83,6 @@
     "label": "Don't know"
    }
   ],
-  "reconstitution": [
-   {
-    "id": "bac-water-refrigerated",
-    "label": "Bacteriostatic water, kept refrigerated"
-   },
-   {
-    "id": "bac-water-room-temp",
-    "label": "Bacteriostatic water, kept at room temperature"
-   },
-   {
-    "id": "sterile-water",
-    "label": "Sterile water"
-   },
-   {
-    "id": "pre-mixed-or-pen",
-    "label": "Came pre-mixed or as a pen"
-   },
-   {
-    "id": "no-reconstitution",
-    "label": "No reconstitution (oral, nasal, topical)"
-   },
-   {
-    "id": "other",
-    "label": "Other (not listed)"
-   }
-  ],
   "outcome": [
    {
     "id": "no-change",
@@ -159,20 +111,8 @@
     "label": "Finished a planned course"
    },
    {
-    "id": "stopped-under-2wk",
-    "label": "Stopped within 2 weeks"
-   },
-   {
-    "id": "stopped-2-6wk",
-    "label": "Stopped after 2 to 6 weeks"
-   },
-   {
-    "id": "stopped-6-12wk",
-    "label": "Stopped after 6 to 12 weeks"
-   },
-   {
-    "id": "stopped-over-12wk",
-    "label": "Stopped after more than 12 weeks"
+    "id": "stopped",
+    "label": "Stopped before I planned to"
    }
   ],
   "stopReason": [
@@ -273,12 +213,20 @@
   ],
   "sex": [
    {
+    "id": "female",
+    "label": "Female"
+   },
+   {
     "id": "male",
     "label": "Male"
    },
    {
-    "id": "female",
-    "label": "Female"
+    "id": "intersex",
+    "label": "Intersex"
+   },
+   {
+    "id": "nonbinary",
+    "label": "Non-binary"
    },
    {
     "id": "prefer-not",

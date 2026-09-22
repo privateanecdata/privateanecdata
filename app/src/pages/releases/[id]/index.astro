@@ -6,9 +6,9 @@ import ReleaseTable from '../../../components/ReleaseTable.astro';
 
 const id = Astro.params.id!;
 const rel = getRelease(id);
-if (!rel) return new Response('Not found', { status: 404 });
+if (!rel) return new Response(null, { status: 404 });
 
-type Cell = { id: string; label: string; count: number | null; display?: string; tier?: number | null; class?: string | null };
+type Cell = { id: string; label: string; count: number | null; display?: string; tier?: number | null; class?: string | null; tables_as_of?: string | null; tables_n?: number | null; tables_pending?: boolean };
 type T0 = { committed: number; excluded: { total: number; by_reason: Record<string, number> }; analyzed: number;
   received_since_prior_release: number | null; per_class: Cell[]; per_compound: Cell[] };
 type T14 = { flagged_this_period: Record<string, number>; flagged_total: Record<string, number>; note: string };
@@ -31,6 +31,9 @@ type OneWay = { n: number; percent: boolean; cells: any[] };
 const t6all = readTable<Record<string, OneWay>>(id, 'T6')?.overall;
 const t13 = readTable<{ n: number | null; age_band?: OneWay; sex?: OneWay }>(id, 'T13');
 const t9full = readTable<Record<string, { label: string; compounds: any[] }>>(id, 'T9') ?? {};
+// Update floor: a held unit's tables are the ones from the release that computed them.
+const heldRec = (key: string) => (rel.held?.includes(key) ? rel.units?.[key] ?? null : null);
+const overallHeld = heldRec('overall');
 ---
 <Base title={`Release ${rel.release}`}>
   {rel.synthetic && <div class="notice"><p><strong>Synthetic test data.</strong> This release was generated from a synthetic store to exercise the pipeline. Nothing in it is a report from a person.</p></div>}
@@ -45,7 +48,7 @@ const t9full = readTable<Record<string, { label: string; compounds: any[] }>>(id
       <dt>Analysed</dt><dd>{t0.analyzed.toLocaleString('en-US')}</dd>
       {t0.received_since_prior_release !== null && <><dt>Since prior release</dt><dd>{t0.received_since_prior_release.toLocaleString('en-US')}</dd></>}
       <dt>Merkle root</dt><dd><code>{rel.merkle.root}</code><br><span class="muted">over {rel.merkle.leaves.toLocaleString('en-US')} leaves — <a href={`${base}/${rel.merkle.leaves_file}`}>leaf list</a></span></dd>
-      <dt>Files</dt><dd><a href={`${base}/release.json`}>release.json</a> (hash of every file) · <a href="/docs/how-to-verify">how to verify</a></dd>
+      <dt>Files</dt><dd><a href={`${base}/release.json`}>release.json</a> (hash of every file) · <a href="/docs/release-spec#how-we-count">how we count reports</a></dd>
       <dt>Witness</dt><dd>{witness.length ? witness.map((w) => <><a href={`${base}/witness/${w}`}>{w}</a> </>) : <span class="muted">not yet witnessed</span>}</dd>
     </dl>
   </div>
@@ -66,9 +69,9 @@ const t9full = readTable<Record<string, { label: string; compounds: any[] }>>(id
           <tbody>
             {cls.compounds.map((c) => { const e = byCompound.get(c.id)!; return (
               <tr>
-                <td>{e.count !== null ? <a href={`#${c.id}`}>{c.label}</a> : c.label}</td>
+                <td>{e.count !== null && !e.tables_pending ? <a href={`#${c.id}`}>{c.label}</a> : c.label}</td>
                 <td>{e.count !== null ? e.count : <span class="muted">{e.display}</span>}</td>
-                <td class="muted">{tierWord[e.tier ?? 0]}</td>
+                <td class="muted">{e.tables_pending ? 'count only; tables follow with the next batch of five' : tierWord[e.tier ?? 0]}{e.tables_as_of && <> · tables as of {e.tables_as_of}</>}</td>
               </tr>); })}
           </tbody>
         </table>
@@ -78,9 +81,10 @@ const t9full = readTable<Record<string, { label: string; compounds: any[] }>>(id
   {other && <p class="muted">Other (not listed): {other.count !== null ? `${other.count} reports` : other.display}. Counted, never broken out.</p>}
 
   <h2>By compound</h2>
-  {compoundsByClass.map((cls) => cls.compounds.filter((c) => (byCompound.get(c.id)?.count ?? null) !== null).map((c) => (
+  {compoundsByClass.map((cls) => cls.compounds.filter((c) => (byCompound.get(c.id)?.count ?? null) !== null && !byCompound.get(c.id)?.tables_pending).map((c) => (
     <details id={c.id}>
-      <summary><strong>{c.label}</strong> <span class="muted">— {byCompound.get(c.id)!.count} reports · {tierWord[byCompound.get(c.id)!.tier ?? 0]}</span></summary>
+      <summary><strong>{c.label}</strong> <span class="muted">— {byCompound.get(c.id)!.count} reports · {tierWord[byCompound.get(c.id)!.tier ?? 0]}{byCompound.get(c.id)!.tables_as_of && <> · tables as of {byCompound.get(c.id)!.tables_as_of}</>}</span></summary>
+      {(() => { const r = heldRec(`compound:${c.id}`); return r && <p class="muted held">Computed in the <a href={`/releases/${r.release}`}>{r.release}</a> release from {r.n} reports. {byCompound.get(c.id)!.count} reports now; updated once at least 5 have changed (<a href="/docs/release-spec#cadence">why</a>).</p>; })()}
       {sections(`compound:${c.id}`, `compound-${c.id}`).map((sec) => <ReleaseTable title={`${c.label} — ${sec.title.toLowerCase()}`} src={sec.src} oneWay={sec.oneWay} grid={sec.grid} />)}
     </details>
   )))}
@@ -88,7 +92,8 @@ const t9full = readTable<Record<string, { label: string; compounds: any[] }>>(id
   <h2>By class</h2>
   {compoundsByClass.filter((cls) => (byClass.get(cls.id)?.count ?? null) !== null && fig(`class-${cls.id}`).length).map((cls) => (
     <details id={`class-${cls.id}`}>
-      <summary><strong>{cls.label}</strong> <span class="muted">— {byClass.get(cls.id)!.count} reports across {cls.compounds.length} compounds</span></summary>
+      <summary><strong>{cls.label}</strong> <span class="muted">— {byClass.get(cls.id)!.count} reports across {cls.compounds.length} compounds{byClass.get(cls.id)!.tables_as_of && <> · tables as of {byClass.get(cls.id)!.tables_as_of}</>}</span></summary>
+      {(() => { const r = heldRec(`class:${cls.id}`); return r && <p class="muted held">Unchanged since the <a href={`/releases/${r.release}`}>{r.release}</a> release. Built from each compound's reports as published, plus the pool of reports on compounds below 10; updated when any of them updates (<a href="/docs/release-spec#cadence">why</a>).</p>; })()}
       {sections(`class:${cls.id}`, `class-${cls.id}`).map((sec) => <ReleaseTable title={`${cls.label} — ${sec.title.toLowerCase()}`} src={sec.src} oneWay={sec.oneWay} grid={sec.grid} />)}
     </details>
   ))}
@@ -101,6 +106,7 @@ const t9full = readTable<Record<string, { label: string; compounds: any[] }>>(id
 
   {(t6all || t13?.n) && <>
     <h2>All reports</h2>
+    {overallHeld && <p class="muted held">Unchanged since the <a href={`/releases/${overallHeld.release}`}>{overallHeld.release}</a> release. Built from the classes as published, plus the pool of "other (not listed)" reports; updated when any of them updates (<a href="/docs/release-spec#cadence">why</a>).</p>}
     {t6all && <ReleaseTable title="All reports — independent purity testing" src={rel.files['figures/_overall/T6.svg'] ? `${base}/figures/_overall/T6.svg` : undefined} oneWay={t6all} />}
     {t13?.n && t13.age_band && <ReleaseTable title="Who contributed — age" src={rel.files['figures/_overall/T13-age_band.svg'] ? `${base}/figures/_overall/T13-age_band.svg` : undefined} oneWay={t13.age_band} />}
     {t13?.n && t13.sex && <ReleaseTable title="Who contributed — sex" src={rel.files['figures/_overall/T13-sex.svg'] ? `${base}/figures/_overall/T13-sex.svg` : undefined} oneWay={t13.sex} />}
@@ -108,12 +114,13 @@ const t9full = readTable<Record<string, { label: string; compounds: any[] }>>(id
 
   {t14 && <>
     <h2>Integrity log</h2>
+    <p class="muted">Before each release, the coordinated-submission detector (public code: <code>tools/detect.py</code>) flags reports that contradict themselves and unusual bursts, such as many reports about one compound arriving on one day. Flagged reports stay in the committed log but are left out of every table above.</p>
     <p>{t14.note}</p>
     <div class="table-wrap"><table class="counts">
       <thead><tr><th>Reason</th><th>This period</th><th>All time</th></tr></thead>
       <tbody>{Object.keys(t14.flagged_total).map((k) => <tr><td>{k}</td><td>{t14.flagged_this_period[k]}</td><td>{t14.flagged_total[k]}</td></tr>)}</tbody>
     </table></div>
-    <p class="muted">Flagged reports stay in the committed log and are listed by log position in <a href={`${base}/exclusions.json`}>the exclusion list</a>. They are left out of every table above.</p>
+    <p class="muted">Flagged reports are listed by log position and reason in <a href={`${base}/exclusions.json`}>the exclusion list</a>.</p>
   </>}
 
   {t15 && <>

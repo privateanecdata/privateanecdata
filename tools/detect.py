@@ -35,7 +35,6 @@ TAX = os.path.join(HERE, "..", "spec", "taxonomy.v1.json")
 
 # Week ranges implied by the vocabularies; two answers contradict when their ranges cannot overlap.
 DURATION_WEEKS = {"under-2wk": (0, 2), "2-4wk": (2, 4), "1-3mo": (4, 13), "3-6mo": (13, 26), "6-12mo": (26, 52), "over-12mo": (52, 999)}
-STOPPED_WEEKS = {"stopped-under-2wk": (0, 2), "stopped-2-6wk": (2, 6), "stopped-6-12wk": (6, 12), "stopped-over-12wk": (12, 999)}
 ONSET_MIN_WEEKS = {"first-days": 0, "first-2wk": 0, "2-6wk": 2, "after-6wk": 6}
 
 
@@ -81,11 +80,10 @@ def check_malformed(r, tax):
             return f"{f} set for 'other' compound"
     if r["frequency"] not in (set(c["frequency"]) | {"other"} if c else tax.frequency):
         return "bad frequency"
-    for f, key in (("titration", "titration"), ("duration", "duration"), ("purity_tested", "purityTested"),
-                   ("reconstitution", "reconstitution"), ("status", "status")):
+    for f, key in (("duration", "duration"), ("purity_tested", "purityTested"), ("status", "status")):
         if r[f] not in tax.shared[key]:
             return f"bad {f}"
-    stopped = r["status"].startswith("stopped-")
+    stopped = r["status"] == "stopped"
     if stopped and r["stop_reason"] not in tax.shared["stopReason"]:
         return "stopped without a valid stop_reason"
     if not stopped and r["stop_reason"] is not None:
@@ -118,9 +116,6 @@ def check_implausible(r):
     """Contradictions between two answers in the same report."""
     out = []
     dur = DURATION_WEEKS.get(r["duration"])
-    st = STOPPED_WEEKS.get(r["status"])
-    if dur and st and not overlaps(dur, st):
-        out.append(f"duration {r['duration']} cannot contain status {r['status']}")
     effects = json.loads(r["adverse_effects"])
     stopped = r["status"] != "still-taking"
     for e in effects:
@@ -135,14 +130,6 @@ def check_implausible(r):
         out.append("stopped for side effects but reported none")
     if any(e["id"] == "no-effect" for e in effects) and r["outcome"] in ("moderate", "large"):
         out.append(f"'no noticeable effect at all' with outcome {r['outcome']}")
-    s, c = band_index(r["start_dose"]), band_index(r["current_dose"])
-    if s is not None and c is not None:
-        if r["titration"] == "no-change" and s != c:
-            out.append("titration no-change but dose bands differ")
-        if r["titration"] == "stepped-up" and c < s:
-            out.append("stepped-up but current band below start")
-        if r["titration"] == "stepped-down" and c > s:
-            out.append("stepped-down but current band above start")
     return out
 
 
@@ -163,18 +150,24 @@ def check_duplicates(rows, min_identical=5):
     return out
 
 
-def check_coordinated(rows, min_day=20, ratio=5.0):
+def check_coordinated(rows, min_day=20, ratio=5.0, since=None):
     """A day on which one compound's reports exceed both a floor and a multiple of that
-    compound's median daily count over the previous four weeks."""
+    compound's median daily count over the previous four weeks. The baseline is computed over
+    every row it is given (pass the whole store); `since` only limits which days are reported.
+    Days before the store's first report are unknown, not zero, so the first 28 days after that
+    are never flagged on the median rule."""
     per = defaultdict(Counter)   # compound -> day -> n
     for r in rows:
         per[r["compound"]][r["received_day"]] += 1
+    first = min((r["received_day"] for r in rows), default=None)
     out, patterns = [], []
     for comp, days in per.items():
         for day, n in days.items():
-            if n < min_day:
+            if n < min_day or (since and day < since):
                 continue
             d = dt.date.fromisoformat(day)
+            if first and (d - dt.date.fromisoformat(first)).days < 28:
+                continue
             prev = [days.get((d - dt.timedelta(days=i)).isoformat(), 0) for i in range(1, 29)]
             med = sorted(prev)[len(prev) // 2]
             if n >= max(min_day, ratio * max(med, 1)):
@@ -193,6 +186,7 @@ def scan(args):
     rows, leaves = load_rows(con), load_leaves(con)
     attach_leaf_idx(rows, leaves)
     already = {x["leaf_idx"] for x in load_exclusions(con)}
+    all_rows = rows
     if args.since:
         rows = [r for r in rows if r["received_day"] >= args.since]
     cands = {}
@@ -212,7 +206,7 @@ def scan(args):
             add(r, "implausible", "contradiction", ev)
     for r, ev in check_duplicates(rows):
         add(r, "duplicate-pattern", "identical-same-day", ev)
-    coord, patterns = check_coordinated(rows)
+    coord, patterns = check_coordinated(all_rows, since=args.since)
     for r, ev in coord:
         add(r, "coordinated", "daily-burst", ev)
 

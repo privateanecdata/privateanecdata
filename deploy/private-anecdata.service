@@ -11,8 +11,15 @@ Environment=NODE_ENV=production
 Environment=HOST=127.0.0.1
 Environment=PORT=4321
 Environment=PA_DB_PATH=/srv/private-anecdata/data/reports.db
+Environment=PA_CONTACT_DB_PATH=/srv/private-anecdata/data/contact.db
 Environment=PA_RELEASES_DIR=/srv/private-anecdata/releases
-Environment=PA_HOST=example.org
+# Contact form: messages are stored in data/contact.db and, when PA_CONTACT_TO is set, forwarded
+# over SMTP to the relay at PA_SMTP (postfix on loopback). The address is never rendered on the site.
+# Set PA_CONTACT_TO and PA_CONTACT_FROM before enabling the unit.
+Environment=PA_CONTACT_TO=
+Environment=PA_CONTACT_FROM=no-reply@privateanecdata.org
+Environment=PA_SMTP=127.0.0.1:25
+# PA_HOST is a BUILD-time value (see deploy/README.md step 2); setting it here does nothing.
 ExecStart=/usr/bin/node dist/server/entry.mjs
 Restart=on-failure
 RestartSec=3

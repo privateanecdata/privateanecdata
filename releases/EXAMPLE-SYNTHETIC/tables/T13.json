@@ -1,0 +1,150 @@
+{
+ "table": "T13",
+ "title": "Demographics",
+ "release": "EXAMPLE-SYNTHETIC",
+ "data": {
+  "n": 1500,
+  "age_band": {
+   "n": 1500,
+   "percent": true,
+   "cells": [
+    {
+     "id": "18-24",
+     "label": "18–24",
+     "count": 119,
+     "pct": 7.9,
+     "ci95": [
+      6.7,
+      9.4
+     ]
+    },
+    {
+     "id": "25-34",
+     "label": "25–34",
+     "count": 376,
+     "pct": 25.1,
+     "ci95": [
+      22.9,
+      27.3
+     ]
+    },
+    {
+     "id": "35-44",
+     "label": "35–44",
+     "count": 444,
+     "pct": 29.6,
+     "ci95": [
+      27.3,
+      32.0
+     ]
+    },
+    {
+     "id": "45-54",
+     "label": "45–54",
+     "count": 264,
+     "pct": 17.6,
+     "ci95": [
+      15.8,
+      19.6
+     ]
+    },
+    {
+     "id": "55-64",
+     "label": "55–64",
+     "count": 119,
+     "pct": 7.9,
+     "ci95": [
+      6.7,
+      9.4
+     ]
+    },
+    {
+     "id": "65+",
+     "label": "65 or over",
+     "count": 37,
+     "pct": 2.5,
+     "ci95": [
+      1.8,
+      3.4
+     ]
+    },
+    {
+     "id": "declined",
+     "label": "Preferred not to say",
+     "count": 141,
+     "pct": 9.4,
+     "ci95": [
+      8.0,
+      11.0
+     ]
+    }
+   ]
+  },
+  "sex": {
+   "n": 1500,
+   "percent": true,
+   "cells": [
+    {
+     "id": "female",
+     "label": "Female",
+     "count": 457,
+     "pct": 30.5,
+     "ci95": [
+      28.2,
+      32.8
+     ]
+    },
+    {
+     "id": "male",
+     "label": "Male",
+     "count": 784,
+     "pct": 52.3,
+     "ci95": [
+      49.7,
+      54.8
+     ]
+    },
+    {
+     "id": "intersex",
+     "label": "Intersex",
+     "count": 13,
+     "pct": 0.9,
+     "ci95": [
+      0.5,
+      1.5
+     ]
+    },
+    {
+     "id": "nonbinary",
+     "label": "Non-binary",
+     "count": 27,
+     "pct": 1.8,
+     "ci95": [
+      1.2,
+      2.6
+     ]
+    },
+    {
+     "id": "prefer-not",
+     "label": "Prefer not to say",
+     "count": 70,
+     "pct": 4.7,
+     "ci95": [
+      3.7,
+      5.9
+     ]
+    },
+    {
+     "id": "declined",
+     "label": "Preferred not to say",
+     "count": 149,
+     "pct": 9.9,
+     "ci95": [
+      8.5,
+      11.6
+     ]
+    }
+   ]
+  }
+ }
+}

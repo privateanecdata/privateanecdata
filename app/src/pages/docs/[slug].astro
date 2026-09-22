@@ -1,14 +1,17 @@
 ---
 import Base from '../../layouts/Base.astro';
+import Toc from '../../components/Toc.astro';
 import { getEntry, render } from 'astro:content';
 const { slug } = Astro.params;
 const spec = ['schema', 'release-spec'];
 const entry = spec.includes(slug!) ? await getEntry('spec', slug!) : await getEntry('docs', slug!);
 if (!entry) return new Response(null, { status: 404 });
 const { Content } = await render(entry);
-const title = (entry.body ?? '').match(/^#\s+(.+)$/m)?.[1] ?? slug;
+const title = String(entry.data.title ?? slug);
 ---
 <Base title={title!}>
+  <h1>{title}</h1>
+  <Toc items={(entry.data.toc as { id: string; text: string }[]) ?? []} />
   <article class="doc">
     <Content />
   </article>

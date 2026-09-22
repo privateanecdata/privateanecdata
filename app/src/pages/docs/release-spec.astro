@@ -1,0 +1,37 @@
+---
+// One page: the short version (what is published, how we count, what it does not prove, how to
+// verify), then the full release specification — the frozen document release.json hashes — and
+// the list of analyses we will never run. Fragment links from the summary land inside the folds.
+import Base from '../../layouts/Base.astro';
+import Toc from '../../components/Toc.astro';
+import { getEntry, render } from 'astro:content';
+
+const summary = await getEntry('docs', 'release-spec-summary');
+const spec = await getEntry('spec', 'release-spec');
+const never = await getEntry('docs', 'analyses-we-will-never-run');
+if (!summary || !spec || !never) return new Response(null, { status: 404 });
+const { Content: Summary } = await render(summary);
+const toc = [...((summary.data.toc as { id: string; text: string }[]) ?? []), { id: 'full-spec', text: 'Release spec (full text)' }, { id: 'never-run', text: 'Analyses we will never run' }];
+const body = (e: { data: Record<string, unknown> }) => String(e.data.plainHtml ?? '');
+---
+<Base title="Release spec">
+  <h1>Release spec</h1>
+  <Toc items={toc} />
+  <article class="doc">
+    <Summary />
+  </article>
+
+  <details class="sec">
+    <summary><h2>Release spec</h2><span class="kicker">The full specification: every table that will ever be published and the rule for every cell. Fixed before the first report; changed only by witnessed amendment.</span></summary>
+    <div class="sec-body"><span id="full-spec" class="anchor"></span>
+      <article class="doc" set:html={body(spec)} />
+    </div>
+  </details>
+
+  <details class="sec">
+    <summary><h2>Analyses we will never run</h2><span class="kicker">Rankings, comparisons, rates, causal language, individualized output — the list of refusals.</span></summary>
+    <div class="sec-body"><span id="never-run" class="anchor"></span>
+      <article class="doc" set:html={body(never)} />
+    </div>
+  </details>
+</Base>

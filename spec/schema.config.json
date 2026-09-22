@@ -1167,22 +1167,6 @@
     0.02
    ]
   },
-  "titration": {
-   "options": [
-    "no-change",
-    "stepped-up",
-    "stepped-down",
-    "cycled",
-    "other"
-   ],
-   "skew": [
-    0.45,
-    0.35,
-    0.08,
-    0.1,
-    0.02
-   ]
-  },
   "duration": {
    "options": [
     "under-2wk",
@@ -1217,40 +1201,16 @@
     0.08
    ]
   },
-  "reconstitution": {
-   "options": [
-    "bac-water-refrigerated",
-    "bac-water-room-temp",
-    "sterile-water",
-    "pre-mixed-or-pen",
-    "no-reconstitution",
-    "other"
-   ],
-   "skew": [
-    0.5,
-    0.08,
-    0.07,
-    0.15,
-    0.18,
-    0.02
-   ]
-  },
   "status": {
    "options": [
     "still-taking",
-    "stopped-under-2wk",
-    "stopped-2-6wk",
-    "stopped-6-12wk",
-    "stopped-over-12wk",
-    "completed-planned-course"
+    "completed-planned-course",
+    "stopped"
    ],
    "skew": [
     0.45,
-    0.08,
-    0.12,
-    0.12,
-    0.08,
-    0.15
+    0.15,
+    0.4
    ]
   },
   "stop_reason": {
@@ -1295,14 +1255,18 @@
   },
   "sex": {
    "options": [
-    "male",
     "female",
+    "male",
+    "intersex",
+    "nonbinary",
     "prefer-not"
    ],
    "skew": [
-    0.62,
-    0.33,
-    0.05
+    0.34,
+    0.56,
+    0.01,
+    0.02,
+    0.07
    ]
   },
   "outcome_scale": {
@@ -1374,11 +1338,9 @@
    "goals",
    "start_dose",
    "current_dose",
-   "titration",
    "source_channel",
    "duration",
    "purity_tested",
-   "reconstitution",
    "status",
    "stop_reason",
    "adverse_effects",

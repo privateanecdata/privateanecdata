@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /contribute
+Disallow: /contact
+Sitemap: https://privateanecdata.org/sitemap.xml

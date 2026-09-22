@@ -2,6 +2,9 @@
 import '../styles/global.css';
 interface Props { title: string; description?: string; }
 const { title, description } = Astro.props;
+const noindex = import.meta.env.PA_NOINDEX === '1' || Astro.url.pathname.startsWith('/contribute') || Astro.url.pathname.startsWith('/contact');
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).toString();
+const desc = description ?? 'Structured, identifier-free reports of what people experience when they take peptides, published as honest counts.';
 ---
 <!doctype html>
 <html lang="en">
@@ -9,27 +12,36 @@ const { title, description } = Astro.props;
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="referrer" content="same-origin">
-  <meta name="robots" content="noindex">
+  {noindex && <meta name="robots" content="noindex">}
   <title>{title} · Private Anecdata</title>
-  {description && <meta name="description" content={description}>}
+  <meta name="description" content={desc}>
+  <link rel="canonical" href={canonical}>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Private Anecdata">
+  <meta property="og:title" content={title === 'Private Anecdata' ? title : `${title} · Private Anecdata`}>
+  <meta property="og:description" content={desc}>
+  <meta property="og:url" content={canonical}>
+  <meta name="twitter:card" content="summary">
 </head>
 <body>
   <div class="site">
     <header class="site-header">
-      <a class="brand" href="/">Private Anecdata</a>
+      <a class="brand" href="/"><span class="mark" aria-hidden="true"></span>Private Anecdata</a>
       <nav aria-label="Site">
         <a href="/contribute">Contribute</a>
         <a href="/data">Data</a>
-        <a href="/docs/what-we-cannot-protect-you-from">Limits</a>
+        <a href="/docs/privacy-protocol">Privacy</a>
         <a href="/docs">Methodology</a>
+        <a href="/contact">Contact</a>
+        <a href="/legal">Legal</a>
       </nav>
     </header>
     <main>
       <slot />
     </main>
     <footer class="site-footer">
-      <p>This page loads nothing from anyone but us. No analytics, no fonts, no scripts. Your browser's network panel should show one host.</p>
-      <p>Self-reported, unverified, and not evidence that anything works or is safe. <a href="/docs/what-we-cannot-protect-you-from">What we cannot protect you from</a> · <a href="/docs/legal-process">Legal process</a> · <a href="/docs/subprocessors">Subprocessors</a></p>
+      <p>Self-reported, unverified, and not evidence that anything works or is safe.</p>
+      <p><a href="/contribute">Contribute</a> · <a href="/data">Data</a> · <a href="/docs/privacy-protocol">Privacy</a> · <a href="/docs">Methodology</a> · <a href="/contact">Contact</a> · <a href="/legal">Legal</a></p>
     </footer>
   </div>
 </body>

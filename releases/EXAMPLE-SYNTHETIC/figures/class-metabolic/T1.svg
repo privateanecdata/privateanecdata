@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="278" viewBox="0 0 760 278" role="img">
+<rect width="760" height="278" fill="#FFFFFF"/>
+<text x="28" y="36" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="17" fill="#1A1A1A" text-anchor="start" font-weight="600">Metabolic / longevity — route</text>
+<text x="28" y="56" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#5F6B6A" text-anchor="start" font-weight="normal">114 reports on Metabolic / longevity. Counts. A cell under 5, and one neighbour that would reveal it, are</text>
+<text x="28" y="71" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#5F6B6A" text-anchor="start" font-weight="normal">“not shown”.</text>
+<text x="28" y="125" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="start" font-weight="normal">Subcutaneous injection</text>
+<rect x="278" y="115" width="152.0" height="12" fill="#1F6F6B"/>
+<text x="732" y="125" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="end" font-weight="normal">57</text>
+<text x="28" y="151" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="start" font-weight="normal">Oral / sublingual / troche</text>
+<rect x="278" y="141" width="82.7" height="12" fill="#1F6F6B"/>
+<text x="732" y="151" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="end" font-weight="normal">31</text>
+<text x="28" y="177" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="start" font-weight="normal">Intramuscular injection</text>
+<rect x="278" y="167" width="34.7" height="12" fill="#1F6F6B"/>
+<text x="732" y="177" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="end" font-weight="normal">13</text>
+<text x="28" y="203" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="start" font-weight="normal">Intravenous (clinic)</text>
+<rect x="278" y="193" width="18.7" height="12" fill="#1F6F6B"/>
+<text x="732" y="203" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="end" font-weight="normal">7</text>
+<text x="28" y="229" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="start" font-weight="normal">Nasal spray / drops</text>
+<rect x="278" y="219" width="16.0" height="12" fill="#1F6F6B"/>
+<text x="732" y="229" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="12" fill="#1A1A1A" text-anchor="end" font-weight="normal">6</text>
+<line x1="28" y1="246" x2="732" y2="246" stroke="#D8DEDD" stroke-width="1"/>
+<text x="28" y="264" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11" fill="#5F6B6A" text-anchor="start" font-weight="normal">Self-reported. Not evidence of effectiveness or safety. See methodology.</text>
+<text x="732" y="264" font-family="system-ui, -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" font-size="11" fill="#5F6B6A" text-anchor="end" font-weight="normal">Private Anecdata · EXAMPLE-SYNTHETIC · n = 114</text>
+</svg>

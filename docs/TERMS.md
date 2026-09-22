@@ -1,14 +1,16 @@
 # Terms
 
-**Version 0.1 — draft, pre-launch. Not yet effective.** Bracketed items are to be completed at
-formation. Plain language throughout; where a term has a legal function, the function is stated.
+**Version 1.0 — effective 22 September 2026.** Plain language throughout; where a term has a legal
+function, the function is stated.
 
 ## 1. Agreement
 
-These terms are a contract between you and [Private Anecdata LLC], an Oregon limited liability
-company ("we"). You agree to them in one of two ways: by pressing **Submit** on the final screen
-of the report form, which tells you in the same box that pressing it means agreement; or by
-using anything we publish. If you do not agree, do not submit a report and do not use the
+These terms are a contract between you and the operator of Private Anecdata ("we") — at present
+an individual in Oregon, United States, to be named in the [Privacy](PRIVACY.md) statement when
+the project incorporates. You agree to them in
+one of two ways: by pressing **Agree and submit** on the
+final screen of the report form, which says in the same box that pressing it means agreement to
+these terms; or by using anything we publish. If you do not agree, do not submit a report and do not use the
 published releases. Nothing else on the site — reading it, or filling in the form without
 submitting — creates any agreement or any record.
 
@@ -32,8 +34,8 @@ You may submit a report if all of the following are true:
 You may report on more than one compound. Report each course of one compound once.
 
 **Submission is final.** A report is not linked to you, we hold nothing that could link it, and
-we cannot find, change or delete it afterwards. The form says so in the box next to the Submit
-button. You receive no receipt and no reference number, on purpose — any such thing would be a
+we cannot find, change or delete it afterwards. The form says so in the box next to the
+**Agree and submit** button. You receive no receipt and no reference number, on purpose — any such thing would be a
 link.
 
 **We may exclude a report from the published statistics** if it fails validation or if the
@@ -53,7 +55,10 @@ This section is the reason the project exists, and it is written to survive us.
    researchers, academic or commercial; it includes any buyer, successor, assignee, creditor,
    trustee or receiver in a sale, merger, reorganisation, insolvency or wind-down; and it
    includes us in any future form. If the project ends, the store is destroyed under the
-   published [shutdown protocol](SHUTDOWN.md), not transferred.
+   published [shutdown protocol](SHUTDOWN.md), not transferred. The one thing this promise cannot
+   cover is valid legal process, which could compel production of the store; what that would and
+   would not obtain is stated in [Legal process](LEGAL-PROCESS.md), and nothing in the store
+   identifies anyone.
 2. **We will not attempt to re-identify anyone**, and we will not permit anyone else to. See
    [Privacy](PRIVACY.md).
 3. **We publish only what the release specification allows**, and change it only by the
@@ -83,16 +88,18 @@ redistributed and built upon on these conditions:
 - **No misrepresentation.** Present published numbers as what they are: self-reported, unverified
   counts, not evidence of effectiveness or safety.
 
-[License: releases are offered under [CC BY 4.0], with the three conditions above as additional
-terms of use; documents under [CC BY 4.0]; code under [MIT / Apache-2.0]. Confirm before launch.]
+Those four conditions are the licence for the releases: we grant everyone a free, worldwide,
+non-exclusive right to copy, redistribute and build upon them on those conditions and no others.
+The documents on this site are offered under the Creative Commons Attribution 4.0 licence
+(CC BY 4.0). The site's code is offered under the MIT licence.
 
 ## 6. What this is not
 
 Nothing on this site is medical advice, a recommendation to use, obtain, or avoid any compound,
-a statement that any compound works or is safe, or a statement about the legal status of any
-compound in any place. The compounds reported here include substances that are not approved for
-human use, that are prohibited in sport, that are illegal to sell for human use in many places,
-and for which there is little or no human evidence. Reports are self-reported and unverified. The
+a statement that any compound works or is safe, or a statement about the legal, regulatory, or
+anti-doping status of any compound in any place — we make none, anywhere on this site. Many of
+the compounds reported here have little or no published human evidence, and some have no
+approval for human use from any regulator. Reports are self-reported and unverified. The
 counts we publish are counts of what people said, not measurements of what happened.
 
 Anecdotal evidence, including consumer-experience surveys, is never sufficient to substantiate a
@@ -115,13 +122,13 @@ record that would let us identify who did.
 The site and everything published on it are provided as they are, without warranty of any kind.
 To the fullest extent the law allows, we are not liable for any loss or harm arising from use of
 the site or reliance on anything published on it, including any decision about any compound. If
-liability cannot be excluded, it is limited to [one hundred US dollars]. Nothing in these terms
+liability cannot be excluded, it is limited to one hundred US dollars. Nothing in these terms
 limits liability that cannot be limited by law.
 
 ## 9. Law and disputes
 
 Oregon law governs these terms, without regard to conflict-of-laws rules. Any dispute is brought
-in the state or federal courts sitting in [Multnomah County], Oregon, and you consent to their
+in the state or federal courts sitting in Multnomah County, Oregon, and you consent to their
 jurisdiction. Nothing in this section prevents a contributor from enforcing section 4 wherever we
 or a successor can be found.
 
@@ -141,5 +148,5 @@ enforcing a term is not a waiver of it. You may not assign these terms; we may a
 a successor that assumes section 4 in full, and section 4 binds any successor whether or not it
 does.
 
-Contact: [contact@privateanecdata.org]. Please do not describe your report in a message to us; see
+Contact: the [contact page](/contact). Please do not describe your report in a message to us; see
 [Privacy](PRIVACY.md#what-we-cannot-do).

@@ -26,8 +26,8 @@ SCHEMA_SQL = """
 CREATE TABLE IF NOT EXISTS reports (
   rowid INTEGER PRIMARY KEY, received_day TEXT NOT NULL, schema_version TEXT NOT NULL,
   compound TEXT NOT NULL, route TEXT NOT NULL, goal TEXT, source_channel TEXT NOT NULL,
-  start_dose TEXT, current_dose TEXT, frequency TEXT NOT NULL, titration TEXT NOT NULL,
-  duration TEXT NOT NULL, purity_tested TEXT NOT NULL, reconstitution TEXT NOT NULL,
+  start_dose TEXT, current_dose TEXT, frequency TEXT NOT NULL,
+  duration TEXT NOT NULL, purity_tested TEXT NOT NULL,
   status TEXT NOT NULL, stop_reason TEXT, outcome TEXT, adverse_effects TEXT NOT NULL,
   age_band TEXT, sex TEXT, salt BLOB NOT NULL);
 CREATE TABLE IF NOT EXISTS merkle_leaves (idx INTEGER PRIMARY KEY AUTOINCREMENT, leaf BLOB NOT NULL);
@@ -50,11 +50,14 @@ def ids(opts):
     return [o["id"] for o in opts]
 
 
-def gen_row(rng, tax, day):
+def gen_row(rng, tax, day, compound=None, goal=None):
     sh = tax["shared"]
     compounds = tax["compounds"]
     # Compound popularity: Zipf over a shuffled-but-seeded order so the skew is stable per seed.
-    c = pick(rng, compounds, zipf(len(compounds), 0.9)) if rng.random() > 0.02 else None
+    if compound:
+        c = next(x for x in compounds if x["id"] == compound)
+    else:
+        c = pick(rng, compounds, zipf(len(compounds), 0.9)) if rng.random() > 0.02 else None
     if c is None:
         # "Other (not listed)": counted, never broken out.
         route = pick(rng, ids(tax["routes"]))
@@ -67,7 +70,7 @@ def gen_row(rng, tax, day):
         start = rng.choices(range(nb), weights=[max(1, 4 - abs(i - nb // 3)) for i in range(nb)])[0] if nb else None
         row = dict(
             compound=c["id"], route=route,
-            goal=pick(rng, c["goals"] + ["other"], zipf(len(c["goals"]) + 1, 1.0)),
+            goal=goal if goal in c["goals"] else pick(rng, c["goals"] + ["other"], zipf(len(c["goals"]) + 1, 1.0)),
             start_dose=f"b{start}" if nb else None,
             current_dose=None,
             frequency=pick(rng, c["frequency"] + ["other"], zipf(len(c["frequency"]) + 1, 1.0)),
@@ -78,32 +81,16 @@ def gen_row(rng, tax, day):
         inj = route in ("subcutaneous", "intramuscular", "intravenous")
         uni = [a for a in uni if (a != "injection-site" or inj) and (a != "nasal-irritation" or route == "intranasal")]
         ae_pool = uni + own
-    # Titration consistent with dose change.
+    # Current dose: most stay put, some step up, a few step down.
     if row["start_dose"] is not None:
         s = int(row["start_dose"][1:])
-        t = pick(rng, ["no-change", "stepped-up", "stepped-down", "cycled", "other"], [0.5, 0.3, 0.08, 0.08, 0.04])
-        if t == "stepped-up":
-            cur = min(nb - 1, s + rng.choice([1, 1, 2]))
-        elif t == "stepped-down":
-            cur = max(0, s - 1)
-        else:
-            cur = s
-        row["titration"], row["current_dose"] = t, f"b{cur}"
-    else:
-        row["titration"] = pick(rng, ids(sh["titration"]))
+        move = pick(rng, [0, 1, 2, -1], [0.55, 0.28, 0.07, 0.10])
+        row["current_dose"] = f"b{min(nb - 1, max(0, s + move))}"
     row["source_channel"] = pick(rng, ids(sh["sourceChannel"]), [0.05, 0.15, 0.2, 0.3, 0.2, 0.05, 0.03, 0.02])
     row["duration"] = pick(rng, ids(sh["duration"]), [0.1, 0.2, 0.3, 0.2, 0.12, 0.08])
     row["purity_tested"] = pick(rng, ids(sh["purityTested"]), [0.7, 0.15, 0.05, 0.05, 0.05])
-    row["reconstitution"] = pick(rng, ids(sh["reconstitution"]), [0.5, 0.1, 0.1, 0.15, 0.1, 0.05])
-    # Status consistent with duration: a stopped bucket must overlap the total duration.
     dur_wk = {"under-2wk": (0, 2), "2-4wk": (2, 4), "1-3mo": (4, 13), "3-6mo": (13, 26), "6-12mo": (26, 52), "over-12mo": (52, 999)}[row["duration"]]
-    stop_wk = {"stopped-under-2wk": (0, 2), "stopped-2-6wk": (2, 6), "stopped-6-12wk": (6, 12), "stopped-over-12wk": (12, 999)}
-    kind = pick(rng, ["still-taking", "completed-planned-course", "stopped"], [0.4, 0.15, 0.45])
-    if kind == "stopped":
-        ok = [s for s, w in stop_wk.items() if w[0] <= dur_wk[1] and dur_wk[0] <= w[1]]
-        row["status"] = pick(rng, ok)
-    else:
-        row["status"] = kind
+    row["status"] = pick(rng, ["still-taking", "completed-planned-course", "stopped"], [0.4, 0.15, 0.45])
     # Adverse effects: 45% none; otherwise 1–3 from the pool, each with onset and dechallenge
     # consistent with duration and status.
     effects = []
@@ -116,7 +103,7 @@ def gen_row(rng, tax, day):
             onsets = [o for o, lo in {"first-days": 0, "first-2wk": 0, "2-6wk": 2, "after-6wk": 6, "unsure": 0}.items() if lo <= dur_wk[1]]
             effects.append({"id": aid, "onset": pick(rng, onsets), "dechallenge": dech})
     row["adverse_effects"] = json.dumps(effects, separators=(",", ":"))
-    if row["status"].startswith("stopped-"):
+    if row["status"] == "stopped":
         reasons, w = ids(sh["stopReason"]), [0.25, 0.3, 0.15, 0.1, 0.1, 0.05, 0.05]
         if not effects:
             w = [x if r != "adverse-effect" else 0 for r, x in zip(reasons, w)]
@@ -124,7 +111,7 @@ def gen_row(rng, tax, day):
     else:
         row["stop_reason"] = None
     row["age_band"] = pick(rng, ids(sh["ageBand"]) + [None], [0.08, 0.25, 0.28, 0.18, 0.08, 0.03, 0.1])
-    row["sex"] = pick(rng, ids(sh["sex"]) + [None], [0.55, 0.3, 0.05, 0.1])
+    row["sex"] = pick(rng, ids(sh["sex"]) + [None], [0.30, 0.52, 0.01, 0.02, 0.05, 0.10])
     row["received_day"] = day
     row["schema_version"] = tax["version"]
     return {k: row[k] for k in ROW_FIELDS}
@@ -150,6 +137,8 @@ def main():
     ap.add_argument("--day", help="single received_day for all rows (default: spread over 90 days ending today)")
     ap.add_argument("--taxonomy", default=TAX)
     ap.add_argument("--contradictions", type=int, default=0, help="deliberately break a rule in this many rows (detector test)")
+    ap.add_argument("--compound", help="put every generated row on this compound id (update-floor tests)")
+    ap.add_argument("--goal", help="with --compound: give every generated row this goal id")
     args = ap.parse_args()
 
     tax = json.load(open(args.taxonomy))
@@ -168,9 +157,10 @@ def main():
     end = dt.date.today()
     for i in range(args.n):
         day = args.day or (end - dt.timedelta(days=int(rng.betavariate(1.2, 2.5) * 90))).isoformat()
-        row = gen_row(rng, tax, day)
+        row = gen_row(rng, tax, day, args.compound, args.goal)
         if i < args.contradictions:
-            row["duration"], row["status"], row["stop_reason"] = "under-2wk", "stopped-over-12wk", "cost"
+            row["duration"] = "under-2wk"
+            row["adverse_effects"] = json.dumps([{"id": "headache", "onset": "after-6wk", "dechallenge": "unsure"}], separators=(",", ":"))
         insert(con, rng, row)
     n = con.execute("SELECT COUNT(*) FROM reports").fetchone()[0]
     print(f"{args.db}: {n} rows, {con.execute('SELECT COUNT(*) FROM merkle_leaves').fetchone()[0]} leaves")

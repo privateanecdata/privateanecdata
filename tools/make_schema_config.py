@@ -26,10 +26,6 @@ shared = OrderedDict([
                     "domestic-rc-vendor", "overseas-vendor", "another-person", "unknown", "other"],
         "skew": [0.04, 0.10, 0.14, 0.42, 0.20, 0.05, 0.03, 0.02],
     }),
-    ("titration", {
-        "options": ["no-change", "stepped-up", "stepped-down", "cycled", "other"],
-        "skew": [0.45, 0.35, 0.08, 0.10, 0.02],
-    }),
     ("duration", {
         "options": ["under-2wk", "2-4wk", "1-3mo", "3-6mo", "6-12mo", "over-12mo"],
         "skew": [0.08, 0.18, 0.34, 0.22, 0.12, 0.06],
@@ -38,15 +34,9 @@ shared = OrderedDict([
         "options": ["no", "yes-matched", "yes-did-not-match", "yes-unsure", "dont-know"],
         "skew": [0.70, 0.15, 0.04, 0.03, 0.08],
     }),
-    ("reconstitution", {
-        "options": ["bac-water-refrigerated", "bac-water-room-temp", "sterile-water",
-                    "pre-mixed-or-pen", "no-reconstitution", "other"],
-        "skew": [0.50, 0.08, 0.07, 0.15, 0.18, 0.02],
-    }),
     ("status", {
-        "options": ["still-taking", "stopped-under-2wk", "stopped-2-6wk", "stopped-6-12wk",
-                    "stopped-over-12wk", "completed-planned-course"],
-        "skew": [0.45, 0.08, 0.12, 0.12, 0.08, 0.15],
+        "options": ["still-taking", "completed-planned-course", "stopped"],
+        "skew": [0.45, 0.15, 0.40],
     }),
     ("stop_reason", {
         "options": ["n/a-still-taking", "achieved-goal", "no-effect", "adverse-effect",
@@ -58,8 +48,8 @@ shared = OrderedDict([
         "skew": [0.08, 0.30, 0.32, 0.18, 0.09, 0.03],
     }),
     ("sex", {
-        "options": ["male", "female", "prefer-not"],
-        "skew": [0.62, 0.33, 0.05],
+        "options": ["female", "male", "intersex", "nonbinary", "prefer-not"],
+        "skew": [0.34, 0.56, 0.01, 0.02, 0.07],
     }),
     ("outcome_scale", {
         "options": ["no-change", "slight", "moderate", "large"],
@@ -86,8 +76,8 @@ config = OrderedDict([
         ("plausible-post-no-dose", ["compound", "age_band", "sex", "goals"]),
         ("demographics-only", ["compound", "age_band", "sex"]),
         # everything the row holds
-        ("broad",             ["compound", "age_band", "sex", "goals", "start_dose", "current_dose", "titration",
-                               "source_channel", "duration", "purity_tested", "reconstitution", "status",
+        ("broad",             ["compound", "age_band", "sex", "goals", "start_dose", "current_dose",
+                               "source_channel", "duration", "purity_tested", "status",
                                "stop_reason", "adverse_effects", "outcomes"]),
     ])),
 ])

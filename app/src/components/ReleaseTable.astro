@@ -8,7 +8,7 @@ type Row = { label: string; n: number | null; display?: string; percent?: boolea
 interface Props { title: string; src?: string; oneWay?: OneWay; grid?: { columns: string[]; rows: Row[] }; }
 const { title, src, oneWay, grid } = Astro.props;
 const fmt = (c: Cell, percent?: boolean) =>
-  c.count === null ? (c.display ?? 'fewer than 5') : percent && c.pct !== undefined ? `${c.pct.toFixed(1)}% (${c.ci95![0].toFixed(0)}–${c.ci95![1].toFixed(0)}) · ${c.count}` : String(c.count);
+  c.count === null ? (c.display ?? 'not shown') : percent && c.pct !== undefined ? `${c.pct.toFixed(1)}% (${c.ci95![0].toFixed(0)}–${c.ci95![1].toFixed(0)}) · ${c.count}` : String(c.count);
 ---
 <figure class="rt">
   {src && <img src={src} alt={`${title} — the same numbers are in the table below`} loading="lazy" width="760" />}
@@ -37,6 +37,6 @@ const fmt = (c: Cell, percent?: boolean) =>
         </table>
       )}
     </div>
-    <p class="muted small">Self-reported. Not evidence of effectiveness or safety. "Fewer than 5" is a suppressed cell.</p>
+    <p class="muted small">Self-reported. Not evidence of effectiveness or safety. "Not shown" is a hidden cell: under 5 reports, or the one neighbour hidden with it.</p>
   </details>
 </figure>

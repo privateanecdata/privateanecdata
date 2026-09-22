@@ -2,41 +2,50 @@
 import Base from '../layouts/Base.astro';
 import { listReleases } from '../lib/releases';
 const releases = listReleases();
-const latest = releases[0];
+const real = releases.filter((r) => !r.synthetic);
+const latest = real[0];
+const example = releases.find((r) => r.synthetic);
 const tiers = [
-  ['under 10', 'Nothing under the compound\'s name. Counted inside its mechanism class.'],
-  ['10', 'Report count. Route and source channel, as counts.'],
-  ['50', 'What people took it for, dose ranges, frequency, duration, purity testing, handling, adverse effects, status — as counts.'],
-  ['100', 'Outcome by goal: of the people who took it hoping for X, how many reported no change / slight / moderate / large.'],
-  ['200', 'Percentages with intervals on everything above. When each effect started and whether it resolved.'],
-  ['1,000', 'The one cross-compound view: outcome by goal, side by side, stratified, never pooled or ranked.'],
+  ['under 5', 'Any group this small is not shown, in any table.'],
+  ['under 10', 'Nothing for that specific compound. Its reports are counted together with the other compounds in the same class.'],
+  ['10+', 'Its report count, route of administration, and source type.'],
+  ['50+', 'Intended purpose, dose ranges, frequency, duration, purity testing, side effects, and whether people are still taking it, finished, or stopped early.'],
+  ['100+', 'Outcome by goal: of the people who took it hoping for X, how many reported no change, slight, moderate, or large improvement.'],
+  ['200+', 'When each side effect started and whether it stopped. Percentages (with 95% confidence intervals) added beside the counts for everything above.'],
+  ['1,000+', 'Outcome by goal shown side by side with other compounds used for the same goal.'],
 ];
 ---
-<Base title="Data">
-  <h1>What is published</h1>
+<Base title="Published data">
+  <h1>Published data</h1>
   {latest
-    ? <p class="lede">The latest release is <a href={`/releases/${latest.dir}`}>{latest.release}</a>, computed on {latest.date} from {latest.counts.committed.toLocaleString('en-US')} committed reports. What appears in it, and when, is fixed by the <a href="/docs/release-spec">release specification</a> — not by what the data turns out to say.</p>
-    : <p class="lede">Nothing yet. There have been no releases. What appears here, and when, is fixed by the <a href="/docs/release-spec">release specification</a> — not by what the data turns out to say.</p>}
+    ? <p>The latest release is <a href={`/releases/${latest.dir}`}>{latest.release}</a>, computed on {latest.date} from {latest.counts.committed.toLocaleString('en-US')} committed reports.</p>
+    : <p>Nothing yet. We have not collected enough reports to publish a release.</p>}
+  {!latest && example && (
+    <p>If you would like to see how future releases will be formatted, review this <a href={`/releases/${example.dir}`}>synthetic test data report</a> (<em>not real reports</em>).</p>
+  )}
 
-  <p class="muted">No count is shown between releases. Each release publishes the number of reports as of that date, with the Merkle root of the submission log, so the number is checkable and never a live signal of when someone submitted.</p>
+  <h2>Why nothing is published before a threshold</h2>
+  <p>Our <a href="/docs/privacy-protocol#release-specification">privacy protocol</a> sets report thresholds for what can be published about a compound. For example, for a compound with fewer than 50 reports, we publish only its count, route, and kind of source. Once that compound reaches 50 reports, we begin publishing intended purpose, dose ranges, frequency, duration, purity testing, side effects, and whether people are still taking it. The table below is the complete list of thresholds.</p>
 
-  <h2>How a compound earns its way onto this page</h2>
-  <p>More is published about a compound as more people report on it, so that the number of published figures never gets close to the number of people they are computed from. A compound with 23 reports shows a count and two distributions. A compound with 300 shows everything.</p>
+  <h2>Reporting thresholds for a specific compound</h2>
   <div class="ladder">
-    {tiers.map(([at, what], i) => (
-      <div class:list={['rung', { locked: true }]}>
-        <span class="n">{i === 0 ? at : `${at}+ reports`}</span>
+    {tiers.map(([at, what]) => (
+      <div class:list={['rung', { locked: !latest }]}>
+        <span class="n">{at.startsWith('under') ? at : `${at} reports`}</span>
         <span>{what}</span>
       </div>
     ))}
   </div>
-  <p>Every figure carries its denominator and, once percentages appear, a 95% interval — inside the image, so a screenshot cannot lose them. Cells with fewer than 5 reports are shown as "fewer than 5." Nothing is ever ranked. See <a href="/docs/analyses-we-will-never-run">analyses we will never run</a>.</p>
 
-  <h2>Releases</h2>
-  {releases.length === 0
-    ? <p class="muted">None yet. Each release will be listed here with its date, its signed tag, its transparency-log entry, and the Merkle root of the submission log at that moment.</p>
-    : <div class="release-list">
-        {releases.map((r) => <a href={`/releases/${r.dir}`}><span class="n">{r.release}</span><span>{r.date} · {r.counts.committed.toLocaleString('en-US')} committed · {r.counts.analyzed.toLocaleString('en-US')} analysed · root <code>{r.merkle.root.slice(0, 16)}…</code></span></a>)}
-      </div>}
-  <p class="muted">Every release can be checked without trusting us: <a href="/docs/how-to-verify">how to verify a release</a>.</p>
+  <h2>When and how we release reports</h2>
+  <p>Monthly for the first year, then quarterly, in accordance with our release spec. Tables update in batches of at least five reports, so that comparing two releases can never single out one person's answers. Read the <a href="/docs/release-spec">TL;DR and the full spec</a>.</p>
+
+  {real.length > 0 && (
+    <>
+      <h2>Releases</h2>
+      <div class="release-list">
+        {real.map((r) => <a href={`/releases/${r.dir}`}><span class="n">{r.release}</span><span>{r.date} · {r.counts.committed.toLocaleString('en-US')} committed · {r.counts.analyzed.toLocaleString('en-US')} analysed · root <code>{r.merkle.root.slice(0, 16)}…</code></span></a>)}
+      </div>
+    </>
+  )}
 </Base>

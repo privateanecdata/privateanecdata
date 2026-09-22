@@ -1,0 +1,127 @@
+---
+import Base from '../../../layouts/Base.astro';
+import { getRelease, readTable, figuresFor, witnessFiles, sectionsFor } from '../../../lib/releases';
+import { compoundsByClass, shared } from '../../../lib/taxonomy';
+import ReleaseTable from '../../../components/ReleaseTable.astro';
+
+const id = Astro.params.id!;
+const rel = getRelease(id);
+if (!rel) return new Response('Not found', { status: 404 });
+
+type Cell = { id: string; label: string; count: number | null; display?: string; tier?: number | null; class?: string | null };
+type T0 = { committed: number; excluded: { total: number; by_reason: Record<string, number> }; analyzed: number;
+  received_since_prior_release: number | null; per_class: Cell[]; per_compound: Cell[] };
+type T14 = { flagged_this_period: Record<string, number>; flagged_total: Record<string, number>; note: string };
+type T15 = { n: number; k_anonymity: { qi_set: string; qi_fields: string[]; unique_rows_pct: number; rows_in_cells_lt5_pct: number; median_cell_size: number }[] };
+
+const t0 = readTable<T0>(id, 'T0')!;
+const t14 = readTable<T14>(id, 'T14');
+const t15 = readTable<T15>(id, 'T15');
+const t9 = readTable<Record<string, { label: string }>>(id, 'T9') ?? {};
+const witness = witnessFiles(id);
+const base = `/releases/${id}`;
+const byCompound = new Map(t0.per_compound.map((c) => [c.id, c]));
+const byClass = new Map(t0.per_class.map((c) => [c.id, c]));
+const other = byCompound.get('other');
+const tierWord = ['fewer than 10 reports', 'count, route and source', 'all one-way tables', 'plus outcome by goal', 'plus percentages and effect timing', 'plus the cross-compound view'];
+const fig = (dir: string) => figuresFor(rel, dir).map((p) => `${base}/${p}`);
+const labels = { outcome: shared.outcome.map((o) => o.label), onset: shared.onset.map((o) => o.label), dechallenge: shared.dechallenge.map((o) => o.label) };
+const sections = (key: string, dir: string) => sectionsFor(rel, key, dir, labels);
+type OneWay = { n: number; percent: boolean; cells: any[] };
+const t6all = readTable<Record<string, OneWay>>(id, 'T6')?.overall;
+const t13 = readTable<{ n: number | null; age_band?: OneWay; sex?: OneWay }>(id, 'T13');
+const t9full = readTable<Record<string, { label: string; compounds: any[] }>>(id, 'T9') ?? {};
+---
+<Base title={`Release ${rel.release}`}>
+  {rel.synthetic && <div class="notice"><p><strong>Synthetic test data.</strong> This release was generated from a synthetic store to exercise the pipeline. Nothing in it is a report from a person.</p></div>}
+  <p class="eyebrow">Release</p>
+  <h1>{rel.release}</h1>
+  <p class="lede">Computed on {rel.date} from every report received to that date, under release specification v{rel.release_spec.version} and schema {rel.schema_version}.</p>
+
+  <div class="review">
+    <dl>
+      <dt>Reports committed</dt><dd>{t0.committed.toLocaleString('en-US')}</dd>
+      <dt>Excluded</dt><dd>{t0.excluded.total} ({Object.entries(t0.excluded.by_reason).filter(([, n]) => n).map(([k, n]) => `${k} ${n}`).join(', ') || 'none'}) — <a href={`${base}/exclusions.json`}>list</a></dd>
+      <dt>Analysed</dt><dd>{t0.analyzed.toLocaleString('en-US')}</dd>
+      {t0.received_since_prior_release !== null && <><dt>Since prior release</dt><dd>{t0.received_since_prior_release.toLocaleString('en-US')}</dd></>}
+      <dt>Merkle root</dt><dd><code>{rel.merkle.root}</code><br><span class="muted">over {rel.merkle.leaves.toLocaleString('en-US')} leaves — <a href={`${base}/${rel.merkle.leaves_file}`}>leaf list</a></span></dd>
+      <dt>Files</dt><dd><a href={`${base}/release.json`}>release.json</a> (hash of every file) · <a href="/docs/how-to-verify">how to verify</a></dd>
+      <dt>Witness</dt><dd>{witness.length ? witness.map((w) => <><a href={`${base}/witness/${w}`}>{w}</a> </>) : <span class="muted">not yet witnessed</span>}</dd>
+    </dl>
+  </div>
+
+  <div class="notice">
+    <p><strong>Read every figure with these in mind.</strong> The people who report here chose to; they are not a sample of anyone. They reported from memory, after the fact, knowing what they took and what they hoped for. Two vials sold under the same name can contain different things. Nothing here is a clinical trial, a rate, a comparison, or evidence that anything works or is safe. Where most people report no change, that is the most trustworthy number on the page — every bias above pushes the other way.</p>
+  </div>
+
+  <h2>Counts by compound</h2>
+  <p class="muted">Compounds appear in the fixed order of the schema, never ordered by any result. What is shown for each depends only on how many reports it has.</p>
+  {compoundsByClass.map((cls) => {
+    const cc = byClass.get(cls.id);
+    return (
+      <div class="table-wrap">
+        <table class="counts">
+          <caption>{cls.label} — {cc?.count !== null && cc?.count !== undefined ? `${cc.count} reports` : cc?.display}</caption>
+          <thead><tr><th>Compound</th><th>Reports</th><th>Shown</th></tr></thead>
+          <tbody>
+            {cls.compounds.map((c) => { const e = byCompound.get(c.id)!; return (
+              <tr>
+                <td>{e.count !== null ? <a href={`#${c.id}`}>{c.label}</a> : c.label}</td>
+                <td>{e.count !== null ? e.count : <span class="muted">{e.display}</span>}</td>
+                <td class="muted">{tierWord[e.tier ?? 0]}</td>
+              </tr>); })}
+          </tbody>
+        </table>
+      </div>
+    );
+  })}
+  {other && <p class="muted">Other (not listed): {other.count !== null ? `${other.count} reports` : other.display}. Counted, never broken out.</p>}
+
+  <h2>By compound</h2>
+  {compoundsByClass.map((cls) => cls.compounds.filter((c) => (byCompound.get(c.id)?.count ?? null) !== null).map((c) => (
+    <details id={c.id}>
+      <summary><strong>{c.label}</strong> <span class="muted">— {byCompound.get(c.id)!.count} reports · {tierWord[byCompound.get(c.id)!.tier ?? 0]}</span></summary>
+      {sections(`compound:${c.id}`, `compound-${c.id}`).map((sec) => <ReleaseTable title={`${c.label} — ${sec.title.toLowerCase()}`} src={sec.src} oneWay={sec.oneWay} grid={sec.grid} />)}
+    </details>
+  )))}
+
+  <h2>By class</h2>
+  {compoundsByClass.filter((cls) => (byClass.get(cls.id)?.count ?? null) !== null && fig(`class-${cls.id}`).length).map((cls) => (
+    <details id={`class-${cls.id}`}>
+      <summary><strong>{cls.label}</strong> <span class="muted">— {byClass.get(cls.id)!.count} reports across {cls.compounds.length} compounds</span></summary>
+      {sections(`class:${cls.id}`, `class-${cls.id}`).map((sec) => <ReleaseTable title={`${cls.label} — ${sec.title.toLowerCase()}`} src={sec.src} oneWay={sec.oneWay} grid={sec.grid} />)}
+    </details>
+  ))}
+
+  {Object.keys(t9).length > 0 && <>
+    <h2>Across compounds, by goal</h2>
+    <p class="muted">The only cross-compound view. Each row is one compound, stratified, never pooled. Nothing here is a ranking.</p>
+    {Object.entries(t9full).map(([g, t]) => <ReleaseTable title={`Goal: ${t.label} — by compound`} src={rel.files[`figures/_goals/T9-${g}.svg`] ? `${base}/figures/_goals/T9-${g}.svg` : undefined} grid={{ columns: labels.outcome, rows: t.compounds.map((p: any) => ({ label: p.label, n: p.n, percent: p.percent, cells: p.cells })) }} />)}
+  </>}
+
+  {(t6all || t13?.n) && <>
+    <h2>All reports</h2>
+    {t6all && <ReleaseTable title="All reports — independent purity testing" src={rel.files['figures/_overall/T6.svg'] ? `${base}/figures/_overall/T6.svg` : undefined} oneWay={t6all} />}
+    {t13?.n && t13.age_band && <ReleaseTable title="Who contributed — age" src={rel.files['figures/_overall/T13-age_band.svg'] ? `${base}/figures/_overall/T13-age_band.svg` : undefined} oneWay={t13.age_band} />}
+    {t13?.n && t13.sex && <ReleaseTable title="Who contributed — sex" src={rel.files['figures/_overall/T13-sex.svg'] ? `${base}/figures/_overall/T13-sex.svg` : undefined} oneWay={t13.sex} />}
+  </>}
+
+  {t14 && <>
+    <h2>Integrity log</h2>
+    <p>{t14.note}</p>
+    <div class="table-wrap"><table class="counts">
+      <thead><tr><th>Reason</th><th>This period</th><th>All time</th></tr></thead>
+      <tbody>{Object.keys(t14.flagged_total).map((k) => <tr><td>{k}</td><td>{t14.flagged_this_period[k]}</td><td>{t14.flagged_total[k]}</td></tr>)}</tbody>
+    </table></div>
+    <p class="muted">Flagged reports stay in the committed log and are listed by log position in <a href={`${base}/exclusions.json`}>the exclusion list</a>. They are left out of every table above.</p>
+  </>}
+
+  {t15 && <>
+    <h2>Uniqueness of the store</h2>
+    <p class="muted">How distinctive a single row in the private store is on each set of fields an outsider might know. This is a property of data that is never published; it is reported so the de-identification analysis in the <a href="/docs/schema">schema</a> can be checked against real data.</p>
+    <div class="table-wrap"><table class="counts">
+      <thead><tr><th>Fields known</th><th>Rows unique</th><th>Rows in cells under 5</th><th>Median cell</th></tr></thead>
+      <tbody>{t15.k_anonymity.map((k) => <tr><td>{k.qi_set} <span class="muted">({k.qi_fields.join(', ')})</span></td><td>{k.unique_rows_pct}%</td><td>{k.rows_in_cells_lt5_pct}%</td><td>{k.median_cell_size}</td></tr>)}</tbody>
+    </table></div>
+  </>}
+</Base>

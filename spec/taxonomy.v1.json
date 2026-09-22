@@ -1,0 +1,3254 @@
+{
+ "version": "0.1-draft",
+ "shared": {
+  "sourceChannel": [
+   {
+    "id": "retail-pharmacy",
+    "label": "Retail pharmacy (brand product, prescription)"
+   },
+   {
+    "id": "503a-compounder",
+    "label": "Compounding pharmacy"
+   },
+   {
+    "id": "telehealth-compounded",
+    "label": "Telehealth or clinic (compounded)"
+   },
+   {
+    "id": "domestic-rc-vendor",
+    "label": "Domestic research-chemical vendor"
+   },
+   {
+    "id": "overseas-vendor",
+    "label": "Overseas vendor"
+   },
+   {
+    "id": "another-person",
+    "label": "From another person"
+   },
+   {
+    "id": "unknown",
+    "label": "Don't know"
+   },
+   {
+    "id": "other",
+    "label": "Other (not listed)"
+   }
+  ],
+  "titration": [
+   {
+    "id": "no-change",
+    "label": "Stayed at the same dose"
+   },
+   {
+    "id": "stepped-up",
+    "label": "Stepped the dose up over time"
+   },
+   {
+    "id": "stepped-down",
+    "label": "Stepped the dose down over time"
+   },
+   {
+    "id": "cycled",
+    "label": "Cycled on and off"
+   },
+   {
+    "id": "other",
+    "label": "Other (not listed)"
+   }
+  ],
+  "duration": [
+   {
+    "id": "under-2wk",
+    "label": "Under 2 weeks"
+   },
+   {
+    "id": "2-4wk",
+    "label": "2 to 4 weeks"
+   },
+   {
+    "id": "1-3mo",
+    "label": "1 to 3 months"
+   },
+   {
+    "id": "3-6mo",
+    "label": "3 to 6 months"
+   },
+   {
+    "id": "6-12mo",
+    "label": "6 to 12 months"
+   },
+   {
+    "id": "over-12mo",
+    "label": "Over 12 months"
+   }
+  ],
+  "purityTested": [
+   {
+    "id": "no",
+    "label": "No, did not test"
+   },
+   {
+    "id": "yes-matched",
+    "label": "Yes \u2014 result matched the label"
+   },
+   {
+    "id": "yes-did-not-match",
+    "label": "Yes \u2014 result did not match the label"
+   },
+   {
+    "id": "yes-unsure",
+    "label": "Yes \u2014 unsure how to read the result"
+   },
+   {
+    "id": "dont-know",
+    "label": "Don't know"
+   }
+  ],
+  "reconstitution": [
+   {
+    "id": "bac-water-refrigerated",
+    "label": "Bacteriostatic water, kept refrigerated"
+   },
+   {
+    "id": "bac-water-room-temp",
+    "label": "Bacteriostatic water, kept at room temperature"
+   },
+   {
+    "id": "sterile-water",
+    "label": "Sterile water"
+   },
+   {
+    "id": "pre-mixed-or-pen",
+    "label": "Came pre-mixed or as a pen"
+   },
+   {
+    "id": "no-reconstitution",
+    "label": "No reconstitution (oral, nasal, topical)"
+   },
+   {
+    "id": "other",
+    "label": "Other (not listed)"
+   }
+  ],
+  "outcome": [
+   {
+    "id": "no-change",
+    "label": "No change"
+   },
+   {
+    "id": "slight",
+    "label": "Slight improvement"
+   },
+   {
+    "id": "moderate",
+    "label": "Moderate improvement"
+   },
+   {
+    "id": "large",
+    "label": "Large improvement"
+   }
+  ],
+  "status": [
+   {
+    "id": "still-taking",
+    "label": "Still taking it"
+   },
+   {
+    "id": "completed-planned-course",
+    "label": "Finished a planned course"
+   },
+   {
+    "id": "stopped-under-2wk",
+    "label": "Stopped within 2 weeks"
+   },
+   {
+    "id": "stopped-2-6wk",
+    "label": "Stopped after 2 to 6 weeks"
+   },
+   {
+    "id": "stopped-6-12wk",
+    "label": "Stopped after 6 to 12 weeks"
+   },
+   {
+    "id": "stopped-over-12wk",
+    "label": "Stopped after more than 12 weeks"
+   }
+  ],
+  "stopReason": [
+   {
+    "id": "achieved-goal",
+    "label": "Got what I wanted from it"
+   },
+   {
+    "id": "no-effect",
+    "label": "It wasn't doing anything"
+   },
+   {
+    "id": "adverse-effect",
+    "label": "Side effects"
+   },
+   {
+    "id": "cost",
+    "label": "Cost"
+   },
+   {
+    "id": "supply",
+    "label": "Couldn't get more"
+   },
+   {
+    "id": "safety-concern",
+    "label": "Worried about safety"
+   },
+   {
+    "id": "other",
+    "label": "Other (not listed)"
+   }
+  ],
+  "onset": [
+   {
+    "id": "first-days",
+    "label": "In the first few days"
+   },
+   {
+    "id": "first-2wk",
+    "label": "In the first 2 weeks"
+   },
+   {
+    "id": "2-6wk",
+    "label": "Between 2 and 6 weeks"
+   },
+   {
+    "id": "after-6wk",
+    "label": "After 6 weeks"
+   },
+   {
+    "id": "unsure",
+    "label": "Not sure"
+   }
+  ],
+  "dechallenge": [
+   {
+    "id": "resolved",
+    "label": "Went away after stopping"
+   },
+   {
+    "id": "did-not-resolve",
+    "label": "Did not go away after stopping"
+   },
+   {
+    "id": "still-taking",
+    "label": "Haven't stopped"
+   },
+   {
+    "id": "unsure",
+    "label": "Not sure"
+   }
+  ],
+  "ageBand": [
+   {
+    "id": "18-24",
+    "label": "18\u201324"
+   },
+   {
+    "id": "25-34",
+    "label": "25\u201334"
+   },
+   {
+    "id": "35-44",
+    "label": "35\u201344"
+   },
+   {
+    "id": "45-54",
+    "label": "45\u201354"
+   },
+   {
+    "id": "55-64",
+    "label": "55\u201364"
+   },
+   {
+    "id": "65+",
+    "label": "65 or over"
+   }
+  ],
+  "sex": [
+   {
+    "id": "male",
+    "label": "Male"
+   },
+   {
+    "id": "female",
+    "label": "Female"
+   },
+   {
+    "id": "prefer-not",
+    "label": "Prefer not to say"
+   }
+  ]
+ },
+ "compounds": [
+  {
+   "id": "ghk-cu",
+   "label": "GHK-Cu",
+   "aliases": [
+    "GHK-Cu",
+    "copper peptide",
+    "GHK copper",
+    "Cu-GHK",
+    "glycyl-L-histidyl-L-lysine copper",
+    "GHK-Cu injectable",
+    "copper tripeptide-1"
+   ],
+   "class": "tissue-repair",
+   "goals": [
+    "skin-aging",
+    "hair",
+    "wound-scar",
+    "skin-tone",
+    "injury-healing",
+    "longevity"
+   ],
+   "adverseEffects": [
+    "skin-staining",
+    "skin-irritation",
+    "hair-shedding"
+   ],
+   "routes": [
+    "topical",
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "Topical only (no injection)",
+    "Under 1 mg per day injected",
+    "1 to 2 mg per day injected",
+    "2 to 4 mg per day injected",
+    "Over 4 mg per day injected"
+   ],
+   "frequency": [
+    "daily",
+    "5-on-2-off",
+    "2-3-weekly",
+    "weekly",
+    "multiple-daily",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "pt-141",
+   "label": "PT-141 (bremelanotide)",
+   "aliases": [
+    "PT-141",
+    "PT141",
+    "bremelanotide",
+    "Vyleesi",
+    "BMT",
+    "PT-141 nasal"
+   ],
+   "class": "sexual-hormonal",
+   "goals": [
+    "libido",
+    "erections",
+    "ed-adjunct",
+    "orgasm"
+   ],
+   "adverseEffects": [
+    "palpitations",
+    "moles-freckles",
+    "erections-unwanted"
+   ],
+   "routes": [
+    "subcutaneous",
+    "intranasal"
+   ],
+   "doseBands": [
+    "Under 0.5 mg per dose",
+    "0.5 to under 1 mg per dose",
+    "1 to under 1.5 mg per dose",
+    "1.5 to 2 mg per dose",
+    "Over 2 mg per dose"
+   ],
+   "frequency": [
+    "as-needed",
+    "2-3-weekly",
+    "daily",
+    "cycled"
+   ],
+   "humanEvidence": "large-rcts"
+  },
+  {
+   "id": "melanotan-ii",
+   "label": "Melanotan II",
+   "aliases": [
+    "Melanotan II",
+    "Melanotan 2",
+    "MT-2",
+    "MT2",
+    "MTII",
+    "melanotan",
+    "tanning peptide",
+    "Barbie drug",
+    "MT-2 nasal spray"
+   ],
+   "class": "sexual-hormonal",
+   "goals": [
+    "tan",
+    "sun-tolerance",
+    "libido",
+    "appetite-control",
+    "skin-tone"
+   ],
+   "adverseEffects": [
+    "erections-unwanted",
+    "moles-freckles",
+    "uneven-darkening"
+   ],
+   "routes": [
+    "subcutaneous",
+    "intranasal"
+   ],
+   "doseBands": [
+    "Under 100 mcg per dose",
+    "100 to under 250 mcg per dose",
+    "250 to under 500 mcg per dose",
+    "500 mcg to 1 mg per dose",
+    "Over 1 mg per dose"
+   ],
+   "frequency": [
+    "daily",
+    "every-other-day",
+    "2-3-weekly",
+    "weekly",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "kisspeptin-10",
+   "label": "Kisspeptin-10",
+   "aliases": [
+    "Kisspeptin-10",
+    "kisspeptin",
+    "KP-10",
+    "KISS1",
+    "metastin fragment",
+    "kiss peptide"
+   ],
+   "class": "sexual-hormonal",
+   "goals": [
+    "testosterone",
+    "libido",
+    "pct",
+    "fertility",
+    "mood"
+   ],
+   "adverseEffects": [
+    "acne"
+   ],
+   "routes": [
+    "subcutaneous",
+    "intranasal"
+   ],
+   "doseBands": [
+    "Under 50 mcg per dose",
+    "50 to under 100 mcg per dose",
+    "100 to under 250 mcg per dose",
+    "250 to 500 mcg per dose",
+    "Over 500 mcg per dose"
+   ],
+   "frequency": [
+    "as-needed",
+    "daily",
+    "every-other-day",
+    "2-3-weekly",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "oxytocin",
+   "label": "Oxytocin (intranasal)",
+   "aliases": [
+    "oxytocin",
+    "oxytocin nasal spray",
+    "OT",
+    "OXT",
+    "Syntocinon",
+    "oxytocin troche"
+   ],
+   "class": "neuro",
+   "goals": [
+    "social-ease",
+    "bonding",
+    "orgasm",
+    "mood",
+    "anxiety",
+    "deeper-sleep"
+   ],
+   "adverseEffects": [
+    "emotional",
+    "cramping-women"
+   ],
+   "routes": [
+    "intranasal",
+    "oral",
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "Under 10 IU per dose",
+    "10 to under 20 IU per dose",
+    "20 to under 30 IU per dose",
+    "30 to 50 IU per dose",
+    "Over 50 IU per dose"
+   ],
+   "frequency": [
+    "as-needed",
+    "daily",
+    "multiple-daily",
+    "2-3-weekly",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "dsip",
+   "label": "DSIP (delta sleep-inducing peptide)",
+   "aliases": [
+    "DSIP",
+    "delta sleep-inducing peptide",
+    "emideltide",
+    "sleep peptide"
+   ],
+   "class": "neuro",
+   "goals": [
+    "fall-asleep",
+    "deeper-sleep",
+    "energy",
+    "anxiety"
+   ],
+   "adverseEffects": [],
+   "routes": [
+    "subcutaneous",
+    "intranasal"
+   ],
+   "doseBands": [
+    "Under 100 mcg per dose",
+    "100 to under 200 mcg per dose",
+    "200 to under 400 mcg per dose",
+    "400 mcg to 1 mg per dose",
+    "Over 1 mg per dose"
+   ],
+   "frequency": [
+    "daily",
+    "2-3-weekly",
+    "as-needed",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "melanotan-i",
+   "label": "Melanotan I (afamelanotide)",
+   "aliases": [
+    "Melanotan I",
+    "Melanotan 1",
+    "MT-1",
+    "MT1",
+    "MTI",
+    "afamelanotide",
+    "Scenesse",
+    "NDP-alpha-MSH"
+   ],
+   "class": "sexual-hormonal",
+   "goals": [
+    "tan",
+    "sun-tolerance",
+    "skin-tone"
+   ],
+   "adverseEffects": [
+    "moles-freckles",
+    "uneven-darkening"
+   ],
+   "routes": [
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "Under 0.5 mg per dose",
+    "0.5 to under 1 mg per dose",
+    "1 to 2 mg per dose",
+    "Over 2 mg per dose"
+   ],
+   "frequency": [
+    "daily",
+    "every-other-day",
+    "2-3-weekly",
+    "weekly",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "gonadorelin",
+   "label": "Gonadorelin",
+   "aliases": [
+    "gonadorelin",
+    "GnRH",
+    "gonadorelin acetate",
+    "Factrel",
+    "LHRH"
+   ],
+   "class": "sexual-hormonal",
+   "goals": [
+    "trt-support",
+    "pct",
+    "testosterone"
+   ],
+   "adverseEffects": [
+    "acne",
+    "reflux-bloating"
+   ],
+   "routes": [
+    "subcutaneous",
+    "intranasal"
+   ],
+   "doseBands": [
+    "Under 100 mcg per dose",
+    "100 to under 200 mcg per dose",
+    "200 to 500 mcg per dose",
+    "Over 500 mcg per dose"
+   ],
+   "frequency": [
+    "daily",
+    "every-other-day",
+    "2-3-weekly",
+    "weekly"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "retatrutide",
+   "label": "Retatrutide",
+   "aliases": [
+    "reta",
+    "Reta",
+    "retatrutide",
+    "LY3437943",
+    "GLP-3",
+    "triple G",
+    "tri-agonist",
+    "triple agonist",
+    "reta/cagri blend (when pre-mixed with cagrilintide)"
+   ],
+   "class": "incretin",
+   "goals": [
+    "fat-loss",
+    "plateau",
+    "recomp",
+    "appetite-control",
+    "cravings",
+    "endurance",
+    "blood-sugar",
+    "joint-pain"
+   ],
+   "adverseEffects": [
+    "constipation",
+    "diarrhea",
+    "reflux-bloating",
+    "palpitations",
+    "dysesthesia",
+    "hunger",
+    "hair-shedding",
+    "muscle-loss",
+    "grogginess"
+   ],
+   "routes": [
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 1 mg/week",
+    "1 to under 2 mg/week",
+    "2 to under 4 mg/week",
+    "4 to under 6 mg/week",
+    "6 mg/week or more"
+   ],
+   "frequency": [
+    "weekly",
+    "multiple-daily",
+    "less-than-weekly",
+    "daily",
+    "cycled"
+   ],
+   "humanEvidence": "large-rcts"
+  },
+  {
+   "id": "tirzepatide",
+   "label": "Tirzepatide",
+   "aliases": [
+    "tirz",
+    "Tirz",
+    "tirzepatide",
+    "Mounjaro",
+    "Zepbound",
+    "LY3298176",
+    "GIP/GLP-1",
+    "compounded tirz",
+    "gray tirz",
+    "tirz vial"
+   ],
+   "class": "incretin",
+   "goals": [
+    "fat-loss",
+    "appetite-control",
+    "blood-sugar",
+    "pcos",
+    "cravings",
+    "weight-maintenance",
+    "joint-pain"
+   ],
+   "adverseEffects": [
+    "constipation",
+    "diarrhea",
+    "reflux-bloating",
+    "hair-shedding",
+    "hypoglycemia",
+    "gallbladder",
+    "muscle-loss"
+   ],
+   "routes": [
+    "subcutaneous",
+    "oral"
+   ],
+   "doseBands": [
+    "under 2.5 mg/week",
+    "2.5 to under 5 mg/week",
+    "5 to under 7.5 mg/week",
+    "7.5 to under 10 mg/week",
+    "10 mg/week or more"
+   ],
+   "frequency": [
+    "weekly",
+    "multiple-daily",
+    "less-than-weekly",
+    "daily",
+    "cycled"
+   ],
+   "humanEvidence": "large-rcts"
+  },
+  {
+   "id": "semaglutide",
+   "label": "Semaglutide",
+   "aliases": [
+    "sema",
+    "Sema",
+    "semaglutide",
+    "Ozempic",
+    "Wegovy",
+    "Rybelsus",
+    "compounded sema",
+    "gray sema",
+    "oral sema"
+   ],
+   "class": "incretin",
+   "goals": [
+    "fat-loss",
+    "appetite-control",
+    "blood-sugar",
+    "cravings",
+    "weight-maintenance",
+    "pcos",
+    "cardio-kidney"
+   ],
+   "adverseEffects": [
+    "constipation",
+    "diarrhea",
+    "reflux-bloating",
+    "hair-shedding",
+    "facial-volume-loss",
+    "gallbladder",
+    "stomach-pain"
+   ],
+   "routes": [
+    "subcutaneous",
+    "oral"
+   ],
+   "doseBands": [
+    "under 0.25 mg/week",
+    "0.25 to under 0.5 mg/week",
+    "0.5 to under 1 mg/week",
+    "1 to under 2 mg/week",
+    "2 mg/week or more"
+   ],
+   "frequency": [
+    "weekly",
+    "multiple-daily",
+    "less-than-weekly",
+    "daily",
+    "cycled"
+   ],
+   "humanEvidence": "large-rcts"
+  },
+  {
+   "id": "cagrilintide",
+   "label": "Cagrilintide",
+   "aliases": [
+    "cagri",
+    "Cagri",
+    "cag",
+    "cagrilintide",
+    "AM833",
+    "NNC0174-0833",
+    "CagriSema (fixed combo with semaglutide)",
+    "reta/cagri blend"
+   ],
+   "class": "incretin",
+   "goals": [
+    "glp1-stack",
+    "appetite-control",
+    "plateau",
+    "recomp",
+    "fat-loss"
+   ],
+   "adverseEffects": [
+    "constipation",
+    "early-fullness",
+    "reflux-bloating",
+    "diarrhea"
+   ],
+   "routes": [
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 0.5 mg/week",
+    "0.5 to under 1 mg/week",
+    "1 to under 2 mg/week",
+    "2 mg/week or more"
+   ],
+   "frequency": [
+    "weekly",
+    "multiple-daily",
+    "less-than-weekly",
+    "cycled"
+   ],
+   "humanEvidence": "large-rcts"
+  },
+  {
+   "id": "mazdutide",
+   "label": "Mazdutide",
+   "aliases": [
+    "mazdu",
+    "mazdutide",
+    "IBI362",
+    "LY3305677",
+    "Xinermei",
+    "\u4fe1\u5c14\u7f8e",
+    "GLP-1/glucagon dual"
+   ],
+   "class": "incretin",
+   "goals": [
+    "fat-loss",
+    "liver-fat",
+    "plateau"
+   ],
+   "adverseEffects": [
+    "diarrhea",
+    "constipation",
+    "palpitations",
+    "reflux-bloating"
+   ],
+   "routes": [
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 2 mg/week",
+    "2 to under 4 mg/week",
+    "4 to under 6 mg/week",
+    "6 mg/week or more"
+   ],
+   "frequency": [
+    "weekly",
+    "multiple-daily",
+    "cycled"
+   ],
+   "humanEvidence": "large-rcts"
+  },
+  {
+   "id": "survodutide",
+   "label": "Survodutide",
+   "aliases": [
+    "survo",
+    "Survo",
+    "survodutide",
+    "BI 456906",
+    "GLP-1/glucagon dual"
+   ],
+   "class": "incretin",
+   "goals": [
+    "fat-loss",
+    "liver-fat",
+    "plateau",
+    "glp1-stack"
+   ],
+   "adverseEffects": [
+    "diarrhea",
+    "constipation",
+    "reflux-bloating",
+    "palpitations",
+    "hypoglycemia"
+   ],
+   "routes": [
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 1.2 mg/week",
+    "1.2 to under 2.4 mg/week",
+    "2.4 to under 3.6 mg/week",
+    "3.6 mg/week or more"
+   ],
+   "frequency": [
+    "weekly",
+    "multiple-daily",
+    "cycled"
+   ],
+   "humanEvidence": "large-rcts"
+  },
+  {
+   "id": "liraglutide",
+   "label": "Liraglutide",
+   "aliases": [
+    "lira",
+    "liraglutide",
+    "Victoza",
+    "Saxenda",
+    "generic liraglutide"
+   ],
+   "class": "incretin",
+   "goals": [
+    "fat-loss",
+    "blood-sugar",
+    "glp1-alternative"
+   ],
+   "adverseEffects": [
+    "diarrhea",
+    "constipation",
+    "hypoglycemia",
+    "gallbladder",
+    "palpitations"
+   ],
+   "routes": [
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 1.2 mg/day",
+    "1.2 to under 1.8 mg/day",
+    "1.8 to under 3 mg/day",
+    "3 mg/day or more"
+   ],
+   "frequency": [
+    "daily",
+    "multiple-daily",
+    "cycled"
+   ],
+   "humanEvidence": "large-rcts"
+  },
+  {
+   "id": "semax",
+   "label": "Semax",
+   "aliases": [
+    "Semax",
+    "NA-Semax",
+    "N-Acetyl Semax",
+    "NA-Semax Amidate",
+    "N-Acetyl Semax Amidate",
+    "Semax 0.1% / 1% nasal drops",
+    "ACTH(4-10) analog",
+    "Met-Glu-His-Phe-Pro-Gly-Pro"
+   ],
+   "class": "neuro",
+   "goals": [
+    "focus",
+    "memory",
+    "motivation",
+    "brain-fog",
+    "mood",
+    "brain-injury",
+    "neuroprotection"
+   ],
+   "adverseEffects": [
+    "hair-shedding"
+   ],
+   "routes": [
+    "intranasal",
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 200 mcg/day",
+    "200-400 mcg/day",
+    "400-800 mcg/day",
+    "800-1,500 mcg/day",
+    "over 1,500 mcg/day"
+   ],
+   "frequency": [
+    "daily",
+    "multiple-daily",
+    "as-needed",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "selank",
+   "label": "Selank",
+   "aliases": [
+    "Selank",
+    "TP-7",
+    "NA-Selank",
+    "N-Acetyl Selank",
+    "NA-Selank Amidate",
+    "Selank 0.15% nasal drops",
+    "tuftsin analog",
+    "Thr-Lys-Pro-Arg-Pro-Gly-Pro"
+   ],
+   "class": "neuro",
+   "goals": [
+    "anxiety",
+    "focus",
+    "mood",
+    "deeper-sleep",
+    "withdrawal",
+    "memory",
+    "immune"
+   ],
+   "adverseEffects": [
+    "drowsiness",
+    "brain-fog"
+   ],
+   "routes": [
+    "intranasal",
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 250 mcg/day",
+    "250-500 mcg/day",
+    "500-1,000 mcg/day",
+    "1,000-2,000 mcg/day",
+    "over 2,000 mcg/day"
+   ],
+   "frequency": [
+    "daily",
+    "multiple-daily",
+    "as-needed",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "cerebrolysin",
+   "label": "Cerebrolysin",
+   "aliases": [
+    "Cerebrolysin",
+    "Cerebro",
+    "porcine brain peptide hydrolysate",
+    "EVER Pharma Cerebrolysin ampoules",
+    "Cerebrolysin 5ml / 10ml"
+   ],
+   "class": "neuro",
+   "goals": [
+    "brain-injury",
+    "cognitive-decline",
+    "focus",
+    "mood",
+    "brain-fog",
+    "neuroprotection"
+   ],
+   "adverseEffects": [
+    "skin-irritation"
+   ],
+   "routes": [
+    "intramuscular",
+    "subcutaneous",
+    "intravenous"
+   ],
+   "doseBands": [
+    "1 ml/day or less",
+    "1-2 ml/day",
+    "2-5 ml/day",
+    "5-10 ml/day",
+    "over 10 ml/day"
+   ],
+   "frequency": [
+    "daily",
+    "5-on-2-off",
+    "every-other-day",
+    "multiple-daily",
+    "cycled"
+   ],
+   "humanEvidence": "large-rcts"
+  },
+  {
+   "id": "dihexa",
+   "label": "Dihexa",
+   "aliases": [
+    "Dihexa",
+    "PNB-0408",
+    "N-hexanoic-Tyr-Ile-(6)-aminohexanoic amide",
+    "angiotensin IV analog",
+    "HGF/c-Met potentiator"
+   ],
+   "class": "neuro",
+   "goals": [
+    "memory",
+    "focus",
+    "brain-injury",
+    "cognitive-decline",
+    "mood",
+    "verbal-creativity"
+   ],
+   "adverseEffects": [
+    "skin-irritation",
+    "blood-pressure"
+   ],
+   "routes": [
+    "oral",
+    "topical",
+    "subcutaneous",
+    "intranasal"
+   ],
+   "doseBands": [
+    "under 2 mg/day",
+    "2-5 mg/day",
+    "5-10 mg/day",
+    "10-20 mg/day",
+    "over 20 mg/day"
+   ],
+   "frequency": [
+    "daily",
+    "every-other-day",
+    "multiple-daily",
+    "cycled"
+   ],
+   "humanEvidence": "none"
+  },
+  {
+   "id": "p21",
+   "label": "P21 (P021)",
+   "aliases": [
+    "P21",
+    "P021",
+    "Ac-DGGLAG-NH2 (adamantylated)",
+    "CNTF mimetic peptide",
+    "CNTF fragment peptide"
+   ],
+   "class": "neuro",
+   "goals": [
+    "memory",
+    "neuroprotection",
+    "mood",
+    "focus",
+    "brain-injury",
+    "anxiety"
+   ],
+   "adverseEffects": [],
+   "routes": [
+    "intranasal",
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 250 mcg/day",
+    "250-500 mcg/day",
+    "500-1,000 mcg/day",
+    "1-2 mg/day",
+    "over 2 mg/day"
+   ],
+   "frequency": [
+    "daily",
+    "multiple-daily",
+    "every-other-day",
+    "cycled"
+   ],
+   "humanEvidence": "none"
+  },
+  {
+   "id": "pinealon",
+   "label": "Pinealon",
+   "aliases": [
+    "Pinealon",
+    "EDR peptide",
+    "Glu-Asp-Arg",
+    "Khavinson brain bioregulator",
+    "Pinealon capsules (bioregulator)"
+   ],
+   "class": "neuro",
+   "goals": [
+    "deeper-sleep",
+    "memory",
+    "mood",
+    "neuroprotection",
+    "anxiety",
+    "brain-injury"
+   ],
+   "adverseEffects": [],
+   "routes": [
+    "subcutaneous",
+    "intranasal",
+    "oral"
+   ],
+   "doseBands": [
+    "under 1 mg/day",
+    "1-2 mg/day",
+    "2-5 mg/day",
+    "5-10 mg/day",
+    "over 10 mg/day"
+   ],
+   "frequency": [
+    "daily",
+    "cycled"
+   ],
+   "humanEvidence": "case-reports"
+  },
+  {
+   "id": "cjc-1295-ipamorelin-blend",
+   "label": "CJC-1295 (no DAC) / ipamorelin blend",
+   "aliases": [
+    "CJC/Ipa",
+    "CJC-1295 ipamorelin",
+    "Mod GRF 1-29 / ipamorelin",
+    "ipamorelin/CJC",
+    "GH stack",
+    "5mg/5mg blend",
+    "10mg blend"
+   ],
+   "class": "gh-secretagogue",
+   "goals": [
+    "deeper-sleep",
+    "fat-loss",
+    "recomp",
+    "training-recovery",
+    "injury-healing",
+    "skin-aging",
+    "igf1"
+   ],
+   "adverseEffects": [
+    "reflux-bloating",
+    "carpal-tunnel",
+    "hunger",
+    "high-blood-sugar"
+   ],
+   "routes": [
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 100 mcg of each per injection",
+    "100-150 mcg of each per injection",
+    "151-250 mcg of each per injection",
+    "251-400 mcg of each per injection",
+    "over 400 mcg of each per injection"
+   ],
+   "frequency": [
+    "daily",
+    "multiple-daily",
+    "5-on-2-off",
+    "every-other-day",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "ipamorelin",
+   "label": "Ipamorelin",
+   "aliases": [
+    "Ipa",
+    "ipamorelin acetate",
+    "NNC 26-0161"
+   ],
+   "class": "gh-secretagogue",
+   "goals": [
+    "deeper-sleep",
+    "fat-loss",
+    "recomp",
+    "training-recovery",
+    "injury-healing",
+    "skin-aging",
+    "igf1"
+   ],
+   "adverseEffects": [
+    "reflux-bloating",
+    "hunger",
+    "carpal-tunnel",
+    "high-blood-sugar"
+   ],
+   "routes": [
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 100 mcg per injection",
+    "100-150 mcg per injection",
+    "151-250 mcg per injection",
+    "251-400 mcg per injection",
+    "over 400 mcg per injection"
+   ],
+   "frequency": [
+    "daily",
+    "multiple-daily",
+    "5-on-2-off",
+    "every-other-day",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "tesamorelin",
+   "label": "Tesamorelin",
+   "aliases": [
+    "Tesa",
+    "Egrifta",
+    "TH9507",
+    "tesamorelin acetate",
+    "Egrifta SV",
+    "Egrifta WR"
+   ],
+   "class": "gh-secretagogue",
+   "goals": [
+    "visceral-fat",
+    "liver-fat",
+    "recomp",
+    "brain-fog",
+    "deeper-sleep",
+    "training-recovery",
+    "igf1"
+   ],
+   "adverseEffects": [
+    "joint-pain",
+    "muscle-cramps",
+    "swollen-extremities",
+    "carpal-tunnel",
+    "high-blood-sugar",
+    "skin-irritation"
+   ],
+   "routes": [
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 1 mg per day",
+    "1 mg per day (1-1.4 mg)",
+    "1.5-2 mg per day",
+    "2.1-3 mg per day",
+    "over 3 mg per day"
+   ],
+   "frequency": [
+    "daily",
+    "5-on-2-off",
+    "every-other-day",
+    "cycled"
+   ],
+   "humanEvidence": "large-rcts"
+  },
+  {
+   "id": "mk-677",
+   "label": "MK-677 (ibutamoren)",
+   "aliases": [
+    "MK-677",
+    "MK677",
+    "ibutamoren",
+    "ibutamoren mesylate",
+    "Nutrobal",
+    "L-163,191",
+    "LUM-201"
+   ],
+   "class": "gh-secretagogue",
+   "goals": [
+    "appetite-increase",
+    "muscle-gain",
+    "deeper-sleep",
+    "injury-healing",
+    "skin-aging",
+    "bone-density",
+    "igf1"
+   ],
+   "adverseEffects": [
+    "hunger",
+    "reflux-bloating",
+    "carpal-tunnel",
+    "high-blood-sugar",
+    "joint-pain",
+    "swollen-extremities",
+    "unwanted-weight-gain",
+    "muscle-cramps"
+   ],
+   "routes": [
+    "oral"
+   ],
+   "doseBands": [
+    "under 10 mg per day",
+    "10-12.5 mg per day",
+    "13-25 mg per day",
+    "26-50 mg per day",
+    "over 50 mg per day"
+   ],
+   "frequency": [
+    "daily",
+    "multiple-daily",
+    "5-on-2-off",
+    "every-other-day",
+    "cycled"
+   ],
+   "humanEvidence": "large-rcts"
+  },
+  {
+   "id": "somatropin",
+   "label": "Somatropin (HGH)",
+   "aliases": [
+    "HGH",
+    "GH",
+    "growth hormone",
+    "somatropin",
+    "rhGH",
+    "generic HGH",
+    "blue tops",
+    "Genotropin",
+    "Norditropin",
+    "Humatrope",
+    "Omnitrope",
+    "Jintropin",
+    "Hygetropin"
+   ],
+   "class": "gh-secretagogue",
+   "goals": [
+    "fat-loss",
+    "muscle-gain",
+    "injury-healing",
+    "skin-aging",
+    "deeper-sleep",
+    "training-recovery",
+    "igf1"
+   ],
+   "adverseEffects": [
+    "reflux-bloating",
+    "joint-pain",
+    "carpal-tunnel",
+    "high-blood-sugar",
+    "swollen-extremities",
+    "skin-tags-moles"
+   ],
+   "routes": [
+    "subcutaneous",
+    "intramuscular"
+   ],
+   "doseBands": [
+    "under 2 IU per day",
+    "2-3 IU per day",
+    "3.1-4 IU per day",
+    "4.1-6 IU per day",
+    "6.1-10 IU per day",
+    "over 10 IU per day"
+   ],
+   "frequency": [
+    "daily",
+    "multiple-daily",
+    "5-on-2-off",
+    "every-other-day",
+    "cycled"
+   ],
+   "humanEvidence": "large-rcts"
+  },
+  {
+   "id": "cjc-1295-without-dac",
+   "label": "CJC-1295 without DAC (Mod GRF 1-29)",
+   "aliases": [
+    "CJC no DAC",
+    "CJC-1295 no DAC",
+    "Mod GRF 1-29",
+    "Modified GRF (1-29)",
+    "modified GRF",
+    "tetrasubstituted GRF 1-29",
+    "CJC 1295 NO-DAC"
+   ],
+   "class": "gh-secretagogue",
+   "goals": [
+    "igf1",
+    "fat-loss",
+    "recomp",
+    "deeper-sleep",
+    "training-recovery",
+    "injury-healing"
+   ],
+   "adverseEffects": [
+    "palpitations",
+    "reflux-bloating",
+    "carpal-tunnel",
+    "high-blood-sugar"
+   ],
+   "routes": [
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 100 mcg per injection",
+    "100-150 mcg per injection",
+    "151-250 mcg per injection",
+    "251-400 mcg per injection",
+    "over 400 mcg per injection"
+   ],
+   "frequency": [
+    "daily",
+    "multiple-daily",
+    "5-on-2-off",
+    "every-other-day",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "sermorelin",
+   "label": "Sermorelin",
+   "aliases": [
+    "sermorelin acetate",
+    "Geref",
+    "GRF 1-29",
+    "GHRH 1-29",
+    "serm"
+   ],
+   "class": "gh-secretagogue",
+   "goals": [
+    "deeper-sleep",
+    "energy",
+    "fat-loss",
+    "recomp",
+    "training-recovery",
+    "skin-aging",
+    "igf1"
+   ],
+   "adverseEffects": [
+    "drowsiness",
+    "taste-changes",
+    "skin-irritation",
+    "water-retention",
+    "dyspnea-rare"
+   ],
+   "routes": [
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 200 mcg per injection",
+    "200-300 mcg per injection",
+    "301-500 mcg per injection",
+    "501-1000 mcg per injection",
+    "over 1000 mcg per injection"
+   ],
+   "frequency": [
+    "daily",
+    "multiple-daily",
+    "5-on-2-off",
+    "every-other-day",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "cjc-1295-with-dac",
+   "label": "CJC-1295 with DAC",
+   "aliases": [
+    "CJC DAC",
+    "CJC-1295 DAC",
+    "CJC-1295 w/ DAC",
+    "DAC:GRF",
+    "drug affinity complex CJC"
+   ],
+   "class": "gh-secretagogue",
+   "goals": [
+    "igf1",
+    "muscle-gain",
+    "fat-loss",
+    "injury-healing",
+    "training-recovery",
+    "deeper-sleep"
+   ],
+   "adverseEffects": [
+    "reflux-bloating",
+    "joint-pain",
+    "carpal-tunnel",
+    "high-blood-sugar",
+    "hunger",
+    "palpitations"
+   ],
+   "routes": [
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 1 mg per week",
+    "1-1.9 mg per week",
+    "2-2.9 mg per week",
+    "3-4 mg per week",
+    "over 4 mg per week"
+   ],
+   "frequency": [
+    "weekly",
+    "multiple-daily",
+    "less-than-weekly",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "ghrp-6",
+   "label": "GHRP-6",
+   "aliases": [
+    "GHRP6",
+    "growth hormone releasing peptide-6",
+    "His-D-Trp-Ala-Trp-D-Phe-Lys",
+    "SKF-110679"
+   ],
+   "class": "gh-secretagogue",
+   "goals": [
+    "appetite-increase",
+    "muscle-gain",
+    "injury-healing",
+    "training-recovery",
+    "deeper-sleep",
+    "gut",
+    "fat-loss"
+   ],
+   "adverseEffects": [
+    "hunger",
+    "reflux-bloating",
+    "carpal-tunnel",
+    "prolactin",
+    "high-blood-sugar"
+   ],
+   "routes": [
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 100 mcg per injection",
+    "100-150 mcg per injection",
+    "151-250 mcg per injection",
+    "251-400 mcg per injection",
+    "over 400 mcg per injection"
+   ],
+   "frequency": [
+    "daily",
+    "multiple-daily",
+    "5-on-2-off",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "ghrp-2",
+   "label": "GHRP-2 (pralmorelin)",
+   "aliases": [
+    "GHRP2",
+    "pralmorelin",
+    "KP-102",
+    "GHRP Kaken 100",
+    "growth hormone releasing peptide-2"
+   ],
+   "class": "gh-secretagogue",
+   "goals": [
+    "muscle-gain",
+    "fat-loss",
+    "training-recovery",
+    "injury-healing",
+    "deeper-sleep",
+    "igf1"
+   ],
+   "adverseEffects": [
+    "hunger",
+    "reflux-bloating",
+    "carpal-tunnel",
+    "prolactin",
+    "high-blood-sugar"
+   ],
+   "routes": [
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 100 mcg per injection",
+    "100-150 mcg per injection",
+    "151-250 mcg per injection",
+    "251-400 mcg per injection",
+    "over 400 mcg per injection"
+   ],
+   "frequency": [
+    "daily",
+    "multiple-daily",
+    "5-on-2-off",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "hexarelin",
+   "label": "Hexarelin",
+   "aliases": [
+    "examorelin",
+    "Hex",
+    "hexarelin acetate",
+    "EP 23905"
+   ],
+   "class": "gh-secretagogue",
+   "goals": [
+    "muscle-gain",
+    "injury-healing",
+    "cardio-kidney",
+    "fat-loss",
+    "training-recovery",
+    "igf1"
+   ],
+   "adverseEffects": [
+    "prolactin",
+    "reflux-bloating",
+    "carpal-tunnel",
+    "high-blood-sugar"
+   ],
+   "routes": [
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 50 mcg per injection",
+    "50-100 mcg per injection",
+    "101-200 mcg per injection",
+    "201-300 mcg per injection",
+    "over 300 mcg per injection"
+   ],
+   "frequency": [
+    "daily",
+    "multiple-daily",
+    "every-other-day",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "aod-9604",
+   "label": "AOD-9604",
+   "aliases": [
+    "AOD9604",
+    "AOD",
+    "HGH fragment 176-191 (sibling)",
+    "Frag 176-191",
+    "anti-obesity drug 9604",
+    "Tyr-hGH177-191"
+   ],
+   "class": "metabolic",
+   "goals": [
+    "fat-loss",
+    "joint-pain",
+    "training-recovery",
+    "blood-sugar"
+   ],
+   "adverseEffects": [
+    "reflux-bloating"
+   ],
+   "routes": [
+    "subcutaneous",
+    "oral",
+    "intramuscular"
+   ],
+   "doseBands": [
+    "under 250 mcg per day",
+    "250-300 mcg per day",
+    "301-500 mcg per day",
+    "501-1000 mcg per day",
+    "over 1000 mcg per day"
+   ],
+   "frequency": [
+    "daily",
+    "5-on-2-off",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "nad",
+   "label": "NAD+ (injectable)",
+   "aliases": [
+    "NAD+",
+    "NAD",
+    "nicotinamide adenine dinucleotide",
+    "NAD+ injections",
+    "NAD+ subq",
+    "NAD shots",
+    "beta-NAD",
+    "NAD+ IV"
+   ],
+   "class": "metabolic",
+   "goals": [
+    "energy",
+    "brain-fog",
+    "longevity",
+    "cravings",
+    "deeper-sleep",
+    "training-recovery",
+    "long-covid",
+    "mood"
+   ],
+   "adverseEffects": [
+    "chest-tightness",
+    "muscle-cramps",
+    "diarrhea"
+   ],
+   "routes": [
+    "subcutaneous",
+    "intramuscular",
+    "intravenous",
+    "intranasal",
+    "oral"
+   ],
+   "doseBands": [
+    "under 50 mg per injection",
+    "50 to under 100 mg per injection",
+    "100 to under 200 mg per injection",
+    "200 to under 500 mg per injection",
+    "500 mg or more per injection"
+   ],
+   "frequency": [
+    "daily",
+    "every-other-day",
+    "multiple-daily",
+    "weekly",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "mots-c",
+   "label": "MOTS-c",
+   "aliases": [
+    "MOTS-C",
+    "MOTSc",
+    "Mots-c",
+    "mitochondrial ORF of the 12S rRNA type-c",
+    "mitochondrial peptide MOTS-c"
+   ],
+   "class": "metabolic",
+   "goals": [
+    "recomp",
+    "blood-sugar",
+    "endurance",
+    "energy",
+    "training-recovery",
+    "longevity",
+    "bone-density"
+   ],
+   "adverseEffects": [
+    "hypoglycemia"
+   ],
+   "routes": [
+    "subcutaneous",
+    "intramuscular"
+   ],
+   "doseBands": [
+    "under 2.5 mg per injection",
+    "2.5 to under 5 mg per injection",
+    "5 to under 10 mg per injection",
+    "10 to under 20 mg per injection",
+    "20 mg or more per injection"
+   ],
+   "frequency": [
+    "daily",
+    "every-other-day",
+    "multiple-daily",
+    "weekly",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "epitalon",
+   "label": "Epitalon",
+   "aliases": [
+    "Epithalon",
+    "Epitalone",
+    "Epithalone",
+    "Epithalamin (related pineal extract)",
+    "AEDG peptide",
+    "Ala-Glu-Asp-Gly",
+    "Khavinson peptide"
+   ],
+   "class": "metabolic",
+   "goals": [
+    "longevity",
+    "deeper-sleep",
+    "energy",
+    "immune",
+    "skin-aging",
+    "mood",
+    "annual-reset"
+   ],
+   "adverseEffects": [
+    "drowsiness"
+   ],
+   "routes": [
+    "subcutaneous",
+    "intramuscular",
+    "intranasal",
+    "oral"
+   ],
+   "doseBands": [
+    "under 2.5 mg per day",
+    "2.5 to under 5 mg per day",
+    "5 to under 10 mg per day",
+    "10 to under 20 mg per day",
+    "20 mg or more per day"
+   ],
+   "frequency": [
+    "daily",
+    "every-other-day",
+    "multiple-daily",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "5-amino-1mq",
+   "label": "5-amino-1MQ",
+   "aliases": [
+    "5-Amino-1MQ",
+    "5-amino-1-methylquinolinium",
+    "5A1MQ",
+    "5-AMQ",
+    "5 amino 1MQ",
+    "NNMT inhibitor"
+   ],
+   "class": "metabolic",
+   "goals": [
+    "fat-loss",
+    "recomp",
+    "energy",
+    "appetite-control",
+    "blood-sugar",
+    "longevity"
+   ],
+   "adverseEffects": [
+    "diarrhea",
+    "hypoglycemia"
+   ],
+   "routes": [
+    "oral",
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 50 mg per day",
+    "50 to under 100 mg per day",
+    "100 to under 150 mg per day",
+    "150 to under 250 mg per day",
+    "250 mg or more per day"
+   ],
+   "frequency": [
+    "daily",
+    "multiple-daily",
+    "5-on-2-off",
+    "cycled"
+   ],
+   "humanEvidence": "none"
+  },
+  {
+   "id": "glutathione",
+   "label": "Glutathione (injectable)",
+   "aliases": [
+    "glutathione",
+    "GSH",
+    "L-glutathione",
+    "reduced glutathione",
+    "glutathione shots",
+    "TAD 600",
+    "Tathion"
+   ],
+   "class": "metabolic",
+   "goals": [
+    "skin-brightening",
+    "detox-liver",
+    "energy",
+    "immune",
+    "hangover",
+    "longevity",
+    "training-recovery"
+   ],
+   "adverseEffects": [
+    "stomach-pain",
+    "skin-irritation",
+    "chest-tightness",
+    "skin-lightening"
+   ],
+   "routes": [
+    "subcutaneous",
+    "intramuscular",
+    "intravenous",
+    "intranasal"
+   ],
+   "doseBands": [
+    "under 200 mg per injection",
+    "200 to under 400 mg per injection",
+    "400 to under 800 mg per injection",
+    "800 to under 1500 mg per injection",
+    "1500 mg or more per injection"
+   ],
+   "frequency": [
+    "daily",
+    "every-other-day",
+    "multiple-daily",
+    "weekly",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "thymosin-alpha-1",
+   "label": "Thymosin alpha-1",
+   "aliases": [
+    "Thymosin alpha 1",
+    "Ta1",
+    "T\u03b11",
+    "TA-1",
+    "thymalfasin",
+    "Zadaxin",
+    "thymosin a1",
+    "T-alpha-1"
+   ],
+   "class": "metabolic",
+   "goals": [
+    "long-covid",
+    "immune",
+    "infection",
+    "autoimmune",
+    "cancer-adjunct",
+    "hepatitis",
+    "energy"
+   ],
+   "adverseEffects": [
+    "skin-irritation",
+    "flu-like",
+    "muscle-cramps"
+   ],
+   "routes": [
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 1 mg per injection",
+    "1 to under 1.5 mg per injection",
+    "1.5 to under 2 mg per injection",
+    "2 to under 4 mg per injection",
+    "4 mg or more per injection"
+   ],
+   "frequency": [
+    "multiple-daily",
+    "daily",
+    "weekly",
+    "cycled"
+   ],
+   "humanEvidence": "large-rcts"
+  },
+  {
+   "id": "tesofensine",
+   "label": "Tesofensine",
+   "aliases": [
+    "Teso",
+    "NS2330",
+    "NS-2330",
+    "Tesomet (combination with metoprolol)",
+    "tesofensine capsules"
+   ],
+   "class": "metabolic",
+   "goals": [
+    "fat-loss",
+    "appetite-control",
+    "energy",
+    "glp1-alternative",
+    "weight-maintenance"
+   ],
+   "adverseEffects": [
+    "dry-mouth",
+    "palpitations",
+    "blood-pressure",
+    "constipation",
+    "sweating"
+   ],
+   "routes": [
+    "oral"
+   ],
+   "doseBands": [
+    "under 0.25 mg per day",
+    "0.25 to under 0.5 mg per day",
+    "0.5 to under 1 mg per day",
+    "1 mg or more per day"
+   ],
+   "frequency": [
+    "daily",
+    "every-other-day",
+    "cycled"
+   ],
+   "humanEvidence": "large-rcts"
+  },
+  {
+   "id": "ss-31",
+   "label": "SS-31 (elamipretide)",
+   "aliases": [
+    "SS-31",
+    "SS31",
+    "elamipretide",
+    "Bendavia",
+    "MTP-131",
+    "Forzinity",
+    "Szeto-Schiller 31"
+   ],
+   "class": "metabolic",
+   "goals": [
+    "energy",
+    "longevity",
+    "cardio-kidney",
+    "endurance",
+    "neuroprotection",
+    "eye-health",
+    "long-covid"
+   ],
+   "adverseEffects": [
+    "reflux-bloating",
+    "flu-like",
+    "muscle-cramps"
+   ],
+   "routes": [
+    "subcutaneous",
+    "intravenous"
+   ],
+   "doseBands": [
+    "under 1 mg per day",
+    "1 to under 2.5 mg per day",
+    "2.5 to under 5 mg per day",
+    "5 to under 10 mg per day",
+    "10 mg or more per day"
+   ],
+   "frequency": [
+    "daily",
+    "5-on-2-off",
+    "every-other-day",
+    "cycled"
+   ],
+   "humanEvidence": "large-rcts"
+  },
+  {
+   "id": "humanin",
+   "label": "Humanin",
+   "aliases": [
+    "HN",
+    "humanin peptide",
+    "HNG",
+    "S14G-humanin",
+    "humanin analog",
+    "MT-hn"
+   ],
+   "class": "metabolic",
+   "goals": [
+    "longevity",
+    "blood-sugar",
+    "neuroprotection",
+    "cardio-kidney",
+    "energy"
+   ],
+   "adverseEffects": [],
+   "routes": [
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 0.5 mg per injection",
+    "0.5 to under 1 mg per injection",
+    "1 to under 2.5 mg per injection",
+    "2.5 to under 5 mg per injection",
+    "5 mg or more per injection"
+   ],
+   "frequency": [
+    "daily",
+    "every-other-day",
+    "multiple-daily",
+    "cycled"
+   ],
+   "humanEvidence": "none"
+  },
+  {
+   "id": "slu-pp-332",
+   "label": "SLU-PP-332",
+   "aliases": [
+    "SLU PP 332",
+    "SLU-PP332",
+    "ERR agonist",
+    "exercise mimetic SLU"
+   ],
+   "class": "metabolic",
+   "goals": [
+    "endurance",
+    "fat-loss",
+    "energy"
+   ],
+   "adverseEffects": [
+    "palpitations",
+    "sweating"
+   ],
+   "routes": [
+    "oral",
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 0.5 mg per day",
+    "0.5 to under 2 mg per day",
+    "2 to under 10 mg per day",
+    "10 to under 30 mg per day",
+    "30 mg or more per day"
+   ],
+   "frequency": [
+    "daily",
+    "as-needed",
+    "5-on-2-off",
+    "cycled"
+   ],
+   "humanEvidence": "none"
+  },
+  {
+   "id": "foxo4-dri",
+   "label": "FOXO4-DRI",
+   "aliases": [
+    "FOXO4 D-retro-inverso",
+    "FOXO4-DRI peptide",
+    "Proxofim",
+    "FOXO4 DRI",
+    "senolytic peptide"
+   ],
+   "class": "metabolic",
+   "goals": [
+    "longevity",
+    "joint-pain",
+    "skin-aging",
+    "energy",
+    "cardio-kidney"
+   ],
+   "adverseEffects": [
+    "flu-like",
+    "muscle-cramps"
+   ],
+   "routes": [
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 1 mg per injection",
+    "1 to under 2.5 mg per injection",
+    "2.5 to under 5 mg per injection",
+    "5 to under 10 mg per injection",
+    "10 mg or more per injection"
+   ],
+   "frequency": [
+    "every-other-day",
+    "daily",
+    "cycled"
+   ],
+   "humanEvidence": "none"
+  },
+  {
+   "id": "bpc-157",
+   "label": "BPC-157",
+   "aliases": [
+    "BPC157",
+    "BPC 157",
+    "Body Protection Compound-157",
+    "Bepecin",
+    "PL 14736",
+    "PL-10",
+    "BPC-157 acetate",
+    "BPC-157 arginate (see PDA)",
+    "oral BPC",
+    "BPC caps",
+    "Pentadecapeptide BPC 157"
+   ],
+   "class": "tissue-repair",
+   "goals": [
+    "injury-healing",
+    "joint-pain",
+    "gut",
+    "post-surgery",
+    "training-recovery",
+    "brain-injury"
+   ],
+   "adverseEffects": [
+    "palpitations",
+    "reflux-bloating",
+    "injury-worse",
+    "hyperpigmentation"
+   ],
+   "routes": [
+    "subcutaneous",
+    "oral",
+    "intranasal",
+    "intramuscular",
+    "topical"
+   ],
+   "doseBands": [
+    "under 250 mcg per dose",
+    "250 to under 500 mcg per dose",
+    "500 mcg to 1 mg per dose",
+    "over 1 mg per dose"
+   ],
+   "frequency": [
+    "daily",
+    "multiple-daily",
+    "every-other-day",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "tb-500",
+   "label": "TB-500",
+   "aliases": [
+    "TB500",
+    "TB 500",
+    "thymosin beta-4",
+    "thymosin \u03b24",
+    "T\u03b24",
+    "TB-4",
+    "TB4",
+    "Thymosin Beta 4 fragment",
+    "Ac-LKKTETQ",
+    "TB-500 acetate"
+   ],
+   "class": "tissue-repair",
+   "goals": [
+    "chronic-injury",
+    "injury-healing",
+    "mobility",
+    "joint-pain",
+    "post-surgery",
+    "training-recovery",
+    "hair"
+   ],
+   "adverseEffects": [
+    "flu-like",
+    "muscle-cramps",
+    "hyperpigmentation"
+   ],
+   "routes": [
+    "subcutaneous",
+    "intramuscular",
+    "oral",
+    "intranasal"
+   ],
+   "doseBands": [
+    "under 2 mg per dose",
+    "2 to under 5 mg per dose",
+    "5 to 10 mg per dose",
+    "over 10 mg per dose"
+   ],
+   "frequency": [
+    "multiple-daily",
+    "weekly",
+    "daily",
+    "every-other-day",
+    "cycled"
+   ],
+   "humanEvidence": "none"
+  },
+  {
+   "id": "bpc-157-tb-500-blend",
+   "label": "BPC-157 + TB-500 blend (Wolverine stack)",
+   "aliases": [
+    "Wolverine stack",
+    "Wolverine blend",
+    "Wolverine protocol",
+    "BPC/TB",
+    "BPC-157/TB-500 blend",
+    "BPC + TB",
+    "TB-500/BPC-157 10mg blend",
+    "healing stack",
+    "recovery stack",
+    "Wolverine (BPC-157 5mg / TB-500 5mg)"
+   ],
+   "class": "tissue-repair",
+   "goals": [
+    "injury-healing",
+    "chronic-injury",
+    "post-surgery",
+    "joint-pain",
+    "training-recovery",
+    "gut"
+   ],
+   "adverseEffects": [
+    "flu-like",
+    "hyperpigmentation"
+   ],
+   "routes": [
+    "subcutaneous",
+    "intramuscular",
+    "oral"
+   ],
+   "doseBands": [
+    "under 500 mcg (combined) per dose",
+    "500 mcg to under 1 mg per dose",
+    "1 to 2 mg per dose",
+    "over 2 mg per dose"
+   ],
+   "frequency": [
+    "daily",
+    "every-other-day",
+    "multiple-daily",
+    "cycled"
+   ],
+   "humanEvidence": "none"
+  },
+  {
+   "id": "kpv",
+   "label": "KPV",
+   "aliases": [
+    "KPV peptide",
+    "Lys-Pro-Val",
+    "alpha-MSH fragment (11-13)",
+    "\u03b1-MSH 11-13",
+    "KPV acetate",
+    "KPV caps",
+    "oral KPV",
+    "KPV nasal spray"
+   ],
+   "class": "tissue-repair",
+   "goals": [
+    "gut",
+    "skin-condition",
+    "allergy-mcas",
+    "autoimmune",
+    "sinus-respiratory",
+    "wound-scar",
+    "training-recovery"
+   ],
+   "adverseEffects": [
+    "reflux-bloating",
+    "skin-irritation",
+    "condition-flare"
+   ],
+   "routes": [
+    "oral",
+    "subcutaneous",
+    "intranasal",
+    "topical"
+   ],
+   "doseBands": [
+    "under 250 mcg per dose",
+    "250 to under 500 mcg per dose",
+    "500 mcg to 1 mg per dose",
+    "over 1 mg per dose"
+   ],
+   "frequency": [
+    "daily",
+    "multiple-daily",
+    "as-needed",
+    "cycled"
+   ],
+   "humanEvidence": "none"
+  },
+  {
+   "id": "ll-37",
+   "label": "LL-37",
+   "aliases": [
+    "LL37",
+    "LL 37",
+    "cathelicidin",
+    "cathelicidin LL-37",
+    "hCAP18 fragment",
+    "CAP-18",
+    "ropocamptide (pharma name for topical LL-37)",
+    "LL-37 acetate"
+   ],
+   "class": "tissue-repair",
+   "goals": [
+    "infection",
+    "immune",
+    "gut-infection",
+    "wound-scar",
+    "skin-condition",
+    "sinus-respiratory",
+    "long-covid"
+   ],
+   "adverseEffects": [
+    "condition-flare",
+    "diarrhea"
+   ],
+   "routes": [
+    "subcutaneous",
+    "intramuscular",
+    "intranasal",
+    "topical",
+    "oral"
+   ],
+   "doseBands": [
+    "under 50 mcg per dose",
+    "50 to under 100 mcg per dose",
+    "100 to 250 mcg per dose",
+    "over 250 mcg per dose"
+   ],
+   "frequency": [
+    "multiple-daily",
+    "daily",
+    "every-other-day",
+    "as-needed",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  },
+  {
+   "id": "ara-290",
+   "label": "ARA-290 (cibinetide)",
+   "aliases": [
+    "ARA290",
+    "ARA 290",
+    "cibinetide",
+    "Cibinetide (ARA-290)",
+    "helix-B surface peptide",
+    "HBSP",
+    "pyroglutamate helix B surface peptide",
+    "innate repair receptor agonist"
+   ],
+   "class": "tissue-repair",
+   "goals": [
+    "nerve-pain",
+    "long-covid",
+    "autoimmune",
+    "injury-healing"
+   ],
+   "adverseEffects": [
+    "injury-worse"
+   ],
+   "routes": [
+    "subcutaneous"
+   ],
+   "doseBands": [
+    "under 2 mg per dose",
+    "2 to under 4 mg per dose",
+    "4 to 6 mg per dose",
+    "over 6 mg per dose"
+   ],
+   "frequency": [
+    "daily",
+    "cycled"
+   ],
+   "humanEvidence": "small-trials"
+  }
+ ],
+ "classes": [
+  {
+   "id": "incretin",
+   "label": "GLP-1 / incretin agonists",
+   "members": [
+    "retatrutide",
+    "tirzepatide",
+    "semaglutide",
+    "cagrilintide",
+    "mazdutide",
+    "survodutide",
+    "liraglutide"
+   ]
+  },
+  {
+   "id": "gh-secretagogue",
+   "label": "Growth hormone axis",
+   "members": [
+    "cjc-1295-ipamorelin-blend",
+    "ipamorelin",
+    "tesamorelin",
+    "mk-677",
+    "somatropin",
+    "cjc-1295-without-dac",
+    "sermorelin",
+    "cjc-1295-with-dac",
+    "ghrp-6",
+    "ghrp-2",
+    "hexarelin"
+   ]
+  },
+  {
+   "id": "tissue-repair",
+   "label": "Tissue repair / healing",
+   "members": [
+    "ghk-cu",
+    "bpc-157",
+    "tb-500",
+    "bpc-157-tb-500-blend",
+    "kpv",
+    "ll-37",
+    "ara-290"
+   ]
+  },
+  {
+   "id": "neuro",
+   "label": "Nootropic / mood / sleep",
+   "members": [
+    "oxytocin",
+    "dsip",
+    "semax",
+    "selank",
+    "cerebrolysin",
+    "dihexa",
+    "p21",
+    "pinealon"
+   ]
+  },
+  {
+   "id": "metabolic",
+   "label": "Metabolic / longevity",
+   "members": [
+    "aod-9604",
+    "nad",
+    "mots-c",
+    "epitalon",
+    "5-amino-1mq",
+    "glutathione",
+    "thymosin-alpha-1",
+    "tesofensine",
+    "ss-31",
+    "humanin",
+    "slu-pp-332",
+    "foxo4-dri"
+   ]
+  },
+  {
+   "id": "sexual-hormonal",
+   "label": "Sexual function / hormonal",
+   "members": [
+    "pt-141",
+    "melanotan-ii",
+    "kisspeptin-10",
+    "melanotan-i",
+    "gonadorelin"
+   ]
+  }
+ ],
+ "goals": [
+  {
+   "id": "fat-loss",
+   "label": "Fat loss / weight loss"
+  },
+  {
+   "id": "visceral-fat",
+   "label": "Reducing belly / visceral fat specifically"
+  },
+  {
+   "id": "recomp",
+   "label": "Losing fat while keeping or building muscle"
+  },
+  {
+   "id": "plateau",
+   "label": "Breaking a weight-loss plateau"
+  },
+  {
+   "id": "weight-maintenance",
+   "label": "Maintaining weight after a prior loss (low-dose / microdose)"
+  },
+  {
+   "id": "appetite-control",
+   "label": "Appetite control / quieting food noise"
+  },
+  {
+   "id": "appetite-increase",
+   "label": "Increasing appetite (bulking)"
+  },
+  {
+   "id": "glp1-stack",
+   "label": "Adding to a GLP-1 for extra effect"
+  },
+  {
+   "id": "muscle-gain",
+   "label": "Muscle gain"
+  },
+  {
+   "id": "training-recovery",
+   "label": "Faster recovery from training"
+  },
+  {
+   "id": "endurance",
+   "label": "More endurance / exercise capacity"
+  },
+  {
+   "id": "athletic-performance",
+   "label": "Athletic performance"
+  },
+  {
+   "id": "injury-healing",
+   "label": "Healing a tendon, ligament, muscle or joint injury"
+  },
+  {
+   "id": "joint-pain",
+   "label": "Joint or cartilage pain relief"
+  },
+  {
+   "id": "wound-scar",
+   "label": "Healing wounds, scars, acne marks or stretch marks"
+  },
+  {
+   "id": "gut",
+   "label": "Gut issues (IBS, ulcers, leaky gut, inflammation)"
+  },
+  {
+   "id": "gut-infection",
+   "label": "Gut infection or dysbiosis (SIBO, candida)"
+  },
+  {
+   "id": "chronic-injury",
+   "label": "An old or chronic injury that never fully healed"
+  },
+  {
+   "id": "post-surgery",
+   "label": "Recovery after surgery"
+  },
+  {
+   "id": "mobility",
+   "label": "Flexibility, mobility or stiffness"
+  },
+  {
+   "id": "chronic-pain",
+   "label": "Chronic pain"
+  },
+  {
+   "id": "nerve-pain",
+   "label": "Nerve pain or neuropathy"
+  },
+  {
+   "id": "skin-condition",
+   "label": "Skin condition (eczema, psoriasis, rosacea, acne)"
+  },
+  {
+   "id": "allergy-mcas",
+   "label": "Allergies, histamine or mast-cell issues"
+  },
+  {
+   "id": "autoimmune",
+   "label": "Autoimmune flares or body-wide inflammation"
+  },
+  {
+   "id": "sinus-respiratory",
+   "label": "Sinus or respiratory issues"
+  },
+  {
+   "id": "infection",
+   "label": "Chronic or stealth infection (Lyme, mold, biofilm)"
+  },
+  {
+   "id": "blood-sugar",
+   "label": "Blood sugar / insulin resistance / A1c"
+  },
+  {
+   "id": "pcos",
+   "label": "PCOS-related weight or insulin issues"
+  },
+  {
+   "id": "liver-fat",
+   "label": "Reducing liver fat"
+  },
+  {
+   "id": "cardio-kidney",
+   "label": "Heart or kidney protection"
+  },
+  {
+   "id": "lipids",
+   "label": "Cholesterol or other blood markers"
+  },
+  {
+   "id": "cravings",
+   "label": "Cutting alcohol, nicotine or other cravings"
+  },
+  {
+   "id": "withdrawal",
+   "label": "Easing withdrawal or tapering off a substance"
+  },
+  {
+   "id": "deeper-sleep",
+   "label": "Deeper, more restorative sleep"
+  },
+  {
+   "id": "fall-asleep",
+   "label": "Falling asleep faster"
+  },
+  {
+   "id": "focus",
+   "label": "Sharper focus and concentration"
+  },
+  {
+   "id": "memory",
+   "label": "Better memory and learning"
+  },
+  {
+   "id": "brain-fog",
+   "label": "Less brain fog / mental fatigue"
+  },
+  {
+   "id": "cognitive-decline",
+   "label": "Slowing memory loss or cognitive decline"
+  },
+  {
+   "id": "brain-injury",
+   "label": "Recovery after concussion, head injury or stroke"
+  },
+  {
+   "id": "neuroprotection",
+   "label": "Long-term brain health"
+  },
+  {
+   "id": "motivation",
+   "label": "More motivation and drive"
+  },
+  {
+   "id": "verbal-creativity",
+   "label": "Verbal fluency or creativity"
+  },
+  {
+   "id": "mood",
+   "label": "Better mood / lifting depression"
+  },
+  {
+   "id": "anxiety",
+   "label": "Less anxiety or stress"
+  },
+  {
+   "id": "social-ease",
+   "label": "Feeling calmer or more at ease socially"
+  },
+  {
+   "id": "energy",
+   "label": "More daily energy, less fatigue"
+  },
+  {
+   "id": "longevity",
+   "label": "General longevity / anti-aging"
+  },
+  {
+   "id": "immune",
+   "label": "Immune support / fewer infections"
+  },
+  {
+   "id": "long-covid",
+   "label": "Long COVID or chronic fatigue symptoms"
+  },
+  {
+   "id": "bone-density",
+   "label": "Bone density"
+  },
+  {
+   "id": "skin-aging",
+   "label": "Skin appearance / fine lines / anti-aging look"
+  },
+  {
+   "id": "hair",
+   "label": "Hair regrowth or thicker hair"
+  },
+  {
+   "id": "skin-tone",
+   "label": "More even skin tone"
+  },
+  {
+   "id": "tan",
+   "label": "Darker tan with less sun exposure"
+  },
+  {
+   "id": "sun-tolerance",
+   "label": "Tanning without burning / sun sensitivity"
+  },
+  {
+   "id": "libido",
+   "label": "Stronger sexual desire / libido"
+  },
+  {
+   "id": "erections",
+   "label": "Firmer or more reliable erections"
+  },
+  {
+   "id": "orgasm",
+   "label": "More intense arousal or orgasm"
+  },
+  {
+   "id": "ed-adjunct",
+   "label": "Add-on when ED medication is not enough"
+  },
+  {
+   "id": "testosterone",
+   "label": "Higher natural testosterone"
+  },
+  {
+   "id": "pct",
+   "label": "Restoring hormone function after a cycle or TRT"
+  },
+  {
+   "id": "fertility",
+   "label": "Fertility"
+  },
+  {
+   "id": "bonding",
+   "label": "Closer bonding or intimacy with a partner"
+  },
+  {
+   "id": "igf1",
+   "label": "Raising IGF-1 / GH on bloodwork"
+  },
+  {
+   "id": "annual-reset",
+   "label": "Periodic 'reset' course"
+  },
+  {
+   "id": "trt-support",
+   "label": "Keeping testicular function or fertility while on TRT"
+  },
+  {
+   "id": "glp1-alternative",
+   "label": "Alternative to weekly GLP-1 injections (oral / daily / cheaper)"
+  },
+  {
+   "id": "skin-brightening",
+   "label": "Skin brightening or lightening"
+  },
+  {
+   "id": "detox-liver",
+   "label": "Liver support / 'detox'"
+  },
+  {
+   "id": "hangover",
+   "label": "Hangover or post-drinking recovery"
+  },
+  {
+   "id": "cancer-adjunct",
+   "label": "Adjunct during cancer treatment"
+  },
+  {
+   "id": "hepatitis",
+   "label": "Hepatitis B or C"
+  },
+  {
+   "id": "eye-health",
+   "label": "Eye health"
+  }
+ ],
+ "universalAdverseEffects": [
+  {
+   "id": "headache",
+   "label": "Headache"
+  },
+  {
+   "id": "nausea",
+   "label": "Nausea"
+  },
+  {
+   "id": "vomiting",
+   "label": "Vomiting"
+  },
+  {
+   "id": "dizziness",
+   "label": "Dizziness or lightheadedness"
+  },
+  {
+   "id": "fatigue",
+   "label": "Fatigue / low energy"
+  },
+  {
+   "id": "insomnia",
+   "label": "Trouble sleeping"
+  },
+  {
+   "id": "vivid-dreams",
+   "label": "Vivid dreams"
+  },
+  {
+   "id": "flushing",
+   "label": "Flushing or feeling warm"
+  },
+  {
+   "id": "anxiety-jittery",
+   "label": "Anxiety, restlessness or feeling wired"
+  },
+  {
+   "id": "low-mood",
+   "label": "Low mood or irritability"
+  },
+  {
+   "id": "appetite-change",
+   "label": "Appetite change"
+  },
+  {
+   "id": "injection-site",
+   "label": "Injection-site reaction (redness, itching, lump, bruising)"
+  },
+  {
+   "id": "nasal-irritation",
+   "label": "Nasal irritation, burning or sneezing"
+  },
+  {
+   "id": "tolerance",
+   "label": "Effect faded with repeated use"
+  },
+  {
+   "id": "no-effect",
+   "label": "No noticeable effect at all"
+  }
+ ],
+ "adverseEffects": [
+  {
+   "id": "constipation",
+   "label": "Constipation"
+  },
+  {
+   "id": "diarrhea",
+   "label": "Diarrhea or loose stools"
+  },
+  {
+   "id": "reflux-bloating",
+   "label": "Acid reflux, bloating, burping or sulfur burps"
+  },
+  {
+   "id": "stomach-pain",
+   "label": "Stomach pain or cramping"
+  },
+  {
+   "id": "early-fullness",
+   "label": "Getting full very fast / eating too little"
+  },
+  {
+   "id": "gallbladder",
+   "label": "Gallbladder pain / gallstones"
+  },
+  {
+   "id": "pancreatitis-scare",
+   "label": "Severe stomach pain (pancreatitis scare)"
+  },
+  {
+   "id": "hypoglycemia",
+   "label": "Low blood sugar episodes (shaky, sweaty, weak)"
+  },
+  {
+   "id": "high-blood-sugar",
+   "label": "Elevated fasting blood sugar or insulin resistance on labs"
+  },
+  {
+   "id": "hunger",
+   "label": "Intense hunger or rebound cravings"
+  },
+  {
+   "id": "unwanted-weight-gain",
+   "label": "Unwanted weight gain"
+  },
+  {
+   "id": "water-retention",
+   "label": "Water retention, bloating or puffy face/hands"
+  },
+  {
+   "id": "joint-pain",
+   "label": "Joint pain or stiffness"
+  },
+  {
+   "id": "carpal-tunnel",
+   "label": "Tingling or numb hands / fingers"
+  },
+  {
+   "id": "swollen-extremities",
+   "label": "Swollen ankles or feet"
+  },
+  {
+   "id": "skin-tags-moles",
+   "label": "New skin tags or moles"
+  },
+  {
+   "id": "low-thyroid",
+   "label": "Low-thyroid symptoms"
+  },
+  {
+   "id": "muscle-cramps",
+   "label": "Muscle cramps or aches"
+  },
+  {
+   "id": "palpitations",
+   "label": "Racing heart, palpitations or higher resting heart rate"
+  },
+  {
+   "id": "blood-pressure",
+   "label": "Blood pressure changes"
+  },
+  {
+   "id": "chest-tightness",
+   "label": "Chest tightness or pressure"
+  },
+  {
+   "id": "brain-fog",
+   "label": "Brain fog or mental fatigue"
+  },
+  {
+   "id": "drowsiness",
+   "label": "Drowsiness or feeling flat / too calm"
+  },
+  {
+   "id": "grogginess",
+   "label": "Next-day grogginess or hangover feeling"
+  },
+  {
+   "id": "paradoxical",
+   "label": "Opposite of intended effect (e.g. more anxious, worse sleep)"
+  },
+  {
+   "id": "emotional",
+   "label": "Feeling weepy or emotionally raw"
+  },
+  {
+   "id": "agitation",
+   "label": "Agitation or feeling overstimulated"
+  },
+  {
+   "id": "hair-shedding",
+   "label": "Hair shedding"
+  },
+  {
+   "id": "moles-freckles",
+   "label": "New or darkening moles / freckles"
+  },
+  {
+   "id": "uneven-darkening",
+   "label": "Uneven skin darkening"
+  },
+  {
+   "id": "skin-irritation",
+   "label": "Skin irritation, rash, hives or breakouts"
+  },
+  {
+   "id": "skin-staining",
+   "label": "Blue-green staining or residue on skin"
+  },
+  {
+   "id": "dysesthesia",
+   "label": "Skin tingling, burning or sunburn-like sensitivity"
+  },
+  {
+   "id": "hyperpigmentation",
+   "label": "Skin, gum or mole darkening"
+  },
+  {
+   "id": "injury-worse",
+   "label": "Pain or inflammation got worse at the injury"
+  },
+  {
+   "id": "flu-like",
+   "label": "Flu-like or achy feeling for a day or two"
+  },
+  {
+   "id": "condition-flare",
+   "label": "Flare-up of the condition being treated"
+  },
+  {
+   "id": "herx",
+   "label": "'Herx' / die-off reaction (fatigue, aches, chills)"
+  },
+  {
+   "id": "prolactin",
+   "label": "Low libido or nipple tenderness"
+  },
+  {
+   "id": "sweating",
+   "label": "Sweating"
+  },
+  {
+   "id": "skin-lightening",
+   "label": "Unwanted skin lightening"
+  },
+  {
+   "id": "dry-mouth",
+   "label": "Dry mouth"
+  },
+  {
+   "id": "facial-volume-loss",
+   "label": "Facial volume loss or loose skin"
+  },
+  {
+   "id": "acne",
+   "label": "Acne or oily skin"
+  },
+  {
+   "id": "erections-unwanted",
+   "label": "Unwanted or prolonged erections"
+  },
+  {
+   "id": "mood-swings",
+   "label": "Mood swings"
+  },
+  {
+   "id": "muscle-loss",
+   "label": "Muscle loss or weakness"
+  },
+  {
+   "id": "alcohol-sensitivity",
+   "label": "Alcohol hitting harder"
+  },
+  {
+   "id": "taste-changes",
+   "label": "Taste changes"
+  },
+  {
+   "id": "cramping-women",
+   "label": "Cramping (women)"
+  },
+  {
+   "id": "dyspnea-rare",
+   "label": "Trouble swallowing (rare)"
+  },
+  {
+   "id": "injection-pain-severe",
+   "label": "Severe stinging or pain at the injection site"
+  }
+ ],
+ "routes": [
+  {
+   "id": "subcutaneous",
+   "label": "Subcutaneous injection"
+  },
+  {
+   "id": "intramuscular",
+   "label": "Intramuscular injection"
+  },
+  {
+   "id": "intranasal",
+   "label": "Nasal spray / drops"
+  },
+  {
+   "id": "oral",
+   "label": "Oral / sublingual / troche"
+  },
+  {
+   "id": "topical",
+   "label": "Topical / transdermal"
+  },
+  {
+   "id": "intravenous",
+   "label": "Intravenous (clinic)"
+  }
+ ],
+ "frequency": [
+  {
+   "id": "multiple-daily",
+   "label": "More than once a day"
+  },
+  {
+   "id": "daily",
+   "label": "Once a day"
+  },
+  {
+   "id": "5-on-2-off",
+   "label": "5 days on / 2 days off"
+  },
+  {
+   "id": "every-other-day",
+   "label": "Every other day"
+  },
+  {
+   "id": "2-3-weekly",
+   "label": "2\u20133 times a week"
+  },
+  {
+   "id": "weekly",
+   "label": "About once a week"
+  },
+  {
+   "id": "less-than-weekly",
+   "label": "Less than weekly"
+  },
+  {
+   "id": "as-needed",
+   "label": "As needed / on demand"
+  },
+  {
+   "id": "cycled",
+   "label": "In cycles (weeks on, weeks off)"
+  }
+ ]
+}

@@ -1,0 +1,449 @@
+{
+ "config": "spec/schema.config.json",
+ "reports": [
+  {
+   "n": 500,
+   "k_anonymity": [
+    {
+     "qi_set": "narrow",
+     "qi_fields": [
+      "compound",
+      "age_band",
+      "sex",
+      "goals",
+      "start_dose",
+      "source_channel",
+      "duration"
+     ],
+     "n": 500,
+     "distinct_cells": 493,
+     "unique_rows_pct": 97.2,
+     "rows_in_cells_lt5_pct": 100.0,
+     "rows_in_cells_lt10_pct": 100.0,
+     "rows_in_cells_lt20_pct": 100.0,
+     "median_cell_size": 1,
+     "largest_cell": 2
+    },
+    {
+     "qi_set": "plausible-post",
+     "qi_fields": [
+      "compound",
+      "age_band",
+      "sex",
+      "goals",
+      "start_dose"
+     ],
+     "n": 500,
+     "distinct_cells": 444,
+     "unique_rows_pct": 80.2,
+     "rows_in_cells_lt5_pct": 99.0,
+     "rows_in_cells_lt10_pct": 100.0,
+     "rows_in_cells_lt20_pct": 100.0,
+     "median_cell_size": 1,
+     "largest_cell": 5
+    },
+    {
+     "qi_set": "plausible-post-no-dose",
+     "qi_fields": [
+      "compound",
+      "age_band",
+      "sex",
+      "goals"
+     ],
+     "n": 500,
+     "distinct_cells": 349,
+     "unique_rows_pct": 53.8,
+     "rows_in_cells_lt5_pct": 86.0,
+     "rows_in_cells_lt10_pct": 95.4,
+     "rows_in_cells_lt20_pct": 100.0,
+     "median_cell_size": 1,
+     "largest_cell": 12
+    },
+    {
+     "qi_set": "demographics-only",
+     "qi_fields": [
+      "compound",
+      "age_band",
+      "sex"
+     ],
+     "n": 500,
+     "distinct_cells": 214,
+     "unique_rows_pct": 24.8,
+     "rows_in_cells_lt5_pct": 61.2,
+     "rows_in_cells_lt10_pct": 78.6,
+     "rows_in_cells_lt20_pct": 91.6,
+     "median_cell_size": 3,
+     "largest_cell": 21
+    },
+    {
+     "qi_set": "broad",
+     "qi_fields": [
+      "compound",
+      "age_band",
+      "sex",
+      "goals",
+      "start_dose",
+      "current_dose",
+      "titration",
+      "source_channel",
+      "duration",
+      "purity_tested",
+      "reconstitution",
+      "status",
+      "stop_reason",
+      "adverse_effects",
+      "outcomes"
+     ],
+     "n": 500,
+     "distinct_cells": 500,
+     "unique_rows_pct": 100.0,
+     "rows_in_cells_lt5_pct": 100.0,
+     "rows_in_cells_lt10_pct": 100.0,
+     "rows_in_cells_lt20_pct": 100.0,
+     "median_cell_size": 1,
+     "largest_cell": 1
+    }
+   ],
+   "marginal_contribution_narrow_qi": [
+    {
+     "field": "age_band",
+     "entropy_bits": 2.19,
+     "unique_pct_if_dropped": 89.6,
+     "reduction_pts": 7.6
+    },
+    {
+     "field": "start_dose",
+     "entropy_bits": 5.98,
+     "unique_pct_if_dropped": 90.6,
+     "reduction_pts": 6.6
+    },
+    {
+     "field": "source_channel",
+     "entropy_bits": 2.42,
+     "unique_pct_if_dropped": 91.6,
+     "reduction_pts": 5.6
+    },
+    {
+     "field": "duration",
+     "entropy_bits": 2.3,
+     "unique_pct_if_dropped": 93.0,
+     "reduction_pts": 4.2
+    },
+    {
+     "field": "goals",
+     "entropy_bits": 5.13,
+     "unique_pct_if_dropped": 94.6,
+     "reduction_pts": 2.6
+    },
+    {
+     "field": "sex",
+     "entropy_bits": 1.18,
+     "unique_pct_if_dropped": 96.0,
+     "reduction_pts": 1.2
+    },
+    {
+     "field": "compound",
+     "entropy_bits": 4.38,
+     "unique_pct_if_dropped": 97.2,
+     "reduction_pts": 0.0
+    }
+   ]
+  },
+  {
+   "n": 5000,
+   "k_anonymity": [
+    {
+     "qi_set": "narrow",
+     "qi_fields": [
+      "compound",
+      "age_band",
+      "sex",
+      "goals",
+      "start_dose",
+      "source_channel",
+      "duration"
+     ],
+     "n": 5000,
+     "distinct_cells": 4711,
+     "unique_rows_pct": 89.3,
+     "rows_in_cells_lt5_pct": 99.7,
+     "rows_in_cells_lt10_pct": 100.0,
+     "rows_in_cells_lt20_pct": 100.0,
+     "median_cell_size": 1,
+     "largest_cell": 5
+    },
+    {
+     "qi_set": "plausible-post",
+     "qi_fields": [
+      "compound",
+      "age_band",
+      "sex",
+      "goals",
+      "start_dose"
+     ],
+     "n": 5000,
+     "distinct_cells": 2866,
+     "unique_rows_pct": 40.1,
+     "rows_in_cells_lt5_pct": 74.8,
+     "rows_in_cells_lt10_pct": 91.7,
+     "rows_in_cells_lt20_pct": 98.1,
+     "median_cell_size": 2,
+     "largest_cell": 29
+    },
+    {
+     "qi_set": "plausible-post-no-dose",
+     "qi_fields": [
+      "compound",
+      "age_band",
+      "sex",
+      "goals"
+     ],
+     "n": 5000,
+     "distinct_cells": 1592,
+     "unique_rows_pct": 16.2,
+     "rows_in_cells_lt5_pct": 43.7,
+     "rows_in_cells_lt10_pct": 63.7,
+     "rows_in_cells_lt20_pct": 78.0,
+     "median_cell_size": 6,
+     "largest_cell": 84
+    },
+    {
+     "qi_set": "demographics-only",
+     "qi_fields": [
+      "compound",
+      "age_band",
+      "sex"
+     ],
+     "n": 5000,
+     "distinct_cells": 599,
+     "unique_rows_pct": 2.9,
+     "rows_in_cells_lt5_pct": 15.4,
+     "rows_in_cells_lt10_pct": 29.9,
+     "rows_in_cells_lt20_pct": 48.4,
+     "median_cell_size": 21,
+     "largest_cell": 228
+    },
+    {
+     "qi_set": "broad",
+     "qi_fields": [
+      "compound",
+      "age_band",
+      "sex",
+      "goals",
+      "start_dose",
+      "current_dose",
+      "titration",
+      "source_channel",
+      "duration",
+      "purity_tested",
+      "reconstitution",
+      "status",
+      "stop_reason",
+      "adverse_effects",
+      "outcomes"
+     ],
+     "n": 5000,
+     "distinct_cells": 5000,
+     "unique_rows_pct": 100.0,
+     "rows_in_cells_lt5_pct": 100.0,
+     "rows_in_cells_lt10_pct": 100.0,
+     "rows_in_cells_lt20_pct": 100.0,
+     "median_cell_size": 1,
+     "largest_cell": 1
+    }
+   ],
+   "marginal_contribution_narrow_qi": [
+    {
+     "field": "duration",
+     "entropy_bits": 2.35,
+     "unique_pct_if_dropped": 69.6,
+     "reduction_pts": 19.7
+    },
+    {
+     "field": "age_band",
+     "entropy_bits": 2.26,
+     "unique_pct_if_dropped": 69.8,
+     "reduction_pts": 19.5
+    },
+    {
+     "field": "source_channel",
+     "entropy_bits": 2.37,
+     "unique_pct_if_dropped": 70.2,
+     "reduction_pts": 19.1
+    },
+    {
+     "field": "goals",
+     "entropy_bits": 5.28,
+     "unique_pct_if_dropped": 71.0,
+     "reduction_pts": 18.3
+    },
+    {
+     "field": "start_dose",
+     "entropy_bits": 6.31,
+     "unique_pct_if_dropped": 71.2,
+     "reduction_pts": 18.1
+    },
+    {
+     "field": "sex",
+     "entropy_bits": 1.16,
+     "unique_pct_if_dropped": 81.6,
+     "reduction_pts": 7.7
+    },
+    {
+     "field": "compound",
+     "entropy_bits": 4.57,
+     "unique_pct_if_dropped": 89.0,
+     "reduction_pts": 0.3
+    }
+   ]
+  },
+  {
+   "n": 50000,
+   "k_anonymity": [
+    {
+     "qi_set": "narrow",
+     "qi_fields": [
+      "compound",
+      "age_band",
+      "sex",
+      "goals",
+      "start_dose",
+      "source_channel",
+      "duration"
+     ],
+     "n": 50000,
+     "distinct_cells": 35970,
+     "unique_rows_pct": 58.0,
+     "rows_in_cells_lt5_pct": 87.6,
+     "rows_in_cells_lt10_pct": 96.1,
+     "rows_in_cells_lt20_pct": 99.2,
+     "median_cell_size": 1,
+     "largest_cell": 32
+    },
+    {
+     "qi_set": "plausible-post",
+     "qi_fields": [
+      "compound",
+      "age_band",
+      "sex",
+      "goals",
+      "start_dose"
+     ],
+     "n": 50000,
+     "distinct_cells": 10807,
+     "unique_rows_pct": 9.3,
+     "rows_in_cells_lt5_pct": 29.2,
+     "rows_in_cells_lt10_pct": 46.3,
+     "rows_in_cells_lt20_pct": 62.7,
+     "median_cell_size": 11,
+     "largest_cell": 237
+    },
+    {
+     "qi_set": "plausible-post-no-dose",
+     "qi_fields": [
+      "compound",
+      "age_band",
+      "sex",
+      "goals"
+     ],
+     "n": 50000,
+     "distinct_cells": 3839,
+     "unique_rows_pct": 1.7,
+     "rows_in_cells_lt5_pct": 8.4,
+     "rows_in_cells_lt10_pct": 18.6,
+     "rows_in_cells_lt20_pct": 32.3,
+     "median_cell_size": 45,
+     "largest_cell": 790
+    },
+    {
+     "qi_set": "demographics-only",
+     "qi_fields": [
+      "compound",
+      "age_band",
+      "sex"
+     ],
+     "n": 50000,
+     "distinct_cells": 857,
+     "unique_rows_pct": 0.1,
+     "rows_in_cells_lt5_pct": 0.9,
+     "rows_in_cells_lt10_pct": 2.5,
+     "rows_in_cells_lt20_pct": 6.5,
+     "median_cell_size": 189,
+     "largest_cell": 2180
+    },
+    {
+     "qi_set": "broad",
+     "qi_fields": [
+      "compound",
+      "age_band",
+      "sex",
+      "goals",
+      "start_dose",
+      "current_dose",
+      "titration",
+      "source_channel",
+      "duration",
+      "purity_tested",
+      "reconstitution",
+      "status",
+      "stop_reason",
+      "adverse_effects",
+      "outcomes"
+     ],
+     "n": 50000,
+     "distinct_cells": 50000,
+     "unique_rows_pct": 100.0,
+     "rows_in_cells_lt5_pct": 100.0,
+     "rows_in_cells_lt10_pct": 100.0,
+     "rows_in_cells_lt20_pct": 100.0,
+     "median_cell_size": 1,
+     "largest_cell": 1
+    }
+   ],
+   "marginal_contribution_narrow_qi": [
+    {
+     "field": "source_channel",
+     "entropy_bits": 2.38,
+     "unique_pct_if_dropped": 29.8,
+     "reduction_pts": 28.2
+    },
+    {
+     "field": "duration",
+     "entropy_bits": 2.36,
+     "unique_pct_if_dropped": 30.6,
+     "reduction_pts": 27.4
+    },
+    {
+     "field": "age_band",
+     "entropy_bits": 2.25,
+     "unique_pct_if_dropped": 31.8,
+     "reduction_pts": 26.2
+    },
+    {
+     "field": "goals",
+     "entropy_bits": 5.31,
+     "unique_pct_if_dropped": 32.0,
+     "reduction_pts": 26.0
+    },
+    {
+     "field": "start_dose",
+     "entropy_bits": 6.37,
+     "unique_pct_if_dropped": 33.1,
+     "reduction_pts": 24.9
+    },
+    {
+     "field": "sex",
+     "entropy_bits": 1.17,
+     "unique_pct_if_dropped": 44.3,
+     "reduction_pts": 13.7
+    },
+    {
+     "field": "compound",
+     "entropy_bits": 4.61,
+     "unique_pct_if_dropped": 56.5,
+     "reduction_pts": 1.5
+    }
+   ]
+  }
+ ]
+}

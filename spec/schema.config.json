@@ -1,0 +1,1388 @@
+{
+ "_source": "spec/taxonomy.v1.json",
+ "_note": "Skew weights are pre-launch assumptions. Replace with observed distributions once real rows exist.",
+ "compound_skew": "zipf",
+ "compound_zipf_s": 1.0,
+ "max_goals": 1,
+ "compounds": [
+  {
+   "id": "ghk-cu",
+   "dose_bands": [
+    "Topical only (no injection)",
+    "Under 1 mg per day injected",
+    "1 to 2 mg per day injected",
+    "2 to 4 mg per day injected",
+    "Over 4 mg per day injected"
+   ],
+   "goals": [
+    "skin-aging",
+    "hair",
+    "wound-scar",
+    "skin-tone",
+    "injury-healing",
+    "longevity"
+   ],
+   "adverse_effects": [
+    "skin-staining",
+    "skin-irritation",
+    "hair-shedding"
+   ]
+  },
+  {
+   "id": "pt-141",
+   "dose_bands": [
+    "Under 0.5 mg per dose",
+    "0.5 to under 1 mg per dose",
+    "1 to under 1.5 mg per dose",
+    "1.5 to 2 mg per dose",
+    "Over 2 mg per dose"
+   ],
+   "goals": [
+    "libido",
+    "erections",
+    "ed-adjunct",
+    "orgasm"
+   ],
+   "adverse_effects": [
+    "palpitations",
+    "moles-freckles",
+    "erections-unwanted"
+   ]
+  },
+  {
+   "id": "melanotan-ii",
+   "dose_bands": [
+    "Under 100 mcg per dose",
+    "100 to under 250 mcg per dose",
+    "250 to under 500 mcg per dose",
+    "500 mcg to 1 mg per dose",
+    "Over 1 mg per dose"
+   ],
+   "goals": [
+    "tan",
+    "sun-tolerance",
+    "libido",
+    "appetite-control",
+    "skin-tone"
+   ],
+   "adverse_effects": [
+    "erections-unwanted",
+    "moles-freckles",
+    "uneven-darkening"
+   ]
+  },
+  {
+   "id": "kisspeptin-10",
+   "dose_bands": [
+    "Under 50 mcg per dose",
+    "50 to under 100 mcg per dose",
+    "100 to under 250 mcg per dose",
+    "250 to 500 mcg per dose",
+    "Over 500 mcg per dose"
+   ],
+   "goals": [
+    "testosterone",
+    "libido",
+    "pct",
+    "fertility",
+    "mood"
+   ],
+   "adverse_effects": [
+    "acne"
+   ]
+  },
+  {
+   "id": "oxytocin",
+   "dose_bands": [
+    "Under 10 IU per dose",
+    "10 to under 20 IU per dose",
+    "20 to under 30 IU per dose",
+    "30 to 50 IU per dose",
+    "Over 50 IU per dose"
+   ],
+   "goals": [
+    "social-ease",
+    "bonding",
+    "orgasm",
+    "mood",
+    "anxiety",
+    "deeper-sleep"
+   ],
+   "adverse_effects": [
+    "emotional",
+    "cramping-women"
+   ]
+  },
+  {
+   "id": "dsip",
+   "dose_bands": [
+    "Under 100 mcg per dose",
+    "100 to under 200 mcg per dose",
+    "200 to under 400 mcg per dose",
+    "400 mcg to 1 mg per dose",
+    "Over 1 mg per dose"
+   ],
+   "goals": [
+    "fall-asleep",
+    "deeper-sleep",
+    "energy",
+    "anxiety"
+   ],
+   "adverse_effects": []
+  },
+  {
+   "id": "melanotan-i",
+   "dose_bands": [
+    "Under 0.5 mg per dose",
+    "0.5 to under 1 mg per dose",
+    "1 to 2 mg per dose",
+    "Over 2 mg per dose"
+   ],
+   "goals": [
+    "tan",
+    "sun-tolerance",
+    "skin-tone"
+   ],
+   "adverse_effects": [
+    "moles-freckles",
+    "uneven-darkening"
+   ]
+  },
+  {
+   "id": "gonadorelin",
+   "dose_bands": [
+    "Under 100 mcg per dose",
+    "100 to under 200 mcg per dose",
+    "200 to 500 mcg per dose",
+    "Over 500 mcg per dose"
+   ],
+   "goals": [
+    "trt-support",
+    "pct",
+    "testosterone"
+   ],
+   "adverse_effects": [
+    "acne",
+    "reflux-bloating"
+   ]
+  },
+  {
+   "id": "retatrutide",
+   "dose_bands": [
+    "under 1 mg/week",
+    "1 to under 2 mg/week",
+    "2 to under 4 mg/week",
+    "4 to under 6 mg/week",
+    "6 mg/week or more"
+   ],
+   "goals": [
+    "fat-loss",
+    "plateau",
+    "recomp",
+    "appetite-control",
+    "cravings",
+    "endurance",
+    "blood-sugar",
+    "joint-pain"
+   ],
+   "adverse_effects": [
+    "constipation",
+    "diarrhea",
+    "reflux-bloating",
+    "palpitations",
+    "dysesthesia",
+    "hunger",
+    "hair-shedding",
+    "muscle-loss",
+    "grogginess"
+   ]
+  },
+  {
+   "id": "tirzepatide",
+   "dose_bands": [
+    "under 2.5 mg/week",
+    "2.5 to under 5 mg/week",
+    "5 to under 7.5 mg/week",
+    "7.5 to under 10 mg/week",
+    "10 mg/week or more"
+   ],
+   "goals": [
+    "fat-loss",
+    "appetite-control",
+    "blood-sugar",
+    "pcos",
+    "cravings",
+    "weight-maintenance",
+    "joint-pain"
+   ],
+   "adverse_effects": [
+    "constipation",
+    "diarrhea",
+    "reflux-bloating",
+    "hair-shedding",
+    "hypoglycemia",
+    "gallbladder",
+    "muscle-loss"
+   ]
+  },
+  {
+   "id": "semaglutide",
+   "dose_bands": [
+    "under 0.25 mg/week",
+    "0.25 to under 0.5 mg/week",
+    "0.5 to under 1 mg/week",
+    "1 to under 2 mg/week",
+    "2 mg/week or more"
+   ],
+   "goals": [
+    "fat-loss",
+    "appetite-control",
+    "blood-sugar",
+    "cravings",
+    "weight-maintenance",
+    "pcos",
+    "cardio-kidney"
+   ],
+   "adverse_effects": [
+    "constipation",
+    "diarrhea",
+    "reflux-bloating",
+    "hair-shedding",
+    "facial-volume-loss",
+    "gallbladder",
+    "stomach-pain"
+   ]
+  },
+  {
+   "id": "cagrilintide",
+   "dose_bands": [
+    "under 0.5 mg/week",
+    "0.5 to under 1 mg/week",
+    "1 to under 2 mg/week",
+    "2 mg/week or more"
+   ],
+   "goals": [
+    "glp1-stack",
+    "appetite-control",
+    "plateau",
+    "recomp",
+    "fat-loss"
+   ],
+   "adverse_effects": [
+    "constipation",
+    "early-fullness",
+    "reflux-bloating",
+    "diarrhea"
+   ]
+  },
+  {
+   "id": "mazdutide",
+   "dose_bands": [
+    "under 2 mg/week",
+    "2 to under 4 mg/week",
+    "4 to under 6 mg/week",
+    "6 mg/week or more"
+   ],
+   "goals": [
+    "fat-loss",
+    "liver-fat",
+    "plateau"
+   ],
+   "adverse_effects": [
+    "diarrhea",
+    "constipation",
+    "palpitations",
+    "reflux-bloating"
+   ]
+  },
+  {
+   "id": "survodutide",
+   "dose_bands": [
+    "under 1.2 mg/week",
+    "1.2 to under 2.4 mg/week",
+    "2.4 to under 3.6 mg/week",
+    "3.6 mg/week or more"
+   ],
+   "goals": [
+    "fat-loss",
+    "liver-fat",
+    "plateau",
+    "glp1-stack"
+   ],
+   "adverse_effects": [
+    "diarrhea",
+    "constipation",
+    "reflux-bloating",
+    "palpitations",
+    "hypoglycemia"
+   ]
+  },
+  {
+   "id": "liraglutide",
+   "dose_bands": [
+    "under 1.2 mg/day",
+    "1.2 to under 1.8 mg/day",
+    "1.8 to under 3 mg/day",
+    "3 mg/day or more"
+   ],
+   "goals": [
+    "fat-loss",
+    "blood-sugar",
+    "glp1-alternative"
+   ],
+   "adverse_effects": [
+    "diarrhea",
+    "constipation",
+    "hypoglycemia",
+    "gallbladder",
+    "palpitations"
+   ]
+  },
+  {
+   "id": "semax",
+   "dose_bands": [
+    "under 200 mcg/day",
+    "200-400 mcg/day",
+    "400-800 mcg/day",
+    "800-1,500 mcg/day",
+    "over 1,500 mcg/day"
+   ],
+   "goals": [
+    "focus",
+    "memory",
+    "motivation",
+    "brain-fog",
+    "mood",
+    "brain-injury",
+    "neuroprotection"
+   ],
+   "adverse_effects": [
+    "hair-shedding"
+   ]
+  },
+  {
+   "id": "selank",
+   "dose_bands": [
+    "under 250 mcg/day",
+    "250-500 mcg/day",
+    "500-1,000 mcg/day",
+    "1,000-2,000 mcg/day",
+    "over 2,000 mcg/day"
+   ],
+   "goals": [
+    "anxiety",
+    "focus",
+    "mood",
+    "deeper-sleep",
+    "withdrawal",
+    "memory",
+    "immune"
+   ],
+   "adverse_effects": [
+    "drowsiness",
+    "brain-fog"
+   ]
+  },
+  {
+   "id": "cerebrolysin",
+   "dose_bands": [
+    "1 ml/day or less",
+    "1-2 ml/day",
+    "2-5 ml/day",
+    "5-10 ml/day",
+    "over 10 ml/day"
+   ],
+   "goals": [
+    "brain-injury",
+    "cognitive-decline",
+    "focus",
+    "mood",
+    "brain-fog",
+    "neuroprotection"
+   ],
+   "adverse_effects": [
+    "skin-irritation"
+   ]
+  },
+  {
+   "id": "dihexa",
+   "dose_bands": [
+    "under 2 mg/day",
+    "2-5 mg/day",
+    "5-10 mg/day",
+    "10-20 mg/day",
+    "over 20 mg/day"
+   ],
+   "goals": [
+    "memory",
+    "focus",
+    "brain-injury",
+    "cognitive-decline",
+    "mood",
+    "verbal-creativity"
+   ],
+   "adverse_effects": [
+    "skin-irritation",
+    "blood-pressure"
+   ]
+  },
+  {
+   "id": "p21",
+   "dose_bands": [
+    "under 250 mcg/day",
+    "250-500 mcg/day",
+    "500-1,000 mcg/day",
+    "1-2 mg/day",
+    "over 2 mg/day"
+   ],
+   "goals": [
+    "memory",
+    "neuroprotection",
+    "mood",
+    "focus",
+    "brain-injury",
+    "anxiety"
+   ],
+   "adverse_effects": []
+  },
+  {
+   "id": "pinealon",
+   "dose_bands": [
+    "under 1 mg/day",
+    "1-2 mg/day",
+    "2-5 mg/day",
+    "5-10 mg/day",
+    "over 10 mg/day"
+   ],
+   "goals": [
+    "deeper-sleep",
+    "memory",
+    "mood",
+    "neuroprotection",
+    "anxiety",
+    "brain-injury"
+   ],
+   "adverse_effects": []
+  },
+  {
+   "id": "cjc-1295-ipamorelin-blend",
+   "dose_bands": [
+    "under 100 mcg of each per injection",
+    "100-150 mcg of each per injection",
+    "151-250 mcg of each per injection",
+    "251-400 mcg of each per injection",
+    "over 400 mcg of each per injection"
+   ],
+   "goals": [
+    "deeper-sleep",
+    "fat-loss",
+    "recomp",
+    "training-recovery",
+    "injury-healing",
+    "skin-aging",
+    "igf1"
+   ],
+   "adverse_effects": [
+    "reflux-bloating",
+    "carpal-tunnel",
+    "hunger",
+    "high-blood-sugar"
+   ]
+  },
+  {
+   "id": "ipamorelin",
+   "dose_bands": [
+    "under 100 mcg per injection",
+    "100-150 mcg per injection",
+    "151-250 mcg per injection",
+    "251-400 mcg per injection",
+    "over 400 mcg per injection"
+   ],
+   "goals": [
+    "deeper-sleep",
+    "fat-loss",
+    "recomp",
+    "training-recovery",
+    "injury-healing",
+    "skin-aging",
+    "igf1"
+   ],
+   "adverse_effects": [
+    "reflux-bloating",
+    "hunger",
+    "carpal-tunnel",
+    "high-blood-sugar"
+   ]
+  },
+  {
+   "id": "tesamorelin",
+   "dose_bands": [
+    "under 1 mg per day",
+    "1 mg per day (1-1.4 mg)",
+    "1.5-2 mg per day",
+    "2.1-3 mg per day",
+    "over 3 mg per day"
+   ],
+   "goals": [
+    "visceral-fat",
+    "liver-fat",
+    "recomp",
+    "brain-fog",
+    "deeper-sleep",
+    "training-recovery",
+    "igf1"
+   ],
+   "adverse_effects": [
+    "joint-pain",
+    "muscle-cramps",
+    "swollen-extremities",
+    "carpal-tunnel",
+    "high-blood-sugar",
+    "skin-irritation"
+   ]
+  },
+  {
+   "id": "mk-677",
+   "dose_bands": [
+    "under 10 mg per day",
+    "10-12.5 mg per day",
+    "13-25 mg per day",
+    "26-50 mg per day",
+    "over 50 mg per day"
+   ],
+   "goals": [
+    "appetite-increase",
+    "muscle-gain",
+    "deeper-sleep",
+    "injury-healing",
+    "skin-aging",
+    "bone-density",
+    "igf1"
+   ],
+   "adverse_effects": [
+    "hunger",
+    "reflux-bloating",
+    "carpal-tunnel",
+    "high-blood-sugar",
+    "joint-pain",
+    "swollen-extremities",
+    "unwanted-weight-gain",
+    "muscle-cramps"
+   ]
+  },
+  {
+   "id": "somatropin",
+   "dose_bands": [
+    "under 2 IU per day",
+    "2-3 IU per day",
+    "3.1-4 IU per day",
+    "4.1-6 IU per day",
+    "6.1-10 IU per day",
+    "over 10 IU per day"
+   ],
+   "goals": [
+    "fat-loss",
+    "muscle-gain",
+    "injury-healing",
+    "skin-aging",
+    "deeper-sleep",
+    "training-recovery",
+    "igf1"
+   ],
+   "adverse_effects": [
+    "reflux-bloating",
+    "joint-pain",
+    "carpal-tunnel",
+    "high-blood-sugar",
+    "swollen-extremities",
+    "skin-tags-moles"
+   ]
+  },
+  {
+   "id": "cjc-1295-without-dac",
+   "dose_bands": [
+    "under 100 mcg per injection",
+    "100-150 mcg per injection",
+    "151-250 mcg per injection",
+    "251-400 mcg per injection",
+    "over 400 mcg per injection"
+   ],
+   "goals": [
+    "igf1",
+    "fat-loss",
+    "recomp",
+    "deeper-sleep",
+    "training-recovery",
+    "injury-healing"
+   ],
+   "adverse_effects": [
+    "palpitations",
+    "reflux-bloating",
+    "carpal-tunnel",
+    "high-blood-sugar"
+   ]
+  },
+  {
+   "id": "sermorelin",
+   "dose_bands": [
+    "under 200 mcg per injection",
+    "200-300 mcg per injection",
+    "301-500 mcg per injection",
+    "501-1000 mcg per injection",
+    "over 1000 mcg per injection"
+   ],
+   "goals": [
+    "deeper-sleep",
+    "energy",
+    "fat-loss",
+    "recomp",
+    "training-recovery",
+    "skin-aging",
+    "igf1"
+   ],
+   "adverse_effects": [
+    "drowsiness",
+    "taste-changes",
+    "skin-irritation",
+    "water-retention",
+    "dyspnea-rare"
+   ]
+  },
+  {
+   "id": "cjc-1295-with-dac",
+   "dose_bands": [
+    "under 1 mg per week",
+    "1-1.9 mg per week",
+    "2-2.9 mg per week",
+    "3-4 mg per week",
+    "over 4 mg per week"
+   ],
+   "goals": [
+    "igf1",
+    "muscle-gain",
+    "fat-loss",
+    "injury-healing",
+    "training-recovery",
+    "deeper-sleep"
+   ],
+   "adverse_effects": [
+    "reflux-bloating",
+    "joint-pain",
+    "carpal-tunnel",
+    "high-blood-sugar",
+    "hunger",
+    "palpitations"
+   ]
+  },
+  {
+   "id": "ghrp-6",
+   "dose_bands": [
+    "under 100 mcg per injection",
+    "100-150 mcg per injection",
+    "151-250 mcg per injection",
+    "251-400 mcg per injection",
+    "over 400 mcg per injection"
+   ],
+   "goals": [
+    "appetite-increase",
+    "muscle-gain",
+    "injury-healing",
+    "training-recovery",
+    "deeper-sleep",
+    "gut",
+    "fat-loss"
+   ],
+   "adverse_effects": [
+    "hunger",
+    "reflux-bloating",
+    "carpal-tunnel",
+    "prolactin",
+    "high-blood-sugar"
+   ]
+  },
+  {
+   "id": "ghrp-2",
+   "dose_bands": [
+    "under 100 mcg per injection",
+    "100-150 mcg per injection",
+    "151-250 mcg per injection",
+    "251-400 mcg per injection",
+    "over 400 mcg per injection"
+   ],
+   "goals": [
+    "muscle-gain",
+    "fat-loss",
+    "training-recovery",
+    "injury-healing",
+    "deeper-sleep",
+    "igf1"
+   ],
+   "adverse_effects": [
+    "hunger",
+    "reflux-bloating",
+    "carpal-tunnel",
+    "prolactin",
+    "high-blood-sugar"
+   ]
+  },
+  {
+   "id": "hexarelin",
+   "dose_bands": [
+    "under 50 mcg per injection",
+    "50-100 mcg per injection",
+    "101-200 mcg per injection",
+    "201-300 mcg per injection",
+    "over 300 mcg per injection"
+   ],
+   "goals": [
+    "muscle-gain",
+    "injury-healing",
+    "cardio-kidney",
+    "fat-loss",
+    "training-recovery",
+    "igf1"
+   ],
+   "adverse_effects": [
+    "prolactin",
+    "reflux-bloating",
+    "carpal-tunnel",
+    "high-blood-sugar"
+   ]
+  },
+  {
+   "id": "aod-9604",
+   "dose_bands": [
+    "under 250 mcg per day",
+    "250-300 mcg per day",
+    "301-500 mcg per day",
+    "501-1000 mcg per day",
+    "over 1000 mcg per day"
+   ],
+   "goals": [
+    "fat-loss",
+    "joint-pain",
+    "training-recovery",
+    "blood-sugar"
+   ],
+   "adverse_effects": [
+    "reflux-bloating"
+   ]
+  },
+  {
+   "id": "nad",
+   "dose_bands": [
+    "under 50 mg per injection",
+    "50 to under 100 mg per injection",
+    "100 to under 200 mg per injection",
+    "200 to under 500 mg per injection",
+    "500 mg or more per injection"
+   ],
+   "goals": [
+    "energy",
+    "brain-fog",
+    "longevity",
+    "cravings",
+    "deeper-sleep",
+    "training-recovery",
+    "long-covid",
+    "mood"
+   ],
+   "adverse_effects": [
+    "chest-tightness",
+    "muscle-cramps",
+    "diarrhea"
+   ]
+  },
+  {
+   "id": "mots-c",
+   "dose_bands": [
+    "under 2.5 mg per injection",
+    "2.5 to under 5 mg per injection",
+    "5 to under 10 mg per injection",
+    "10 to under 20 mg per injection",
+    "20 mg or more per injection"
+   ],
+   "goals": [
+    "recomp",
+    "blood-sugar",
+    "endurance",
+    "energy",
+    "training-recovery",
+    "longevity",
+    "bone-density"
+   ],
+   "adverse_effects": [
+    "hypoglycemia"
+   ]
+  },
+  {
+   "id": "epitalon",
+   "dose_bands": [
+    "under 2.5 mg per day",
+    "2.5 to under 5 mg per day",
+    "5 to under 10 mg per day",
+    "10 to under 20 mg per day",
+    "20 mg or more per day"
+   ],
+   "goals": [
+    "longevity",
+    "deeper-sleep",
+    "energy",
+    "immune",
+    "skin-aging",
+    "mood",
+    "annual-reset"
+   ],
+   "adverse_effects": [
+    "drowsiness"
+   ]
+  },
+  {
+   "id": "5-amino-1mq",
+   "dose_bands": [
+    "under 50 mg per day",
+    "50 to under 100 mg per day",
+    "100 to under 150 mg per day",
+    "150 to under 250 mg per day",
+    "250 mg or more per day"
+   ],
+   "goals": [
+    "fat-loss",
+    "recomp",
+    "energy",
+    "appetite-control",
+    "blood-sugar",
+    "longevity"
+   ],
+   "adverse_effects": [
+    "diarrhea",
+    "hypoglycemia"
+   ]
+  },
+  {
+   "id": "glutathione",
+   "dose_bands": [
+    "under 200 mg per injection",
+    "200 to under 400 mg per injection",
+    "400 to under 800 mg per injection",
+    "800 to under 1500 mg per injection",
+    "1500 mg or more per injection"
+   ],
+   "goals": [
+    "skin-brightening",
+    "detox-liver",
+    "energy",
+    "immune",
+    "hangover",
+    "longevity",
+    "training-recovery"
+   ],
+   "adverse_effects": [
+    "stomach-pain",
+    "skin-irritation",
+    "chest-tightness",
+    "skin-lightening"
+   ]
+  },
+  {
+   "id": "thymosin-alpha-1",
+   "dose_bands": [
+    "under 1 mg per injection",
+    "1 to under 1.5 mg per injection",
+    "1.5 to under 2 mg per injection",
+    "2 to under 4 mg per injection",
+    "4 mg or more per injection"
+   ],
+   "goals": [
+    "long-covid",
+    "immune",
+    "infection",
+    "autoimmune",
+    "cancer-adjunct",
+    "hepatitis",
+    "energy"
+   ],
+   "adverse_effects": [
+    "skin-irritation",
+    "flu-like",
+    "muscle-cramps"
+   ]
+  },
+  {
+   "id": "tesofensine",
+   "dose_bands": [
+    "under 0.25 mg per day",
+    "0.25 to under 0.5 mg per day",
+    "0.5 to under 1 mg per day",
+    "1 mg or more per day"
+   ],
+   "goals": [
+    "fat-loss",
+    "appetite-control",
+    "energy",
+    "glp1-alternative",
+    "weight-maintenance"
+   ],
+   "adverse_effects": [
+    "dry-mouth",
+    "palpitations",
+    "blood-pressure",
+    "constipation",
+    "sweating"
+   ]
+  },
+  {
+   "id": "ss-31",
+   "dose_bands": [
+    "under 1 mg per day",
+    "1 to under 2.5 mg per day",
+    "2.5 to under 5 mg per day",
+    "5 to under 10 mg per day",
+    "10 mg or more per day"
+   ],
+   "goals": [
+    "energy",
+    "longevity",
+    "cardio-kidney",
+    "endurance",
+    "neuroprotection",
+    "eye-health",
+    "long-covid"
+   ],
+   "adverse_effects": [
+    "reflux-bloating",
+    "flu-like",
+    "muscle-cramps"
+   ]
+  },
+  {
+   "id": "humanin",
+   "dose_bands": [
+    "under 0.5 mg per injection",
+    "0.5 to under 1 mg per injection",
+    "1 to under 2.5 mg per injection",
+    "2.5 to under 5 mg per injection",
+    "5 mg or more per injection"
+   ],
+   "goals": [
+    "longevity",
+    "blood-sugar",
+    "neuroprotection",
+    "cardio-kidney",
+    "energy"
+   ],
+   "adverse_effects": []
+  },
+  {
+   "id": "slu-pp-332",
+   "dose_bands": [
+    "under 0.5 mg per day",
+    "0.5 to under 2 mg per day",
+    "2 to under 10 mg per day",
+    "10 to under 30 mg per day",
+    "30 mg or more per day"
+   ],
+   "goals": [
+    "endurance",
+    "fat-loss",
+    "energy"
+   ],
+   "adverse_effects": [
+    "palpitations",
+    "sweating"
+   ]
+  },
+  {
+   "id": "foxo4-dri",
+   "dose_bands": [
+    "under 1 mg per injection",
+    "1 to under 2.5 mg per injection",
+    "2.5 to under 5 mg per injection",
+    "5 to under 10 mg per injection",
+    "10 mg or more per injection"
+   ],
+   "goals": [
+    "longevity",
+    "joint-pain",
+    "skin-aging",
+    "energy",
+    "cardio-kidney"
+   ],
+   "adverse_effects": [
+    "flu-like",
+    "muscle-cramps"
+   ]
+  },
+  {
+   "id": "bpc-157",
+   "dose_bands": [
+    "under 250 mcg per dose",
+    "250 to under 500 mcg per dose",
+    "500 mcg to 1 mg per dose",
+    "over 1 mg per dose"
+   ],
+   "goals": [
+    "injury-healing",
+    "joint-pain",
+    "gut",
+    "post-surgery",
+    "training-recovery",
+    "brain-injury"
+   ],
+   "adverse_effects": [
+    "palpitations",
+    "reflux-bloating",
+    "injury-worse",
+    "hyperpigmentation"
+   ]
+  },
+  {
+   "id": "tb-500",
+   "dose_bands": [
+    "under 2 mg per dose",
+    "2 to under 5 mg per dose",
+    "5 to 10 mg per dose",
+    "over 10 mg per dose"
+   ],
+   "goals": [
+    "chronic-injury",
+    "injury-healing",
+    "mobility",
+    "joint-pain",
+    "post-surgery",
+    "training-recovery",
+    "hair"
+   ],
+   "adverse_effects": [
+    "flu-like",
+    "muscle-cramps",
+    "hyperpigmentation"
+   ]
+  },
+  {
+   "id": "bpc-157-tb-500-blend",
+   "dose_bands": [
+    "under 500 mcg (combined) per dose",
+    "500 mcg to under 1 mg per dose",
+    "1 to 2 mg per dose",
+    "over 2 mg per dose"
+   ],
+   "goals": [
+    "injury-healing",
+    "chronic-injury",
+    "post-surgery",
+    "joint-pain",
+    "training-recovery",
+    "gut"
+   ],
+   "adverse_effects": [
+    "flu-like",
+    "hyperpigmentation"
+   ]
+  },
+  {
+   "id": "kpv",
+   "dose_bands": [
+    "under 250 mcg per dose",
+    "250 to under 500 mcg per dose",
+    "500 mcg to 1 mg per dose",
+    "over 1 mg per dose"
+   ],
+   "goals": [
+    "gut",
+    "skin-condition",
+    "allergy-mcas",
+    "autoimmune",
+    "sinus-respiratory",
+    "wound-scar",
+    "training-recovery"
+   ],
+   "adverse_effects": [
+    "reflux-bloating",
+    "skin-irritation",
+    "condition-flare"
+   ]
+  },
+  {
+   "id": "ll-37",
+   "dose_bands": [
+    "under 50 mcg per dose",
+    "50 to under 100 mcg per dose",
+    "100 to 250 mcg per dose",
+    "over 250 mcg per dose"
+   ],
+   "goals": [
+    "infection",
+    "immune",
+    "gut-infection",
+    "wound-scar",
+    "skin-condition",
+    "sinus-respiratory",
+    "long-covid"
+   ],
+   "adverse_effects": [
+    "condition-flare",
+    "diarrhea"
+   ]
+  },
+  {
+   "id": "ara-290",
+   "dose_bands": [
+    "under 2 mg per dose",
+    "2 to under 4 mg per dose",
+    "4 to 6 mg per dose",
+    "over 6 mg per dose"
+   ],
+   "goals": [
+    "nerve-pain",
+    "long-covid",
+    "autoimmune",
+    "injury-healing"
+   ],
+   "adverse_effects": [
+    "injury-worse"
+   ]
+  }
+ ],
+ "shared_fields": {
+  "source_channel": {
+   "options": [
+    "retail-pharmacy",
+    "503a-compounder",
+    "telehealth-compounded",
+    "domestic-rc-vendor",
+    "overseas-vendor",
+    "another-person",
+    "unknown",
+    "other"
+   ],
+   "skew": [
+    0.04,
+    0.1,
+    0.14,
+    0.42,
+    0.2,
+    0.05,
+    0.03,
+    0.02
+   ]
+  },
+  "titration": {
+   "options": [
+    "no-change",
+    "stepped-up",
+    "stepped-down",
+    "cycled",
+    "other"
+   ],
+   "skew": [
+    0.45,
+    0.35,
+    0.08,
+    0.1,
+    0.02
+   ]
+  },
+  "duration": {
+   "options": [
+    "under-2wk",
+    "2-4wk",
+    "1-3mo",
+    "3-6mo",
+    "6-12mo",
+    "over-12mo"
+   ],
+   "skew": [
+    0.08,
+    0.18,
+    0.34,
+    0.22,
+    0.12,
+    0.06
+   ]
+  },
+  "purity_tested": {
+   "options": [
+    "no",
+    "yes-matched",
+    "yes-did-not-match",
+    "yes-unsure",
+    "dont-know"
+   ],
+   "skew": [
+    0.7,
+    0.15,
+    0.04,
+    0.03,
+    0.08
+   ]
+  },
+  "reconstitution": {
+   "options": [
+    "bac-water-refrigerated",
+    "bac-water-room-temp",
+    "sterile-water",
+    "pre-mixed-or-pen",
+    "no-reconstitution",
+    "other"
+   ],
+   "skew": [
+    0.5,
+    0.08,
+    0.07,
+    0.15,
+    0.18,
+    0.02
+   ]
+  },
+  "status": {
+   "options": [
+    "still-taking",
+    "stopped-under-2wk",
+    "stopped-2-6wk",
+    "stopped-6-12wk",
+    "stopped-over-12wk",
+    "completed-planned-course"
+   ],
+   "skew": [
+    0.45,
+    0.08,
+    0.12,
+    0.12,
+    0.08,
+    0.15
+   ]
+  },
+  "stop_reason": {
+   "options": [
+    "n/a-still-taking",
+    "achieved-goal",
+    "no-effect",
+    "adverse-effect",
+    "cost",
+    "supply",
+    "safety-concern",
+    "other"
+   ],
+   "skew": [
+    0.45,
+    0.12,
+    0.15,
+    0.12,
+    0.06,
+    0.05,
+    0.03,
+    0.02
+   ]
+  },
+  "age_band": {
+   "options": [
+    "18-24",
+    "25-34",
+    "35-44",
+    "45-54",
+    "55-64",
+    "65+"
+   ],
+   "skew": [
+    0.08,
+    0.3,
+    0.32,
+    0.18,
+    0.09,
+    0.03
+   ]
+  },
+  "sex": {
+   "options": [
+    "male",
+    "female",
+    "prefer-not"
+   ],
+   "skew": [
+    0.62,
+    0.33,
+    0.05
+   ]
+  },
+  "outcome_scale": {
+   "options": [
+    "no-change",
+    "slight",
+    "moderate",
+    "large"
+   ],
+   "skew": [
+    0.3,
+    0.25,
+    0.3,
+    0.15
+   ]
+  },
+  "universal_adverse_effects": {
+   "options": [
+    "headache",
+    "nausea",
+    "vomiting",
+    "dizziness",
+    "fatigue",
+    "insomnia",
+    "vivid-dreams",
+    "flushing",
+    "anxiety-jittery",
+    "low-mood",
+    "appetite-change",
+    "injection-site",
+    "nasal-irritation",
+    "tolerance",
+    "no-effect"
+   ]
+  }
+ },
+ "qi_sets": {
+  "narrow": [
+   "compound",
+   "age_band",
+   "sex",
+   "goals",
+   "start_dose",
+   "source_channel",
+   "duration"
+  ],
+  "plausible-post": [
+   "compound",
+   "age_band",
+   "sex",
+   "goals",
+   "start_dose"
+  ],
+  "plausible-post-no-dose": [
+   "compound",
+   "age_band",
+   "sex",
+   "goals"
+  ],
+  "demographics-only": [
+   "compound",
+   "age_band",
+   "sex"
+  ],
+  "broad": [
+   "compound",
+   "age_band",
+   "sex",
+   "goals",
+   "start_dose",
+   "current_dose",
+   "titration",
+   "source_channel",
+   "duration",
+   "purity_tested",
+   "reconstitution",
+   "status",
+   "stop_reason",
+   "adverse_effects",
+   "outcomes"
+  ]
+ }
+}

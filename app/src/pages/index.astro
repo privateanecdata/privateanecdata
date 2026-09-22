@@ -1,0 +1,38 @@
+---
+import Base from '../layouts/Base.astro';
+---
+<Base title="Private Anecdata" description="A structured, identifier-free record of what people report about gray-market peptides.">
+  <h1>What are people actually experiencing with these compounds?</h1>
+  <p class="lede">Most of what is being taken has little or no human data. The only record is scattered across forum posts. This site collects structured, one-time reports — no name, no email, no account, nowhere to type — and publishes grouped statistics under rules fixed before the first report arrived.</p>
+
+  <div class="actions">
+    <a class="btn-primary" href="/contribute">Contribute a report</a>
+    <a href="/data">See what is published</a>
+  </div>
+
+  <h2>What leaves your browser</h2>
+  <p>The form never asks for the precise thing, only the rounded one: a dose <em>range</em> instead of the milligram, a duration <em>bucket</em> instead of a start date, the <em>kind</em> of source instead of the vendor. We never ask where you are — not your country, not your state, not your region. There are no free-text fields anywhere on the form, so there is nothing to accidentally identify you.</p>
+
+  <h2>What we never ask for</h2>
+  <p>No account, no email, no name, no phone, no cookie, no key. We do not record IP addresses at any layer we control, and the hosting configuration is public so you can check. The site is also reachable as a Tor onion service.</p>
+
+  <h2>What we load</h2>
+  <p>This page loads nothing from anyone but us — no analytics, no fonts, no CDN, no error reporting, no CAPTCHA, no JavaScript. Your browser's network panel should show exactly one host.</p>
+
+  <h2>What we publish</h2>
+  <p>Only grouped statistics, released under a <a href="/docs/release-spec">specification we wrote down and published before the first report was collected</a>. Individual reports are never displayed, shared, licensed, or given to researchers, in any form. Our code, schema, rounding rules, and threat model are public.</p>
+
+  <h2>Counting honestly</h2>
+  <p>Every accepted report is committed to a public append-only log. Anyone can confirm that the number we display is the number of reports that exist. We cannot independently verify report counts published elsewhere, and we do not claim they are wrong — we can only say that ours is checkable.</p>
+  <p class="muted">The count appears with each release, never live — a live counter is a timing signal. See <a href="/data">what is published</a>.</p>
+
+  <h2>What this design cannot do</h2>
+  <p>Because no report is linked to a person, we cannot find and delete your report after you submit it. Submission is final. If that is not acceptable to you, please do not submit. The full list of what we cannot protect you from is <a href="/docs/what-we-cannot-protect-you-from">here</a>, and it is worth reading before you contribute.</p>
+
+  <h2>Money</h2>
+  <p>Nobody pays us and we pay nobody. No affiliate links, no vendor listings, no sponsors, no paid tier, now or later.</p>
+
+  <div class="notice">
+    <p>Everything on this site is self-reported and unverified. The Federal Trade Commission's own guidance states that anecdotal evidence, including surveys of consumer experiences, is never sufficient to substantiate claims about a health product. We agree. Nothing here is evidence that any compound is effective or safe.</p>
+  </div>
+</Base>

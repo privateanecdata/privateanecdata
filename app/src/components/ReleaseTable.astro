@@ -1,0 +1,42 @@
+---
+// A published table as HTML, beneath its figure. The figure is an SVG image; Tor Browser at the
+// Safest level does not render SVG, and screen readers get nothing from an image — the table is
+// the same numbers in text, always present.
+type Cell = { id: string; label: string; count: number | null; display?: string; pct?: number; ci95?: [number, number] };
+type OneWay = { n: number; percent: boolean; cells: Cell[] };
+type Row = { label: string; n: number | null; display?: string; percent?: boolean; cells?: Cell[] };
+interface Props { title: string; src?: string; oneWay?: OneWay; grid?: { columns: string[]; rows: Row[] }; }
+const { title, src, oneWay, grid } = Astro.props;
+const fmt = (c: Cell, percent?: boolean) =>
+  c.count === null ? (c.display ?? 'fewer than 5') : percent && c.pct !== undefined ? `${c.pct.toFixed(1)}% (${c.ci95![0].toFixed(0)}–${c.ci95![1].toFixed(0)}) · ${c.count}` : String(c.count);
+---
+<figure class="rt">
+  {src && <img src={src} alt={`${title} — the same numbers are in the table below`} loading="lazy" width="760" />}
+  <details class="tbl">
+    <summary>{title} — as a table</summary>
+    <div class="table-wrap">
+      {oneWay && (
+        <table class="counts">
+          <thead><tr><th>Answer</th><th>{oneWay.percent ? 'Percent (95% interval) · reports' : 'Reports'}</th></tr></thead>
+          <tbody>{oneWay.cells.map((c) => <tr><td>{c.label}</td><td>{fmt(c, oneWay.percent)}</td></tr>)}</tbody>
+          <tfoot><tr><td>All</td><td>{oneWay.n}</td></tr></tfoot>
+        </table>
+      )}
+      {grid && (
+        <table class="counts">
+          <thead><tr><th></th>{grid.columns.map((c) => <th>{c}</th>)}<th>n</th></tr></thead>
+          <tbody>{grid.rows.map((r) => (
+            <tr>
+              <td>{r.label}</td>
+              {r.n === null
+                ? <td colspan={grid.columns.length} class="muted">{r.display ?? 'not enough reports'}</td>
+                : r.cells!.map((c) => <td>{fmt(c, r.percent)}</td>)}
+              <td>{r.n ?? ''}</td>
+            </tr>
+          ))}</tbody>
+        </table>
+      )}
+    </div>
+    <p class="muted small">Self-reported. Not evidence of effectiveness or safety. "Fewer than 5" is a suppressed cell.</p>
+  </details>
+</figure>

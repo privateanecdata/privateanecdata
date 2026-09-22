@@ -1,0 +1,24 @@
+{
+  "name": "private-anecdata",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "sh ../tools/check_origin.sh",
+    "dev": "astro dev",
+    "build": "astro build",
+    "start": "node ./dist/server/entry.mjs",
+    "check": "astro check",
+    "check:origin": "sh ../tools/check_origin.sh"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "private": "true",
+  "dependencies": {
+    "@astrojs/node": "^11.1.5",
+    "astro": "^7.3.2",
+    "better-sqlite3": "^13.0.3"
+  }
+}

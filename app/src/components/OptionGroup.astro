@@ -1,0 +1,29 @@
+---
+// A group of native radio or checkbox controls. Native so it works without JavaScript, gets the
+// right mobile keyboard/touch behaviour for free, and satisfies WCAG target size.
+interface Props {
+  name: string;
+  legend: string;
+  help?: string;
+  options: { id: string; label: string; sub?: string }[];
+  value?: string | string[];
+  type?: 'radio' | 'checkbox';
+  error?: string;
+  required?: boolean;
+}
+const { name, legend, help, options, value, type = 'radio', error, required = true } = Astro.props;
+const selected = new Set(Array.isArray(value) ? value : value ? [value] : []);
+---
+<fieldset aria-describedby={error ? `${name}-err` : undefined}>
+  <legend>{legend}{!required && <span class="muted"> (optional)</span>}</legend>
+  {help && <p class="help">{help}</p>}
+  {error && <p class="field-error" id={`${name}-err`}>{error}</p>}
+  <div class="opts">
+    {options.map((o) => (
+      <label class="opt">
+        <input type={type} name={name} value={o.id} checked={selected.has(o.id)} required={required && type === 'radio'} />
+        <span>{o.label}{o.sub && <span class="sub">{o.sub}</span>}</span>
+      </label>
+    ))}
+  </div>
+</fieldset>

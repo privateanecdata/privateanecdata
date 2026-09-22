@@ -1,0 +1,42 @@
+[Unit]
+Description=Private Anecdata (Astro SSR)
+After=network.target
+
+[Service]
+Type=simple
+User=anecdata
+Group=anecdata
+WorkingDirectory=/srv/private-anecdata/app
+Environment=NODE_ENV=production
+Environment=HOST=127.0.0.1
+Environment=PORT=4321
+Environment=PA_DB_PATH=/srv/private-anecdata/data/reports.db
+Environment=PA_RELEASES_DIR=/srv/private-anecdata/releases
+Environment=PA_HOST=example.org
+ExecStart=/usr/bin/node dist/server/entry.mjs
+Restart=on-failure
+RestartSec=3
+
+# No stdout/stderr to journald beyond the startup line; the app writes no request logs.
+StandardOutput=journal
+StandardError=journal
+
+# Hardening
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/srv/private-anecdata/data
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_INET AF_INET6 AF_UNIX
+RestrictNamespaces=true
+LockPersonality=true
+MemoryDenyWriteExecute=false
+SystemCallArchitectures=native
+CapabilityBoundingSet=
+AmbientCapabilities=
+
+[Install]
+WantedBy=multi-user.target

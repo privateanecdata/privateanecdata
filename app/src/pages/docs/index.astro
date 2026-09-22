@@ -1,0 +1,22 @@
+---
+import Base from '../../layouts/Base.astro';
+const pages = [
+  ['what-we-cannot-protect-you-from', 'What we cannot protect you from', 'Read this first. The limits, stated plainly.'],
+  ['threat-model', 'Threat model', 'What the system enforces, by threat.'],
+  ['schema', 'Schema', 'Every field, every vocabulary, and the published uniqueness analysis.'],
+  ['release-spec', 'Release specification', 'Every table that will ever be published, and the disclosure tiers.'],
+  ['how-to-verify', 'How to verify a release', 'Check the files, the count, the chain, and the witnesses yourself.'],
+  ['analyses-we-will-never-run', 'Analyses we will never run', 'Rankings, comparisons, rates, causal language.'],
+  ['legal-process', 'Legal process and retention', 'What we hold and what a subpoena obtains.'],
+  ['subprocessors', 'Subprocessors', 'The complete list of third parties.'],
+  ['shutdown', 'Shutdown protocol', 'What happens when this ends.'],
+];
+---
+<Base title="Methodology">
+  <h1>Methodology</h1>
+  <p class="lede">These documents are the product. They are the same files in the public repository, rendered here.</p>
+  <ul>
+    {pages.map(([slug, title, sub]) => <li><a href={`/docs/${slug}`}>{title}</a> <span class="muted">— {sub}</span></li>)}
+  </ul>
+  <p class="muted">Terms and privacy policy: <a href="/docs/terms">terms</a> · <a href="/docs/privacy">privacy</a>.</p>
+</Base>

@@ -1,0 +1,262 @@
+---
+// The whole contribution flow. Every screen POSTs here with the running state in a hidden
+// field; the server validates that screen, merges, and renders the next one. Nothing is stored
+// until the confirm on the review screen, which is the only request that redirects.
+import Base from '../../layouts/Base.astro';
+import OptionGroup from '../../components/OptionGroup.astro';
+import { STEPS, stepBySlug, nextStep, decodeState, encodeState, validateComplete, STOPPED, type State, type Errors } from '../../lib/form';
+import { tax, compound as getCompound, compoundOptions, doseBandOptions, adverseEffectOptions, compoundsByClass, shared, goalLabel, aeLabel, routeLabel, freqLabel, OTHER } from '../../lib/taxonomy';
+import { insertReport, rowFromState } from '../../lib/db';
+import { allowSubmit, isHoneypotTripped, HONEYPOT_FIELD } from '../../lib/abuse';
+
+type Screen = 'intro' | 'review' | string;
+let screen: Screen = 'intro';
+let state: State = {};
+let errors: Errors = {};
+let blocked: string | null = null;
+
+if (Astro.request.method === 'POST') {
+  const fd = await Astro.request.formData();
+  if (isHoneypotTripped(fd)) {
+    // Bots get the same "done" page as everyone; nothing is stored.
+    return Astro.redirect('/contribute/done', 303);
+  }
+  state = decodeState(fd.get('s') as string | null);
+  const at = String(fd.get('at') ?? 'start');
+  const go = String(fd.get('go') ?? 'next');
+
+  if (at === 'start') {
+    screen = '1-compound';
+    state = {};
+  } else if (at === 'review') {
+    if (go === 'back') {
+      screen = '6-about';
+    } else if (go === 'confirm') {
+      if (fd.get('consent') !== '1') {
+        screen = 'review';
+        errors.consent = 'To submit, confirm that you have read the statement above.';
+      } else {
+        const bad = validateComplete(state);
+        if (bad) {
+          screen = bad;
+          errors.form = 'Something was missing or changed. Please check this screen and continue.';
+        } else if (!allowSubmit(Astro.clientAddress)) {
+          screen = 'review';
+          blocked = 'Too many submissions from this connection in the last hour. Please try again later.';
+        } else {
+          insertReport(rowFromState(state, tax.version));
+          return Astro.redirect('/contribute/done', 303);
+        }
+      }
+    } else {
+      screen = 'review';
+    }
+  } else {
+    const step = stepBySlug.get(at);
+    if (!step) {
+      screen = '1-compound';
+    } else if (go === 'back') {
+      const idx = STEPS.findIndex((s) => s.slug === at);
+      // Walk back over any step that does not apply.
+      let i = idx - 1;
+      while (i >= 0 && STEPS[i].applies && !STEPS[i].applies!(state)) i--;
+      screen = i >= 0 ? STEPS[i].slug : 'intro';
+    } else {
+      const r = step.apply(state, fd);
+      state = r.state;
+      errors = r.errors;
+      screen = Object.keys(errors).length ? at : nextStep(at, state);
+    }
+  }
+}
+
+const c = getCompound(state.compound);
+const enc = encodeState(state);
+const stepIndex = STEPS.findIndex((s) => s.slug === screen);
+const stepDef = stepBySlug.get(screen);
+const totalSteps = STEPS.length + 1; // + review
+const labelOf = (m: Map<string, { label: string }>, id?: string | null) => (id ? (m.get(id)?.label ?? id) : '—');
+const sharedLabel = (key: string, id?: string | null) => (id ? (shared[key]?.find((o) => o.id === id)?.label ?? id) : '—');
+const bandLabel = (id?: string | null) => (c && id ? (doseBandOptions(c).find((b) => b.id === id)?.label ?? id) : '—');
+const title = screen === 'intro' ? 'Contribute' : screen === 'review' ? 'Review and submit' : stepDef?.title ?? 'Contribute';
+---
+<Base title={title}>
+{screen === 'intro' && (
+  <>
+    <p class="eyebrow">Contribute</p>
+    <h1>Tell us what happened.</h1>
+    <p class="lede">Seven short screens. Every answer is a choice from a fixed list — there is nowhere to type. It takes about four minutes.</p>
+    <div class="notice">
+      <p><strong>Before you start.</strong> We do not ask who you are, and we never learn it. That also means that once you submit, we cannot find your report to change or delete it. You will see everything you are about to send, and you can go back and change it, before anything is stored.</p>
+      <p>Read <a href="/docs/what-we-cannot-protect-you-from">what we cannot protect you from</a> first if you have not.</p>
+    </div>
+    <form method="post" action="/contribute">
+      <input type="hidden" name="at" value="start">
+      <div class="actions"><button class="primary" type="submit">Start</button></div>
+    </form>
+  </>
+)}
+
+{screen !== 'intro' && (
+  <form method="post" action="/contribute" autocomplete="off">
+    <input type="hidden" name="s" value={enc}>
+    <input type="hidden" name="at" value={screen}>
+    <p class="hp" aria-hidden="true"><label>Leave this empty <input type="text" name={HONEYPOT_FIELD} tabindex="-1" autocomplete="off"></label></p>
+
+    <div class="progress" aria-label={`Screen ${screen === 'review' ? totalSteps : stepIndex + 1} of ${totalSteps}`}>
+      {STEPS.map((s, i) => <span class:list={['step', { done: i < stepIndex || screen === 'review', current: i === stepIndex }]}></span>)}
+      <span class:list={['step', { current: screen === 'review' }]}></span>
+      <span>{screen === 'review' ? totalSteps : stepIndex + 1} of {totalSteps}</span>
+    </div>
+
+    {errors.form && <p class="field-error">{errors.form}</p>}
+    {blocked && <p class="field-error">{blocked}</p>}
+
+    {screen === '1-compound' && (
+      <>
+        <h1>What did you take?</h1>
+        <fieldset>
+          <legend>Compound</legend>
+          <p class="help">Pick one. If you took more than one, submit a separate report for each. Blends sold as one vial are listed as blends.</p>
+          {errors.compound && <p class="field-error">{errors.compound}</p>}
+          <select name="compound" required>
+            <option value="" selected={!state.compound}>Choose a compound…</option>
+            {compoundsByClass.map((cls) => (
+              <optgroup label={cls.label}>
+                {cls.compounds.map((k) => <option value={k.id} selected={state.compound === k.id}>{k.label}</option>)}
+              </optgroup>
+            ))}
+            <optgroup label="Not listed">
+              <option value={OTHER} selected={state.compound === OTHER}>Other (not listed)</option>
+            </optgroup>
+          </select>
+        </fieldset>
+      </>
+    )}
+
+    {screen === '2-usage' && c && (
+      <>
+        <h1>How you used {c.label}</h1>
+        <OptionGroup name="route" legend="How did you take it?" options={compoundOptions(c, 'routes')} value={state.route} error={errors.route} />
+        {c.goals.length > 0 && (
+          <OptionGroup name="goal" legend="What was the main thing you hoped it would do?" help="Pick the one that mattered most. You will rate how it went for this goal later."
+            options={[...compoundOptions(c, 'goals'), { id: OTHER, label: 'Something else (not listed)' }]} value={state.goal} error={errors.goal} />
+        )}
+        <OptionGroup name="source_channel" legend="Where did it come from?" help="The kind of source, not the name. We never ask for a vendor, pharmacy or brand."
+          options={shared.sourceChannel} value={state.source_channel} error={errors.source_channel} />
+        {c.doseBands.length > 0 && (
+          <>
+            <OptionGroup name="start_dose" legend="Dose range you started at" help="A range, on purpose. An exact dose is a fingerprint." options={doseBandOptions(c)} value={state.start_dose} error={errors.start_dose} />
+            <OptionGroup name="current_dose" legend="Dose range you ended up at (or are on now)" options={doseBandOptions(c)} value={state.current_dose} error={errors.current_dose} />
+          </>
+        )}
+        <OptionGroup name="frequency" legend="How often?" options={[...compoundOptions(c, 'frequency'), { id: OTHER, label: 'Other (not listed)' }]} value={state.frequency} error={errors.frequency} />
+        <OptionGroup name="titration" legend="How did the dose change over time?" options={shared.titration} value={state.titration} error={errors.titration} />
+      </>
+    )}
+
+    {screen === '3-course' && (
+      <>
+        <h1>Duration and handling</h1>
+        <OptionGroup name="duration" legend="How long did you take it, in total?" options={shared.duration} value={state.duration} error={errors.duration} />
+        <OptionGroup name="purity_tested" legend="Did you have it independently tested?" help="Any third-party purity or identity test on the product you actually used." options={shared.purityTested} value={state.purity_tested} error={errors.purity_tested} />
+        <OptionGroup name="reconstitution" legend="How did you prepare and store it?" options={shared.reconstitution} value={state.reconstitution} error={errors.reconstitution} />
+        <OptionGroup name="status" legend="Are you still taking it?" options={shared.status} value={state.status} error={errors.status} />
+        <OptionGroup name="stop_reason" legend="If you stopped, what was the main reason?" help="Skip this if you are still taking it or finished a planned course." options={shared.stopReason} value={state.stop_reason} error={errors.stop_reason} required={false} />
+      </>
+    )}
+
+    {screen === '4-outcome' && c && (
+      <>
+        <h1>What happened</h1>
+        {c.goals.length > 0 && (
+          <OptionGroup name="outcome" legend={`For your goal — ${state.goal === OTHER ? 'the thing you were hoping for' : labelOf(goalLabel, state.goal).toLowerCase()} — how did it go?`}
+            help="Honest answers of 'no change' are the most useful thing on this site." options={shared.outcome} value={state.outcome} error={errors.outcome} />
+        )}
+        <fieldset>
+          <legend>Did you notice any of these?</legend>
+          <p class="help">Tick everything that applies, whether or not you think it was caused by the compound. Or tick "none".</p>
+          {errors.adverse_effects && <p class="field-error">{errors.adverse_effects}</p>}
+          <div class="opts">
+            <label class="opt"><input type="checkbox" name="no_effects" value="1" checked={Array.isArray(state.adverse_effects) && state.adverse_effects.length === 0} /><span>None that I noticed</span></label>
+            {adverseEffectOptions(c, state.route).map((o) => (
+              <label class="opt"><input type="checkbox" name="adverse_effects" value={o.id} checked={state.adverse_effects?.includes(o.id)} /><span>{o.label}</span></label>
+            ))}
+          </div>
+        </fieldset>
+      </>
+    )}
+
+    {screen === '5-effects' && (
+      <>
+        <h1>About those effects</h1>
+        <p class="help">For each one: roughly when it started, and what happened if you stopped.</p>
+        {(state.adverse_effects ?? []).map((id) => (
+          <div>
+            <h2>{labelOf(aeLabel, id)}</h2>
+            <OptionGroup name={`onset:${id}`} legend="When did it start?" options={shared.onset} value={state.effect_detail?.[id]?.onset} error={errors[`onset:${id}`]} />
+            <OptionGroup name={`dechallenge:${id}`} legend="What happened when you stopped?" options={shared.dechallenge} value={state.effect_detail?.[id]?.dechallenge} error={errors[`dechallenge:${id}`]} />
+          </div>
+        ))}
+      </>
+    )}
+
+    {screen === '6-about' && (
+      <>
+        <h1>About you</h1>
+        <p class="help">Both optional. We publish these only as overall totals, never crossed with any compound or any other answer.</p>
+        <OptionGroup name="age_band" legend="Age" options={shared.ageBand} value={state.age_band} required={false} />
+        <OptionGroup name="sex" legend="Sex" options={shared.sex} value={state.sex} required={false} />
+      </>
+    )}
+
+    {screen === 'review' && c && (
+      <>
+        <h1>Review and submit</h1>
+        <p class="lede">This is everything we will receive. Nothing has been stored yet.</p>
+        <div class="review">
+          <dl>
+            <dt>Compound</dt><dd>{c.label}</dd>
+            <dt>Route</dt><dd>{labelOf(routeLabel, state.route)}</dd>
+            {c.goals.length > 0 && <><dt>Main goal</dt><dd>{state.goal === OTHER ? 'Something else (not listed)' : labelOf(goalLabel, state.goal)}</dd></>}
+            <dt>Source</dt><dd>{sharedLabel('sourceChannel', state.source_channel)}</dd>
+            {c.doseBands.length > 0 && <><dt>Starting dose</dt><dd>{bandLabel(state.start_dose)}</dd><dt>Current / final dose</dt><dd>{bandLabel(state.current_dose)}</dd></>}
+            <dt>Frequency</dt><dd>{state.frequency === OTHER ? 'Other (not listed)' : labelOf(freqLabel, state.frequency)}</dd>
+            <dt>Dose over time</dt><dd>{sharedLabel('titration', state.titration)}</dd>
+            <dt>Duration</dt><dd>{sharedLabel('duration', state.duration)}</dd>
+            <dt>Tested</dt><dd>{sharedLabel('purityTested', state.purity_tested)}</dd>
+            <dt>Preparation</dt><dd>{sharedLabel('reconstitution', state.reconstitution)}</dd>
+            <dt>Status</dt><dd>{sharedLabel('status', state.status)}{STOPPED(state.status) && ` — ${sharedLabel('stopReason', state.stop_reason)}`}</dd>
+            {c.goals.length > 0 && <><dt>Outcome for goal</dt><dd>{sharedLabel('outcome', state.outcome)}</dd></>}
+            <dt>Effects noticed</dt>
+            <dd>{(state.adverse_effects ?? []).length === 0 ? 'None' : (state.adverse_effects ?? []).map((id) => `${labelOf(aeLabel, id)} (${sharedLabel('onset', state.effect_detail?.[id]?.onset)}; ${sharedLabel('dechallenge', state.effect_detail?.[id]?.dechallenge)})`).join('; ')}</dd>
+            <dt>Age</dt><dd>{sharedLabel('ageBand', state.age_band) === '—' ? 'Not given' : sharedLabel('ageBand', state.age_band)}</dd>
+            <dt>Sex</dt><dd>{sharedLabel('sex', state.sex) === '—' ? 'Not given' : sharedLabel('sex', state.sex)}</dd>
+          </dl>
+        </div>
+        <p class="muted">Not shown because not collected: your name, email, IP address, location, the vendor, an exact dose, or a date.</p>
+
+        <div class="consent">
+          <h2>Before you submit</h2>
+          <p><strong>Submission is final.</strong> Because no report is linked to a person, we cannot find and delete yours afterward. If that is not acceptable, use Back and close this page — nothing has been stored.</p>
+          <p>What you send will be published only inside grouped statistics, under the <a href="/docs/release-spec">release specification</a>, and never as an individual report. It will never be sold, licensed, or transferred.</p>
+          <p>By pressing Submit you agree to the <a href="/docs/terms">terms</a>, including that we may exclude a report from published statistics if it appears to be fabricated.</p>
+          {errors.consent && <p class="field-error">{errors.consent}</p>}
+          <label class="opt"><input type="checkbox" name="consent" value="1" /><span>I have read this and I want to submit.</span></label>
+          <div class="actions">
+            <button class="primary" type="submit" name="go" value="confirm">Submit</button>
+            <button class="back linkbtn" type="submit" name="go" value="back" formnovalidate>Back</button>
+          </div>
+        </div>
+      </>
+    )}
+
+    {screen !== 'review' && (
+      <div class="actions">
+        <button class="primary" type="submit" name="go" value="next">Continue</button>
+        {screen !== '1-compound' && <button class="back linkbtn" type="submit" name="go" value="back" formnovalidate formnovalidate>Back</button>}
+      </div>
+    )}
+  </form>
+)}
+</Base>

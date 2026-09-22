@@ -1,0 +1,36 @@
+---
+import '../styles/global.css';
+interface Props { title: string; description?: string; }
+const { title, description } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="referrer" content="same-origin">
+  <meta name="robots" content="noindex">
+  <title>{title} · Private Anecdata</title>
+  {description && <meta name="description" content={description}>}
+</head>
+<body>
+  <div class="site">
+    <header class="site-header">
+      <a class="brand" href="/">Private Anecdata</a>
+      <nav aria-label="Site">
+        <a href="/contribute">Contribute</a>
+        <a href="/data">Data</a>
+        <a href="/docs/what-we-cannot-protect-you-from">Limits</a>
+        <a href="/docs">Methodology</a>
+      </nav>
+    </header>
+    <main>
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <p>This page loads nothing from anyone but us. No analytics, no fonts, no scripts. Your browser's network panel should show one host.</p>
+      <p>Self-reported, unverified, and not evidence that anything works or is safe. <a href="/docs/what-we-cannot-protect-you-from">What we cannot protect you from</a> · <a href="/docs/legal-process">Legal process</a> · <a href="/docs/subprocessors">Subprocessors</a></p>
+    </footer>
+  </div>
+</body>
+</html>

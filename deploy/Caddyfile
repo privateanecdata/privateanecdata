@@ -1,0 +1,31 @@
+# Reverse proxy for Private Anecdata. Access logging is OFF: no request line, no client IP, no
+# user agent is written anywhere by this layer. Caddy still emits process-level logs (startup,
+# certificate renewal, errors) to stderr; those contain no request data.
+#
+# Replace example.org with the real host. Caddy provisions TLS automatically.
+
+{
+    # Disable the admin API so nothing can be reconfigured or inspected at runtime.
+    admin off
+}
+
+example.org {
+    # No access log at all.
+    log {
+        output discard
+    }
+
+    # The app only speaks HTTP on loopback. Caddy forwards the client address in
+    # X-Forwarded-For; the app hashes it with an hourly in-memory salt for rate limiting and
+    # never writes it anywhere (src/lib/abuse.ts). Astro only honours the header when the Host
+    # matches PA_HOST (security.allowedDomains), so set that in the service environment.
+    reverse_proxy 127.0.0.1:4321
+
+    encode zstd gzip
+
+    header {
+        Referrer-Policy "same-origin"
+        X-Content-Type-Options "nosniff"
+        -Server
+    }
+}

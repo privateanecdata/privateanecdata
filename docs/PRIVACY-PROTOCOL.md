@@ -122,11 +122,12 @@ is stated in [Legal process](LEGAL-PROCESS.md).
 - **Disclosure grows with numbers.** What is published about a compound depends on how many
   people have reported it — a count first, distributions later, outcomes-by-goal later still —
   so the number of published figures never gets close to the number of reports behind them.
-- **We measure it and say so.** How distinctive a single report is on several combinations of
-  fields is computed on synthetic data in the [schema](../spec/SCHEMA.md) and re-computed on the
-  real store at every release, shown in the *Uniqueness of the store* section at the end of each
-  release page (table T15 in the spec). We do not claim a rounded report can never be
-  distinctive; see [what we can and cannot promise](WHAT-WE-CAN-AND-CANNOT-PROMISE.md).
+- **We measure it.** How distinctive a single report is on several combinations of fields is
+  computed on synthetic data in the [schema](../spec/SCHEMA.md), and re-computed on the real store
+  before every release as a private check. We do not publish the real figures: exact numbers on
+  combinations that include compound, age and sex would let someone who submits a few reports
+  watch them move and learn about a report already there. We do not claim a rounded report can
+  never be distinctive; see [what we can and cannot promise](WHAT-WE-CAN-AND-CANNOT-PROMISE.md).
 
 ## 5. The commitment {#no-reidentification}
 
@@ -165,11 +166,13 @@ in advance. Our code, schema, and rounding rules are public with it. In brief:
   of any scale; no ranking or "most effective"; no comparison statistic between compounds; no
   per-vendor or per-region breakdown (no such fields exist); no row, partial row, or synthetic row;
   no live count; no statistic on request.
-- **Cadence.** Cumulative snapshots, monthly for the first year and quarterly after, each
+- **Cadence.** Cumulative snapshots, monthly for the twelve months after the first release and
+  quarterly after, each
   reviewed by a person, signed, and witnessed. A release is never deleted or changed. Tables
-  update in batches: a table is updated only after at least five of its reports have changed, so
-  subtracting one release from the next shows at least five people's answers mixed together, the
-  same protection as a table cell.
+  update in batches: new reports enter a table only in a batch of at least five, and excluded
+  ones leave it the same way, so subtracting one release from the next shows at least five
+  reports' answers mixed together, never fewer. Report counts are always current; a table
+  waiting for its batch is shown unchanged and says which release computed it.
 
 ## 7. Counting honestly {#counting}
 
@@ -185,9 +188,9 @@ reordered, or backdated between releases.
 
 The release's manifest, which carries the hash of every published file, is signed and its hash is
 submitted to two independent public logs we do not control — Sigstore Rekor and OpenTimestamps
-(anchored in Bitcoin) — so a release cannot be quietly replaced later. Reports excluded from the
-tables for quality reasons are never deleted: they stay in the log and are listed, by position
-and reason, in every release. Each release page ends with an *Integrity log* section: how many
+(anchored in Bitcoin) — so a release cannot be quietly replaced later. Reports excluded for
+quality reasons are never deleted: they stay in the log, are listed by position, reason and date
+in every release, and leave the tables in batches of at least five. Each release page ends with an *Integrity log* section: how many
 reports the coordinated-submission detector (public code: `tools/detect.py`) flagged, for what
 reason, and a note on any pattern it found.
 

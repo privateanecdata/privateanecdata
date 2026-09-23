@@ -1,33 +1,51 @@
 """
 The update floor (RELEASE_SPEC.md, "Tables update in batches of at least five"). One implementation:
-release.py uses it to decide what each release updates, and verify_release.py --db re-runs it on the
-store as it stood at that release and requires the same answer. Nothing here reads or writes files.
+release.py uses it to decide what each release shows, and verify_release.py --db re-runs it and
+requires the same answer. Nothing here reads or writes files.
 
 A *unit* is anything published as one piece and computed from one set of reports:
 
   compound:<id>               a compound's one-way tables (T1–T6, T10, T12 status, T16)
-  compound:<id>/T12/stopped   the stop-reason row: reports on the compound that stopped
-  compound:<id>/T8/<goal>     one row of outcome-by-goal: reports that chose that goal
-  compound:<id>/T11/<effect>  one row of effect timing: reports that noted that effect
-  class:<id>/pool             the pool: reports on the class's compounds that have no tables of their own
-  class:<id>                  a class's one-way tables, built from its compounds' reports *as published*
-                              plus the pool (classes publish no cross-tabulated tables)
-  overall/other               the pool of "other (not listed)" reports
-  overall                     the all-reports tables (T6 overall, T13, T15), built from the classes as
-                              published plus that pool
+  compound:<id>/T12/stopped   the stop-reason row: that compound's reports that stopped
+  compound:<id>/T8/<goal>     one row of outcome-by-goal: its reports that chose that goal
+  compound:<id>/T11/<effect>  one row of effect timing: its reports that noted that effect
+  overall                     the all-reports table (T13: age band and sex)
 
-Every published unit carries a record: the release that computed it, that release's date and log
-length, and the number of reports. A unit's reports *as of* its record are the rows committed
-before that log length and not excluded by that date — so the set a unit was computed from can be
-rebuilt from the store at any later time. A unit is updated when the set it would be computed from
-now differs from its as-of set by at least FLOOR reports; otherwise it is held: its record is kept
-and its earlier tables are republished unchanged. Composite units (a class, all reports) record
-which component records they were built from, and update when any component did.
+Classes publish no tables (their counts are in T0). Two kinds of unit contain other units' reports:
+a row, inside its own compound, and the all-reports table, which contains every report. A row's
+field (outcome, onset, stop reason) appears in no other table, and the all-reports table publishes
+only fields no compound table carries (age band, sex). That is what makes the rule below
+sufficient: nothing can be subtracted except one version of a unit from another version of the
+same unit.
 
-Pools carry the rule for reports that are visible only pooled: a compound is first published only
-when at least FLOOR of its reports are newer than the pool's last update (or none of its reports
-were ever in the pool), so that its earlier, pooled reports cannot be separated out by subtraction;
-and the pool itself updates only in batches of FLOOR.
+Each unit has an explicit set of reports — the reports its tables are computed from. From one
+release to the next the set changes only like this:
+
+  * new reports enter only in a batch of at least FLOOR: every report that belongs to the unit, is
+    committed, is not excluded as of this release, and is not yet in the set;
+  * excluded reports leave only in a batch of at least FLOOR: every report in the set that is
+    excluded as of this release;
+  * the two batches are decided separately (in a difference between two releases they would
+    separate by sign), and a report excluded before it entered a table never enters one.
+
+A row (a stratum) takes its candidates from its compound's set, not from the store, so it can
+never run ahead of its compound's tables — and only those not excluded, so an excluded report
+never enters a row either. A compound's tables are shown only while both its set and its current
+count are at least UNLOCK. A unit, once it exists, is never forgotten: a compound
+that falls below UNLOCK, or a row below STRATUM_MIN or below the tier its table needs, is simply
+not shown, and its set keeps moving by the same batches, so returning is an update, never a fresh
+start.
+
+The sets are never stored. Each release replays the rule over every earlier release (their dates
+and log lengths are listed in release.json), from the store as it stood at each: rows committed
+before that release's log length, exclusions noted on or before its date. Exclusions are never
+backdated (release.py refuses), so the replay reproduces each earlier release exactly.
+
+`shown(compound_rows)` is supplied by the caller: which goals T16 and which effects T10 show for a
+compound's current set. A row of T8 or T11 is shown only if its table's parent cell is shown now
+and was shown when the row's set was last computed, so a row republished from an earlier release
+never reveals a count that release's suppression hid. When a shown row's compound changes tier
+(and so gains or loses percentages) the row is re-stamped with the same set and the same flag.
 """
 
 FLOOR = 5
@@ -44,208 +62,164 @@ def tier_of(n):
     return 0
 
 
-class Store:
-    """Rows with log positions and exclusion dates; answers "which rows were live as of (log length, date)"."""
-
-    def __init__(self, rows, leaves, exclusions):
-        self.pos = {idx: i for i, (idx, _) in enumerate(leaves)}
-        self.n_leaves = len(leaves)
-        self.excl = {x["leaf_idx"]: x["noted_on"] for x in exclusions}
-        self.rows = rows
-
-    def live(self, r, leaves, date):
-        p = self.pos.get(r["_leaf_idx"])
-        if p is None or p >= leaves:
-            return False
-        d = self.excl.get(r["_leaf_idx"])
-        return d is None or d > date
-
-    def asof(self, rows, spec):
-        return [r for r in rows if self.live(r, spec["leaves"], spec["date"])]
-
-
-def change(a, b):
-    """How many reports differ between two sets of rows (added or removed)."""
-    return len({r["_leaf_idx"] for r in a} ^ {r["_leaf_idx"] for r in b})
-
-
-class Unit:
-    def __init__(self, key):
-        self.key = key
-        self.rows = []            # the reports this release computes (or republishes) the unit from
-        self.record = None        # the record this release carries for the unit
-        self.published = False
-        self.held = False
-        self.why = ""
-
-
 def effects_of(row):
     import json
     return [x["id"] for x in json.loads(row["adverse_effects"])]
 
 
-def plan(tax, rows, leaves, exclusions, prior_units, release, date):
-    """
-    tax: the taxonomy dict. rows: every stored row (excluded ones included), each with "_leaf_idx".
-    leaves: the log as (idx, leaf) in order. exclusions: [{leaf_idx, reason, noted_on}].
-    prior_units: the prior release's "units" map, or {}. Returns {key: Unit} for every unit.
-    """
-    st = Store(rows, leaves, exclusions)
-    now = {"leaves": st.n_leaves, "date": date}
-    units = {}
+def strata_of(comp, universal_ae):
+    """Every row unit a compound can have: (suffix, tier its table needs, membership test, gate)."""
+    out = [("T12/stopped", 2, lambda r: r["status"] == "stopped", None)]
+    out += [(f"T8/{g}", 3, (lambda g: lambda r: r["goal"] == g)(g), ("goals", g)) for g in comp["goals"]]
+    out += [(f"T11/{a}", 4, (lambda a: lambda r: a in effects_of(r))(a), ("effects", a))
+            for a in universal_ae + comp["adverseEffects"]]
+    return out
 
-    def rec(n, **extra):
-        return {"release": release, "date": date, "leaves": st.n_leaves, "n": n, **extra}
 
-    by_comp = {}
-    for r in rows:
-        by_comp.setdefault(r["compound"], []).append(r)
+class Unit:
+    def __init__(self, key):
+        self.key = key
+        self.rows = []            # the reports its tables are computed from this release
+        self.record = None        # {"release", "date", "tier"} — the release that computed the set
+        self.published = False    # shown in this release
+        self.held = False         # shown, and computed in an earlier release
+        self.why = ""
+
+
+def _batch(S, candidates_in, candidates_out):
+    """Apply the two batches to a set of leaf indices. Returns (new set, n in, n out, changed)."""
+    new = S
+    if len(candidates_out) >= FLOOR:
+        new = new - candidates_out
+    if len(candidates_in) >= FLOOR:
+        new = new | candidates_in
+    return new, len(candidates_in), len(candidates_out), new != S
+
+
+def step(state, tax, by_comp, by_idx, live, excluded, release, date, shown):
+    """One release. state: {key: {"set": frozenset, "release", "date", "tier", "shown"?}} from the
+    previous release (not modified). live(idx): committed and not excluded as of this release.
+    excluded(idx): excluded as of this release. Returns (new_state, units)."""
+    new_state, units = dict(state), {}
     comps = {c["id"]: c for c in tax["compounds"]}
     universal_ae = [a["id"] for a in tax["universalAdverseEffects"]]
-    current = {c: st.asof(by_comp.get(c, []), now) for c in list(comps) + [OTHER]}
+    rec = lambda n, **kw: {"release": release, "date": date, "tier": tier_of(n), **kw}
 
-    # 1. Each compound's one-way tables.
-    candidates = set()
-    for c in comps:
-        u = units[f"compound:{c}"] = Unit(f"compound:{c}")
-        prev = prior_units.get(u.key)
-        cur = current[c]
-        if prev is None:
-            if len(cur) >= UNLOCK:
-                candidates.add(c)          # decided with its class's pool, below
-            continue
-        asof = st.asof(by_comp.get(c, []), prev)
-        ch = change(asof, cur)
-        if ch < FLOOR:
-            u.rows, u.record, u.published, u.held = asof, prev, True, True
-            u.why = f"held: {ch} changed since {prev['release']}"
-        elif len(cur) >= UNLOCK:
-            u.rows, u.record, u.published = cur, rec(len(cur), tier=tier_of(len(cur))), True
-            u.why = f"updated: {ch} changed"
-        else:
-            u.why = f"no longer published: {len(cur)} reports after {ch} changes"
-
-    # 2. Each class: its pool, first publications, and its one-way tables.
-    for cls in tax["classes"]:
-        members = cls["members"]
-        pu = units[f"class:{cls['id']}/pool"] = Unit(f"class:{cls['id']}/pool")
-        prev_p = prior_units.get(pu.key)
-        cands = [m for m in members if m in candidates]
-
-        def publish(m):
-            u = units[f"compound:{m}"]
-            u.rows, u.record, u.published = current[m], rec(len(current[m]), tier=tier_of(len(current[m]))), True
+    def settle(key, cand_in, cand_out, first, need, current):
+        """Common path for compounds and the all-reports unit. Shown only while both the set and the
+        current count are at least `need`."""
+        u = units[key] = Unit(key)
+        st = state.get(key)
+        if st is None:
+            if len(first) < need:
+                return u, None
+            S, st2 = frozenset(first), None
+            new_state[key] = st2 = {"set": S, **rec(len(S))}
             u.why = "first publication"
-
-        if prev_p is None:
-            for m in cands:
-                publish(m)
-            unpub = [m for m in members if not units[f"compound:{m}"].published]
-            pu.rows = [r for m in unpub for r in current[m]]
-            pu.record = rec(len(pu.rows), members=unpub)
-            pu.why = "established"
         else:
-            pool_asof = st.asof([r for m in prev_p["members"] for r in by_comp.get(m, [])], prev_p)
-            ok = []
-            for m in cands:
-                old = [r for r in pool_asof if r["compound"] == m]
-                new = [r for r in current[m] if st.pos[r["_leaf_idx"]] >= prev_p["leaves"]]
-                if not old or len(new) >= FLOOR:
-                    ok.append(m)
-                else:
-                    units[f"compound:{m}"].why = f"first publication waits: only {len(new)} reports newer than the pool's last update"
-            unpub = [m for m in members if not units[f"compound:{m}"].published and m not in ok]
-            pool_now = [r for m in unpub for r in current[m]]
-            ch = change(pool_asof, pool_now)
-            if ch >= FLOOR or (ch == 0 and unpub != prev_p["members"]):
-                for m in ok:
-                    publish(m)
-                pu.rows, pu.record = pool_now, rec(len(pool_now), members=unpub)
-                pu.why = f"updated: {ch} changed"
-            else:
-                for m in ok:
-                    units[f"compound:{m}"].why = f"first publication waits: the pool changed by only {ch}"
-                pu.rows, pu.record, pu.held = pool_asof, prev_p, True
-                pu.why = f"held: {ch} changed since {prev_p['release']}"
-        cu = units[f"class:{cls['id']}"] = Unit(f"class:{cls['id']}")
-        parts = {f"compound:{m}": {"leaves": units[f"compound:{m}"].record["leaves"], "date": units[f"compound:{m}"].record["date"]}
-                 for m in members if units[f"compound:{m}"].published}
-        parts[pu.key] = {"leaves": pu.record["leaves"], "date": pu.record["date"], "members": pu.record["members"]}
-        union = [r for m in members if units[f"compound:{m}"].published for r in units[f"compound:{m}"].rows] + pu.rows
-        prev_c = prior_units.get(cu.key)
-        if len(union) < UNLOCK:
-            cu.why = "fewer than 10 reports"
-        elif prev_c and prev_c.get("parts") == parts:
-            cu.rows, cu.record, cu.published, cu.held = union, prev_c, True, True
-            cu.why = f"held: no part changed since {prev_c['release']}"
-        else:
-            cu.rows, cu.record, cu.published = union, rec(len(union), tier=tier_of(len(union)), parts=parts), True
-            cu.why = "updated: a part changed"
+            S, n_in, n_out, changed = _batch(st["set"], cand_in(st["set"]), cand_out(st["set"]))
+            st2 = {"set": S, **rec(len(S))} if changed else st
+            new_state[key] = st2
+            u.why = (f"updated: +{n_in if n_in >= FLOOR else 0} new, -{n_out if n_out >= FLOOR else 0} excluded" if changed
+                     else f"held: {n_in} new and {n_out} excluded waiting since {st['release']}")
+        u.rows = [by_idx[i] for i in sorted(S)]
+        u.record = {k: st2[k] for k in ("release", "date", "tier")}
+        u.published = len(S) >= need and len(current) >= need
+        u.held = u.published and st2["release"] != release
+        if not u.published:
+            u.why = f"not shown: {len(S)} reports in its tables"
+        return u, st2
 
-    # 3. All reports: the "other" pool, then the union of published classes and that pool.
-    ou = units["overall/other"] = Unit("overall/other")
-    prev_o = prior_units.get(ou.key)
-    if prev_o is None:
-        ou.rows, ou.record, ou.why = current[OTHER], rec(len(current[OTHER])), "established"
-    else:
-        asof = st.asof(by_comp.get(OTHER, []), prev_o)
-        ch = change(asof, current[OTHER])
-        if ch >= FLOOR:
-            ou.rows, ou.record, ou.why = current[OTHER], rec(len(current[OTHER])), f"updated: {ch} changed"
-        else:
-            ou.rows, ou.record, ou.held, ou.why = asof, prev_o, True, f"held: {ch} changed since {prev_o['release']}"
-    au = units["overall"] = Unit("overall")
-    parts = {f"class:{cls['id']}": {"leaves": units[f"class:{cls['id']}"].record["leaves"], "date": units[f"class:{cls['id']}"].record["date"]}
-             for cls in tax["classes"] if units[f"class:{cls['id']}"].published}
-    parts["overall/other"] = {"leaves": ou.record["leaves"], "date": ou.record["date"]}
-    union = [r for cls in tax["classes"] if units[f"class:{cls['id']}"].published for r in units[f"class:{cls['id']}"].rows] + ou.rows
-    prev_a = prior_units.get("overall")
-    if len(union) < UNLOCK:
-        au.why = "fewer than 10 reports"
-    elif prev_a and prev_a.get("parts") == parts:
-        au.rows, au.record, au.published, au.held = union, prev_a, True, True
-        au.why = f"held: no part changed since {prev_a['release']}"
-    else:
-        au.rows, au.record, au.published = union, rec(len(union), tier=tier_of(len(union)), parts=parts), True
-        au.why = "updated: a part changed"
+    # 1. Compounds.
+    for c in comps:
+        ids_live = {r["_leaf_idx"] for r in by_comp.get(c, []) if live(r["_leaf_idx"])}
+        settle(f"compound:{c}",
+               lambda S, ids_live=ids_live: frozenset(ids_live - S),
+               lambda S: frozenset(i for i in S if excluded(i)),
+               ids_live, UNLOCK, ids_live)
 
-    # 4. Each published compound's strata: one unit per row of a table split by status, goal or effect.
+    # 2. Rows of each compound that has ever had tables. Candidates come from the compound's set.
     for c, comp in comps.items():
-        cu = units[f"compound:{c}"]
-        if not cu.published:
+        cst = new_state.get(f"compound:{c}")
+        if cst is None:
             continue
-        t = cu.record["tier"]
-        strata = []
-        if t >= 2:
-            strata.append((f"compound:{c}/T12/stopped", lambda r: r["status"] == "stopped"))
-        if t >= 3:
-            for g in comp["goals"]:
-                strata.append((f"compound:{c}/T8/{g}", (lambda g: lambda r: r["goal"] == g)(g)))
-        if t >= 4:
-            for a in universal_ae + comp["adverseEffects"]:
-                strata.append((f"compound:{c}/T11/{a}", (lambda a: lambda r: a in effects_of(r))(a)))
-        for key, member in strata:
-            su = units[key] = Unit(key)
-            s_now = [r for r in cu.rows if member(r)]
-            prev = prior_units.get(key)
-            if prev is None:
-                if len(s_now) >= STRATUM_MIN:
-                    su.rows, su.record, su.published, su.why = s_now, rec(len(s_now)), True, "first publication"
-                continue
-            s_asof = [r for r in st.asof(by_comp.get(c, []), prev) if member(r)]
-            ch = change(s_asof, s_now)
-            if ch < FLOOR:
-                su.rows, su.record, su.published, su.held = s_asof, prev, True, True
-                su.why = f"held: {ch} changed since {prev['release']}"
-            elif len(s_now) >= STRATUM_MIN:
-                su.rows, su.record, su.published, su.why = s_now, rec(len(s_now)), True, f"updated: {ch} changed"
+        cu = units[f"compound:{c}"]
+        Sc = cst["set"]
+        ctier = cst["tier"] if cu.published else 0
+        gates = shown([by_idx[i] for i in sorted(Sc)]) if cu.published else {"goals": set(), "effects": set()}
+        for suffix, need_tier, member, gate in strata_of(comp, universal_ae):
+            key = f"compound:{c}/{suffix}"
+            cand = frozenset(i for i in Sc if member(by_idx[i]) and not excluded(i))
+            open_now = gate is None or gate[1] in gates[gate[0]]
+            st = state.get(key)
+            u = units[key] = Unit(key)
+            if st is None:
+                if ctier < need_tier or len(cand) < STRATUM_MIN:
+                    del units[key]
+                    continue
+                st2 = {"set": cand, "release": release, "date": date, "tier": ctier, "shown": open_now}
+                u.why = "first publication"
             else:
-                su.why = f"no longer published: {len(s_now)} reports"
+                T, n_in, n_out, changed = _batch(st["set"], cand - st["set"], st["set"] - Sc)
+                if changed:
+                    st2 = {"set": T, "release": release, "date": date, "tier": ctier or st["tier"], "shown": open_now}
+                    u.why = "updated"
+                elif st["shown"] and ctier >= need_tier and ctier != st["tier"]:
+                    # A shown row takes the percentages its compound's tier grants when that tier
+                    # changes: same set, same flag, re-stamped — nothing new about its reports.
+                    st2 = {**st, "release": release, "date": date, "tier": ctier}
+                    u.why = "updated: tier changed"
+                else:
+                    st2 = st
+                    u.why = f"held: {n_in} new and {n_out} out waiting since {st['release']}"
+            new_state[key] = st2
+            u.rows = [by_idx[i] for i in sorted(st2["set"])]
+            u.record = {k: st2[k] for k in ("release", "date", "tier")}
+            u.published = (ctier >= need_tier and len(st2["set"]) >= STRATUM_MIN and open_now and st2["shown"])
+            u.held = u.published and st2["release"] != release
+            if not u.published:
+                u.why = "not shown"
+
+    # 3. All reports.
+    all_live = {i for i, r in by_idx.items() if live(i)}
+    settle("overall",
+           lambda S: frozenset(all_live - S),
+           lambda S: frozenset(i for i in S if excluded(i)),
+           all_live, UNLOCK, all_live)
+    return new_state, units
+
+
+def plan(tax, rows, leaves, exclusions, history, release, date, shown):
+    """
+    Replay the rule over every earlier release, then decide this one.
+
+    tax: the taxonomy dict. rows: every stored row with "_leaf_idx" (from pa_store.attach_leaf_idx).
+    leaves: the log, (idx, leaf) in order — at least as long as this release. exclusions: every
+    exclusion in the store. history: [{"release", "date", "leaves"}] of earlier releases, oldest
+    first. `release`/`date`: this release; its log length is len(leaves). Returns {key: Unit}.
+    """
+    pos = {idx: i for i, (idx, _) in enumerate(leaves)}
+    noted = {x["leaf_idx"]: x["noted_on"] for x in exclusions}
+    by_idx = {r["_leaf_idx"]: r for r in rows if r.get("_leaf_idx") is not None}
+    by_comp = {}
+    for r in by_idx.values():
+        by_comp.setdefault(r["compound"], []).append(r)
+    state, units = {}, {}
+    for h in list(history) + [{"release": release, "date": date, "leaves": len(leaves)}]:
+        L, D = h["leaves"], h["date"]
+        committed = {i: r for i, r in by_idx.items() if pos.get(i, L) < L}
+        excluded = lambda i, D=D: i in noted and noted[i] <= D
+        live = lambda i, committed=committed, excluded=excluded: i in committed and not excluded(i)
+        view_by_comp = {c: [r for r in rs if r["_leaf_idx"] in committed] for c, rs in by_comp.items()}
+        state, units = step(state, tax, view_by_comp, by_idx, live, excluded, h["release"], h["date"], shown)
     return units
 
 
 def records(units):
-    return {k: u.record for k, u in sorted(units.items()) if u.record}
+    """What release.json publishes: for every unit shown in this release, the release that computed
+    it, that release's date, and the tier its tables were computed at. Never a count, and nothing
+    for a unit that is not shown (its existence would say something about its size)."""
+    return {k: u.record for k, u in sorted(units.items()) if u.published}
 
 
 def held(units):

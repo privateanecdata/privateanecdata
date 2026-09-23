@@ -18,10 +18,12 @@ What each check proves, and what it does not:
                therefore the count as of that release.
   prior        the previous release's leaves are a prefix of this one's: nothing was removed,
                reordered or backdated between releases. Chains back to the first release.
-  updates      (with --prior) every table release.json lists as held is identical to the prior
-               release's, every updated one names this release, and with --db and --taxonomy the
-               update-floor decision is re-run on the store as it stood at this release and must
-               agree (operator only).
+  updates      every table shown names the release that computed it and carries the matching
+               as-of mark; a table republished from an earlier release is identical to the prior
+               release's, its own figure included; exclusions only grow, keep their dates and are
+               never backdated; T0's labels agree. With --db and --taxonomy the batch rule is
+               replayed over the whole history from the store and must agree (operator only) —
+               that each update was a batch of at least five is checkable only this way.
   spec         release.json names the hash of the release specification and taxonomy the release
                was computed under, and they match the copies you have.
   witness      the detached signature on release.json verifies against the published key, and the
@@ -29,9 +31,11 @@ What each check proves, and what it does not:
   store        (operator only) every stored row's leaf, recomputed with its salt, is in the log,
                and the log's root is the published root — no row was altered after commitment.
 
-None of this proves that any report is truthful or came from a distinct person. It proves that the
-published numbers were computed from a fixed, append-only set of reports under a specification
-fixed in advance, and that neither has been changed since.
+None of this proves that any report is truthful or came from a distinct person. The public checks
+show that the published files are the ones that were witnessed, that the log they count is
+append-only, and that they name a specification fixed in advance. That the tables were computed
+from the stored reports under that specification is shown only by the operator's checks (--db
+with --taxonomy: the rule replayed and every file rebuilt from the store).
 """
 import argparse
 import hashlib
@@ -45,7 +49,8 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from pa_store import attach_leaf_idx, load_exclusions, load_leaves, load_rows, merkle_root, open_store, verify_store  # noqa: E402
 
-ONE_WAY_TABLES = ["T1", "T2", "T3", "T4", "T5", "T6", "T10", "T16"]
+ONE_WAY_TABLES = ["T1", "T2", "T4", "T5", "T6", "T10", "T16"]
+TIER_OF_TABLE = {"T1": 1, "T2": 1, "T3": 2, "T4": 2, "T5": 2, "T6": 2, "T10": 2, "T12": 2, "T16": 2, "T8": 3, "T11": 4}
 
 
 def load_tables(rd):
@@ -59,57 +64,165 @@ def load_tables(rd):
 
 
 def unit_content(T, key):
-    """What a unit publishes (tools/update_floor.py): the piece a held unit must carry unchanged.
-    Pools publish nothing directly. `as_of` marks are dropped so a fresh row and its later held
-    copy compare equal."""
-    strip = lambda d: {k: v for k, v in d.items() if k != "as_of"} if isinstance(d, dict) else d
+    """What one unit publishes (tools/update_floor.py), as (content without `as_of`, the as_of marks
+    found, the number of published pieces). A piece that is a placeholder (n is None) is not
+    content."""
+    pieces = []
     if key == "overall":
-        return {"T6": T.get("T6", {}).get("overall"), "T13": T.get("T13"), "T15": T.get("T15")}
-    if key.endswith("/pool") or key == "overall/other":
-        return None
-    if "/T12/stopped" in key:
-        return strip((T.get("T12", {}).get(key.split("/")[0]) or {}).get("stop_reason"))
-    if "/T8/" in key:
+        pieces = [("T13", T.get("T13"))]
+    elif "/T12/stopped" in key:
+        pieces = [("stop", (T.get("T12", {}).get(key.split("/")[0]) or {}).get("stop_reason"))]
+    elif "/T8/" in key:
         g, _, goal = key.partition("/T8/")
-        return strip(next((x for x in (T.get("T8", {}).get(g) or {}).get("strata", []) if x.get("goal") == goal), None))
+        pieces = [("row", next((x for x in (T.get("T8", {}).get(g) or {}).get("strata", []) if x.get("goal") == goal), None))]
+    elif "/T11/" in key:
+        g, _, eff = key.partition("/T11/")
+        pieces = [("row", next((x for x in (T.get("T11", {}).get(g) or {}).get("effects", []) if x.get("effect") == eff), None))]
+    else:
+        t3 = T.get("T3", {}).get(key) or {}
+        pieces = [(t, T.get(t, {}).get(key)) for t in ONE_WAY_TABLES] + [("T12.status", (T.get("T12", {}).get(key) or {}).get("status"))]
+        # T3 is two distributions under one wrapper that carries the mark
+        for part in ("start_dose", "current_dose"):
+            if isinstance(t3.get(part), dict):
+                pieces.append((f"T3.{part}", {**t3[part], **({"as_of": t3["as_of"]} if "as_of" in t3 else {})}))
+    content, marks, n = {}, [], 0
+    for name, d in pieces:
+        if not isinstance(d, dict) or d.get("n") is None:
+            continue
+        n += 1
+        content[name] = {k: v for k, v in d.items() if k != "as_of"}
+        if "as_of" in d:
+            marks.append(d["as_of"])
+    return content, marks, n
+
+
+def unit_figures(key):
+    """The figure paths that belong to one unit (a T8 grid belongs to no single unit)."""
+    if key == "overall":
+        return ["figures/_overall/"]
+    if "/T8/" in key:
+        return []
+    if "/T12/stopped" in key:
+        return [f"figures/{key.split('/')[0].replace(':', '-')}/T12-stop_reason.svg"]
     if "/T11/" in key:
         g, _, eff = key.partition("/T11/")
-        return strip(next((x for x in (T.get("T11", {}).get(g) or {}).get("effects", []) if x.get("effect") == eff), None))
-    content = {t: T.get(t, {}).get(key) for t in ONE_WAY_TABLES}
-    content["T12.status"] = (T.get("T12", {}).get(key) or {}).get("status")
-    return content
+        d = g.replace(":", "-")
+        return [f"figures/{d}/T11-{eff}-onset.svg", f"figures/{d}/T11-{eff}-dechallenge.svg"]
+    d = key.replace(":", "-")
+    return [f"figures/{d}/{n}.svg" for n in ("T1", "T2", "T3-start_dose", "T3-current_dose", "T4", "T5", "T6", "T10", "T12-status", "T16")]
 
 
 def check_updates(R, rel, rd, prior, pd, db=None, taxonomy=None):
-    """The update floor. Public part: every held unit is identical to the prior release's, every
-    fresh record names this release, and a group whose units are all held carries the prior
-    release's figures byte for byte. With the store and taxonomy, the decision is re-run on the
-    store as it stood at this release and must come out the same."""
+    """The update floor. Public part: every shown unit's record names this release (updated) or an
+    earlier one (republished), and its tables carry the matching `as_of` marks; a republished unit
+    the prior release also showed is identical to it, figure included; the history chains to the
+    prior release; exclusions only grow, keep their dates and are never backdated; T0's labels
+    agree with the records. With the store and taxonomy, the rule is replayed over the whole history
+    and must give the same records and the same republished set. That each update was a batch of at
+    least five can only be checked this way: the public files do not show it."""
     if "units" not in rel:
         R.skip("updates", "release.json carries no unit records (pipeline predates the update floor)")
         return
     units, held = rel["units"], set(rel.get("held", []))
-    punits = prior.get("units", {})
-    T, P = load_tables(rd), load_tables(pd)
-    problems = []
-    for key in sorted(held):
-        if units.get(key) != punits.get(key):
-            problems.append(f"{key}: held, but its record changed")
-        if unit_content(T, key) != unit_content(P, key):
-            problems.append(f"{key}: held, but its published tables differ from the prior release")
+    T = load_tables(rd)
+    problems, notes = [], []
+    first = not rel["merkle"].get("prior_root")
+    if first and (held or rel.get("history")):
+        problems.append("a first release republishes nothing and has no history")
+    if not held <= set(units):
+        problems.append(f"held lists units with no record: {sorted(held - set(units))[:4]}")
     for key, rec in units.items():
-        if key not in held and (rec.get("release") != rel["release"] or rec.get("date") != rel["date"] or rec.get("leaves") != rel["merkle"]["leaves"]):
-            problems.append(f"{key}: updated, but its record does not name this release")
-    groups = {k for k in units if k.startswith(("compound:", "class:")) and "/" not in k}
-    for g in sorted(groups | ({"overall"} if "overall" in units else set())):
-        mine = [k for k in units if k == g or k.startswith(g + "/")]
-        if all(k in held for k in mine):
-            figdir = "figures/_overall/" if g == "overall" else f"figures/{g.replace(':', '-')}/"
-            for path, h in prior["files"].items():
-                if path.startswith(figdir) and rel["files"].get(path) != h:
-                    problems.append(f"{g}: every unit held, but {path} differs from the prior release")
+        if set(rec) - {"release", "date", "tier"}:
+            problems.append(f"{key}: record carries more than release, date and tier: {sorted(set(rec) - {'release', 'date', 'tier'})}")
+        content, marks, n = unit_content(T, key)
+        if n == 0:
+            problems.append(f"{key}: has a record but publishes nothing")
+        if key in held:
+            if rec.get("release") == rel["release"]:
+                problems.append(f"{key}: listed as republished but its record names this release")
+            if len(marks) != n or any(m != rec.get("release") for m in marks):
+                problems.append(f"{key}: republished, but its tables are not all marked as of {rec.get('release')}")
+        else:
+            if rec.get("release") != rel["release"] or rec.get("date") != rel["date"]:
+                problems.append(f"{key}: not listed as republished, but its record names {rec.get('release')}")
+            if marks:
+                problems.append(f"{key}: updated in this release but its tables carry an as-of mark")
+    # Every published piece belongs to a unit with a record, at a tier that allows it.
+    for tid in ONE_WAY_TABLES + ["T3", "T12", "T8", "T11"]:
+        for key, v in (T.get(tid) or {}).items():
+            rec = units.get(key)
+            if rec is None:
+                problems.append(f"{tid} publishes {key}, which has no record"); continue
+            if (rec.get("tier") or 0) < TIER_OF_TABLE[tid]:
+                problems.append(f"{tid} publishes {key} at tier {rec.get('tier')}, below the tier the table needs")
+            if tid == "T8":
+                for st in v.get("strata", []):
+                    if st.get("n") is not None and f"{key}/T8/{st['goal']}" not in units:
+                        problems.append(f"T8 publishes a row for {key}/{st['goal']} with no record")
+            if tid == "T11":
+                for ef in v.get("effects", []):
+                    if ef.get("n") is not None and f"{key}/T11/{ef['effect']}" not in units:
+                        problems.append(f"T11 publishes a row for {key}/{ef['effect']} with no record")
+            if tid == "T12" and (v.get("stop_reason") or {}).get("n") is not None and f"{key}/T12/stopped" not in units:
+                problems.append(f"T12 publishes a stop-reason row for {key} with no record")
+    if (T.get("T13") or {}).get("n") is not None and "overall" not in units:
+        problems.append("T13 is published with no record for the all-reports unit")
+    for g, t9 in (T.get("T9") or {}).items():
+        for part in t9.get("compounds", []):
+            row = next((x for x in (T.get("T8", {}).get(f"compound:{part['compound']}") or {}).get("strata", []) if x.get("goal") == g), None)
+            if row is None or any(row.get(k) != part.get(k) for k in ("n", "percent", "cells", "as_of")):
+                problems.append(f"T9 {g}: the row for {part['compound']} is not its T8 row")
+    ex_now = json.load(open(os.path.join(rd, "exclusions.json")))["excluded"]
+    if any(x["noted_on"] > rel["date"] for x in ex_now):
+        problems.append("an exclusion is dated after the release")
+    uncompared = []
+    if prior is not None:
+        want_hist = prior.get("history", []) + [{"release": prior["release"], "date": prior["date"], "leaves": prior["merkle"]["leaves"]}]
+        if rel.get("history") != want_hist:
+            problems.append("history does not chain to the prior release")
+        punits = prior.get("units", {})
+        P = load_tables(pd)
+        for key in sorted(held & set(units)):
+            prec = punits.get(key)
+            if prec is None:
+                uncompared.append(key)        # not shown in the prior release: nothing to compare with
+                continue
+            if prec != units[key]:
+                problems.append(f"{key}: republished, but the prior release showed it computed in {prec.get('release')}")
+                continue
+            if unit_content(T, key)[0] != unit_content(P, key)[0]:
+                problems.append(f"{key}: republished, but its tables differ from the prior release")
+            for path in unit_figures(key):
+                if path.endswith("/"):
+                    same = all(rel["files"].get(q) == h for q, h in prior["files"].items() if q.startswith(path))
+                else:
+                    same = path not in prior["files"] or rel["files"].get(path) == prior["files"][path]
+                if not same:
+                    problems.append(f"{key}: republished, but its figure {path} differs from the prior release")
+        triple = lambda x: (x["leaf_idx"], x["reason"], x["noted_on"])
+        pex = {triple(x) for x in json.load(open(os.path.join(pd, "exclusions.json")))["excluded"]}
+        ex = {triple(x) for x in ex_now}
+        if not pex <= ex:
+            problems.append("an exclusion listed by the prior release is missing or carries a different reason or date")
+        if any(t[2] <= prior["date"] for t in ex - pex):
+            problems.append("an exclusion new to this release is dated on or before the prior release (backdated)")
+    if uncompared:
+        notes.append(f"{len(uncompared)} republished unit(s) the prior release did not show, so not compared with it")
+    # T0 labels agree with the records
+    for e in T.get("T0", {}).get("per_compound", []):
+        if e["id"] == "other":
+            continue
+        key = "compound:" + e["id"]
+        rec = units.get(key)
+        if e.get("tier") != (rec or {}).get("tier", 0):
+            problems.append(f"{key}: T0 tier {e.get('tier')} does not match its record")
+        if e.get("tables_as_of") != ((rec or {}).get("release") if key in held else None):
+            problems.append(f"{key}: T0 tables_as_of does not match its record")
+        if rel.get("tiers", {}).get(key) != e.get("tier"):
+            problems.append(f"{key}: release.json tiers disagrees with T0")
     exact = False
     if db and taxonomy:
+        import release as rp
         import update_floor as uf
         con = open_store(db)
         rows, leaves = load_rows(con), load_leaves(con)
@@ -118,23 +231,82 @@ def check_updates(R, rel, rd, prior, pd, db=None, taxonomy=None):
         if n > len(leaves):
             problems.append(f"store has {len(leaves)} leaves, fewer than the release's {n}")
         else:
-            then = leaves[:n]
             excl = [x for x in load_exclusions(con) if x["noted_on"] <= rel["date"]]
-            listed = {x["leaf_idx"] for x in json.load(open(os.path.join(rd, "exclusions.json")))["excluded"]}
-            if {x["leaf_idx"] for x in excl} != listed:
-                problems.append("exclusions dated on or before the release differ from the release's exclusion list")
-            plan = uf.plan(json.load(open(taxonomy)), rows, then, excl, punits, rel["release"], rel["date"])
-            if uf.records(plan) != units:
-                diff = [k for k in set(uf.records(plan)) | set(units) if uf.records(plan).get(k) != units.get(k)]
-                problems.append(f"unit records differ from a re-run of the decision: {sorted(diff)[:6]}")
+            triple = lambda x: (x["leaf_idx"], x["reason"], x["noted_on"])
+            if {triple(x) for x in excl} != {triple(x) for x in ex_now}:
+                problems.append("the store's exclusions dated on or before the release differ from the release's list")
+            tax = rp.Tax(taxonomy)
+            plan = uf.plan(tax.raw, rows, leaves[:n], excl, rel.get("history", []), rel["release"], rel["date"], rp.shown_fn(tax))
+            want = uf.records(plan)
+            if want != units:
+                diff = [k for k in set(want) | set(units) if want.get(k) != units.get(k)]
+                problems.append(f"unit records differ from a replay of the rule: {sorted(diff)[:6]}")
             if uf.held(plan) != sorted(held):
-                problems.append(f"held set differs from a re-run of the decision: {sorted(set(uf.held(plan)) ^ held)[:6]}")
+                problems.append(f"republished set differs from a replay of the rule: {sorted(set(uf.held(plan)) ^ held)[:6]}")
             exact = True
+            # Rebuild: the pipeline is deterministic, so re-running it on the store as it stood
+            # must reproduce every published file. Only meaningful with the same pipeline code.
+            here = os.path.dirname(os.path.abspath(__file__))
+            if (rel.get("pipeline", {}).get("sha256") != sha256_file(os.path.join(here, "release.py"))
+                    or rel.get("pipeline", {}).get("update_floor_sha256") != sha256_file(os.path.join(here, "update_floor.py"))):
+                notes.append("rebuild skipped: this release was made by a different tools/release.py")
+            elif not first and prior is None:
+                notes.append("rebuild skipped: pass --prior to rebuild a release that has one")
+            else:
+                rebuilt = rebuild(rel, db, taxonomy, pd, n)
+                if isinstance(rebuilt, str):
+                    problems.append(f"rebuild failed: {rebuilt}")
+                else:
+                    diff = sorted(f for f in set(rebuilt) | set(rel["files"]) if rebuilt.get(f) != rel["files"].get(f))
+                    if diff:
+                        problems.append(f"rebuilding from the store gives different files: {diff[:4]}")
+                    else:
+                        notes.append("every file rebuilt from the store is identical")
     if problems:
         R.fail("updates", "; ".join(problems[:5]))
     else:
-        R.ok("updates", f"{len(held)} held units identical to the prior release"
-                        + ("; decision re-run on the store as of this release agrees" if exact else "; pass --db and --taxonomy to re-run the decision"))
+        R.ok("updates", "; ".join([(f"{len(held) - len(uncompared)} republished units identical to the prior release" if prior is not None
+                                    else ("first release: every table computed in it" if first else f"{len(held)} republished units marked; pass --prior to compare them"))]
+                                  + notes
+                                  + (["rule replayed from the store over the whole history agrees"] if exact else ["pass --db and --taxonomy to replay the rule"])))
+
+
+def rebuild(rel, db, taxonomy, prior_dir, n_leaves):
+    """Re-run tools/release.py on a copy of the store truncated to this release's log and
+    exclusions, and return {path: sha256} of what it writes, or an error string."""
+    import sqlite3
+    import tempfile
+    tmp = tempfile.mkdtemp()
+    try:
+        copy = os.path.join(tmp, "store.db")
+        src = sqlite3.connect(f"file:{db}?mode=ro", uri=True); dst = sqlite3.connect(copy)
+        src.backup(dst); src.close()
+        dst.execute("DELETE FROM exclusions WHERE noted_on > ?", (rel["date"],))
+        keep = [r[0] for r in dst.execute("SELECT idx FROM merkle_leaves ORDER BY idx LIMIT ?", (n_leaves,))]
+        if len(keep) == n_leaves:
+            cut = keep[-1] if keep else 0
+            gone = [bytes(r[0]) for r in dst.execute("SELECT leaf FROM merkle_leaves WHERE idx > ?", (cut,))]
+            dst.execute("DELETE FROM merkle_leaves WHERE idx > ?", (cut,))
+            # drop the rows whose leaves were cut (rows carry no log position; match by leaf)
+            from pa_store import row_leaf
+            gone = set(gone)
+            dst.row_factory = sqlite3.Row
+            rows = load_rows(dst)
+            con2 = dst
+            for r in rows:
+                if row_leaf(r) in gone:
+                    con2.execute("DELETE FROM reports WHERE salt = ?", (r["_salt"],))
+        dst.commit(); dst.close()
+        out = os.path.join(tmp, "out")
+        cmd = [sys.executable, os.path.join(os.path.dirname(os.path.abspath(__file__)), "release.py"), "--db", copy,
+               "--id", rel["release"], "--date", rel["date"], "--out", out, "--taxonomy", taxonomy]
+        cmd += ["--prior", prior_dir] if prior_dir else ["--first"]
+        r = subprocess.run(cmd, capture_output=True, text=True)
+        if r.returncode != 0:
+            return (r.stderr or r.stdout).strip().splitlines()[-1] if (r.stderr or r.stdout).strip() else "release.py failed"
+        return json.load(open(os.path.join(out, "release.json")))["files"]
+    finally:
+        shutil.rmtree(tmp, ignore_errors=True)
 
 
 def sha256_file(path):
@@ -178,7 +350,7 @@ def main():
     rd = args.release
     rel = json.load(open(os.path.join(rd, "release.json")))
     print(f"release {rel['release']} dated {rel['date']} — {rel['counts']['committed']} committed, "
-          f"{rel['counts']['excluded']} excluded, {rel['counts']['analyzed']} analysed")
+          f"{rel['counts']['excluded']} excluded, {rel['counts']['analyzed']} not excluded")
 
     # files
     bad, missing = [], []
@@ -224,7 +396,8 @@ def main():
             R.ok("prior", f"{prior['release']} ({len(pl)} leaves) is a prefix; {len(leaves) - len(pl)} appended since")
         check_updates(R, rel, rd, prior, args.prior, args.db, args.taxonomy)
     else:
-        R.skip("prior", "pass --prior to check append-only continuity and the update floor")
+        R.skip("prior", "pass --prior to check append-only continuity")
+        check_updates(R, rel, rd, None, None, args.db, args.taxonomy)
 
     # spec and taxonomy
     if args.spec:

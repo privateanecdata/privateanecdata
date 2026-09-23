@@ -61,7 +61,7 @@ immediately before the write. Specifically:
 
 | Field | Form |
 |---|---|
-| Compound | One of a frozen list; rare entries are published only rolled into a mechanism class |
+| Compound | One of a frozen list; rare entries are published only as part of a mechanism class's report count |
 | Primary goal | One of that compound's predefined goal list |
 | Source channel | One of eight channel types (including "don't know" and "other"); never a vendor, pharmacy, or brand name |
 | Starting and current dose | A band, never a number |
@@ -95,9 +95,10 @@ identifier.
 request and rendered back to the contributor for review. Abandoned forms leave no record.
 
 Every stored row is appended, with a per-row secret salt, to a Merkle log whose root is published
-periodically (see *Integrity*). Rows are never updated. Rows excluded from analysis for quality
-reasons are recorded in a separate, separately-published exclusion list with reason codes; they are
-not deleted from the log.
+periodically (see *Integrity*). Rows are never updated. Rows excluded for quality reasons are
+recorded in a separate, separately-published exclusion list with reason codes and the date each was
+noted; they are not deleted from the log, and they leave the published tables only in batches of at
+least five.
 
 ## What is published
 
@@ -140,8 +141,10 @@ values fell in.
 
 *Stated limit:* on the coarsened row, a determined adversary who holds the raw store and knows a
 target's compound, age band, sex, goal, and dose band will find a small number of candidate rows
-at any dataset size below tens of thousands. We publish the uniqueness analysis that quantifies
-this. This is why the raw store is never published and why we hold nothing else.
+at any dataset size below tens of thousands. The schema publishes the uniqueness analysis that
+quantifies this on synthetic data; the operator re-runs it on the real store before every release
+and does not publish the real figures, which would themselves be a probe. This is why the raw
+store is never published and why we hold nothing else.
 
 ### Timing correlation
 
@@ -211,15 +214,17 @@ holds a target's public statements has a bounded but nonzero ability to shortlis
 two releases reveals a single report.
 
 *Enforced:* the release specification fixes a minimum cell size below which no value is published
-and a display threshold below which no proportion is shown. Rare compounds are published only
-rolled into their mechanism class. No table is cross-tabulated on a rare compound. Releases are
-cumulative snapshots, and tables update in batches: a table, or one row of a table split by goal
-or effect, is updated only after at least five of the reports it is computed from have changed,
-and is otherwise republished unchanged — so subtracting one release from the next shows at least
-five reports' answers at once. Classes are built from their compounds' tables as published plus a
-pool that follows the same rule, so class-minus-compounds cannot isolate a smaller batch. The
-exclusion of quality-flagged rows counts as a change under the same rule. The total number of
-distinct tables that will ever be published is bounded by the specification.
+and a display threshold below which no proportion is shown. Rare compounds are published only as
+part of their mechanism class's report count; no table is computed for a class, because a class
+table beside its compounds' tables would publish the small compounds' answers by subtraction. No
+table is cross-tabulated on a rare compound. Releases are cumulative snapshots, and tables update
+in batches: a table, or one row of a table split by status, goal or effect, takes in new reports
+only in a batch of at least five and lets excluded reports go only in a batch of at least five,
+batched separately, and is otherwise republished unchanged — so subtracting one release from the
+next shows the answers of at least five reports that entered or left together. A report excluded
+before it entered a table never enters one. A table that stops being shown keeps its set of reports
+and returns only through batches, never as a fresh computation. The total number of distinct tables
+that will ever be published is bounded by the specification.
 
 *Stated limit:* a suppression threshold is not a privacy guarantee. An adversary who can submit
 crafted reports can push a target's cell over any threshold. This is why the number of tables is
@@ -237,7 +242,8 @@ instead). There is no CAPTCHA and no proof-of-work: both would need either a thi
 client-side script, and the site runs neither. Published statistics are counts and distributions;
 no mean, average, or sum of any scale is ever published, so a burst of extreme reports cannot move
 a headline number. A coordinated-submission detector runs on the raw store; what it flags is
-excluded from the tables, listed by log position, and summarised in the *Integrity log* section of each release page. This
+listed by log position, leaves the tables in batches of at least five (see *Small-cell disclosure
+and differencing*), and is summarised in the *Integrity log* section of each release page. This
 is the weakest control in the design and is described as such in
 [What we can and cannot promise](WHAT-WE-CAN-AND-CANNOT-PROMISE.md).
 

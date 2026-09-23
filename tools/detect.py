@@ -7,8 +7,10 @@ Quality detector. Scans the store and proposes exclusions; a person decides.
 
 `scan` writes candidates as {leaf_idx, reason, rule, evidence}. Nothing is excluded until
 `apply` writes the reviewed file into the store's `exclusions` table. Excluded reports stay in the
-Merkle log; they are omitted from tables and listed, by log position and reason code, in every
-release from then on (RELEASE_SPEC.md, Exclusions).
+Merkle log; they are listed, by log position, reason code and date, in every release from then
+on, and they leave the tables in batches of at least five (RELEASE_SPEC.md, Cadence and
+Exclusions). The --date must be after the prior release and on or before the next one, and never
+changes afterwards: the pipeline refuses a backdated or re-dated exclusion.
 
 Rules are deliberately conservative: each flags a contradiction inside a single report, or a
 pattern across reports that a person should look at. The detector never uses network metadata —

@@ -3,7 +3,7 @@
 A structured, identifier-free census of peptide use, from any source, published as aggregate
 statistics under a release specification fixed before any data was collected.
 
-**Status: live at [privateanecdata.org](https://privateanecdata.org) since 22 September 2026. Releases are monthly for the first year; the first follows the first month with reports.**
+**Status: live at [privateanecdata.org](https://privateanecdata.org) since 22 September 2026. Releases are monthly for the twelve months after the first release, then quarterly; the first follows the first month with reports.**
 
 ## What this is
 
@@ -25,7 +25,7 @@ cannot be quietly revised.
 
 | Document | What it is |
 |---|---|
-| [`spec/SCHEMA.md`](spec/SCHEMA.md) | The frozen schema: 50 compounds, every controlled vocabulary, six mechanism classes for rollup, and the published uniqueness analysis. Rendered from `spec/taxonomy.v1.json`. |
+| [`spec/SCHEMA.md`](spec/SCHEMA.md) | The frozen schema: 50 compounds, every controlled vocabulary, six mechanism classes (published as counts), and the published uniqueness analysis. Rendered from `spec/taxonomy.v1.json`. |
 | [`spec/RELEASE_SPEC.md`](spec/RELEASE_SPEC.md) | Every table that will ever be published and the threshold governing each. Fixed and witnessed before the first row. |
 | [`docs/THREAT_MODEL.md`](docs/THREAT_MODEL.md) | What the system enforces, by threat, written as a specification rather than a risk register. |
 | [`docs/WHAT-WE-CAN-AND-CANNOT-PROMISE.md`](docs/WHAT-WE-CAN-AND-CANNOT-PROMISE.md) | The limits, stated for contributors before they submit. |
@@ -67,14 +67,14 @@ cd app && npm install && npm run build && npm run start     # http://127.0.0.1:4
 | `tools/normalize_taxonomy.py` | Hand-maintained mapping from researched vocabulary (`research/`) to canonical ids. Produces `spec/taxonomy.v1.json`, which carries no regulatory, anti-doping, or dosing-rationale text. |
 | `tools/make_schema_config.py` | Derives the uniqueness config from the taxonomy. |
 | `tools/render_schema_md.py` | Renders `SCHEMA.md` from the taxonomy so the tables cannot drift. |
-| `tools/release.py` | The release pipeline. Verifies the store against its Merkle log, applies exclusions, computes every table under the tier rules, renders the figures with the caveats inside them, audits its own output for any count under the floor, and writes `release.json` with the hash of every file. Deterministic. |
-| `tools/verify_release.py` | Anyone's check on a published release: file hashes, Merkle root and count, append-only continuity with the prior release, spec and schema hashes, signature, Rekor and OpenTimestamps. Operators add `--db` to check rows against the log. |
+| `tools/release.py` | The release pipeline. Verifies the store against its Merkle log, computes every table under the tier rules and the batch-update rule (`tools/update_floor.py`: a table changes only by at least five reports at a time), renders the figures with the caveats inside them, audits its own output for any count under the floor, and writes `release.json` with the hash of every file. Deterministic. |
+| `tools/verify_release.py` | Anyone's check on a published release: file hashes, Merkle root and count, append-only continuity with the prior release, the batch-update check (republished tables unchanged, exclusions only growing and never re-dated), spec and schema hashes, signature, Rekor and OpenTimestamps. Operators add `--db` to check rows against the log. |
 | `tools/detect.py` | Quality detector. Proposes exclusions (malformed, implausible, duplicate-pattern, coordinated) for a person to review; `apply` records the reviewed list. |
 | `tools/witness.sh` | Signs `release.json` and submits its hash to Rekor and OpenTimestamps. |
 | `tools/synth_store.py` | A synthetic store for testing the pipeline, written the way the app writes. Releases from it must carry `SYNTHETIC` in their name. |
 | `tools/pa_store.py` | Read-only store access and a byte-exact mirror of the app's leaf and root computation, verified against rows the app wrote. |
 | `tools/check_origin.sh` | Builds and starts the site, crawls every page, and fails if anything loads from another origin or any `<script>` exists; then `check_form.py` renders every form screen and fails if any control is not a schema field, a routing field, or the bot trap. `npm test` in `app/`. The enforcement behind "one host" and "nothing typed is stored." |
-| `tools/tests/` | Unit tests for the Merkle mirror, suppression and complementary suppression, tier boundaries, Wilson intervals, the detector's contradiction rules, and an end-to-end synthetic release with tamper cases. `python3 -m unittest discover -s tools/tests`. |
+| `tools/tests/` | Unit tests for the Merkle mirror, suppression and complementary suppression, tier boundaries, Wilson intervals, the detector's contradiction rules, the batch-update rule (small changes wait, exclusions batch separately, excluded newcomers never enter, rows survive tier dips, suppressed rows stay hidden), and end-to-end synthetic releases with tamper cases. `python3 -m unittest discover -s tools/tests`. |
 | `tools/preflight.sh` | Everything above in one run: derived spec files in sync, tests, a synthetic release built and verified, the one-origin check. CI runs it on every push (`.github/workflows/check.yml`). |
 
 ```bash
@@ -84,12 +84,12 @@ python3 tools/uniqueness.py synthetic spec/schema.config.json --json spec/unique
 python3 tools/render_schema_md.py        # -> spec/SCHEMA.md
 
 python3 tools/synth_store.py /tmp/synth.db --n 3000            # a test store
-python3 tools/release.py --db /tmp/synth.db --id 2026-Q4-SYNTHETIC --date 2026-12-31 --out releases/2026-Q4-SYNTHETIC
-python3 tools/verify_release.py releases/2026-Q4-SYNTHETIC --spec spec/RELEASE_SPEC.md --taxonomy spec/taxonomy.v1.json --db /tmp/synth.db
+python3 tools/release.py --db /tmp/synth.db --id 2026-11-SYNTHETIC --date 2026-11-30 --out releases/2026-11-SYNTHETIC --first
+python3 tools/verify_release.py releases/2026-11-SYNTHETIC --spec spec/RELEASE_SPEC.md --taxonomy spec/taxonomy.v1.json --db /tmp/synth.db
 ```
 
 The site serves whatever is under `releases/` at `/releases/<id>/` and lists it on `/data`.
-[`docs/HOW-WE-COUNT-REPORTS.md`](docs/HOW-WE-COUNT-REPORTS.md) explains what each check proves.
+[`docs/RELEASE-SPEC-SUMMARY.md`](docs/RELEASE-SPEC-SUMMARY.md#how-we-count) explains what each check proves.
 
 ## Before launch — in order
 

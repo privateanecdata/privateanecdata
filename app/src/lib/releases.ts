@@ -15,10 +15,13 @@ export type Release = {
   merkle: { root: string; leaves: number; leaves_file: string; prior_root: string | null };
   counts: { committed: number; excluded: number; analyzed: number };
   tiers: Record<string, number>;
-  /** Update floor (RELEASE_SPEC "Cadence"): per published unit, the release that computed it. */
-  units?: Record<string, { release: string; date: string; leaves: number; n: number; tier?: number }>;
-  /** Units this release republishes unchanged from the prior release. */
+  /** Update floor (RELEASE_SPEC "Cadence"): for each unit shown in this release, the release that computed it,
+   *  that release's date and the tier it was computed at. Never a count. */
+  units?: Record<string, { release: string; date: string; tier: number }>;
+  /** Shown units computed in an earlier release, republished unchanged from it. */
   held?: string[];
+  /** Every earlier release, oldest first. */
+  history?: { release: string; date: string; leaves: number }[];
   files: Record<string, string>;
   /** Directory name under RELEASES_DIR; the URL segment. Normally equals `release`. */
   dir: string;

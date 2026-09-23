@@ -26,8 +26,8 @@ the new item.
    A start quarter cost 7–21 points of uniqueness for almost no analytic gain.
 6. **Rare compounds are always accepted and never published alone.** Every compound belongs to a
    mechanism class with at least three members. Below the release threshold, a compound is
-   published only rolled into its class — never into a residual 'other' whose membership could be
-   inferred by subtraction.
+   published only as part of its class's report count — no table is computed for a class, because
+   a class table beside its compounds' tables would publish the small ones by subtraction.
 7. **Every list ends with 'other (not listed)'.** It is counted and never broken out.
 
 ## The submission record
@@ -291,9 +291,9 @@ tables can be built across compounds.
 | `dyspnea-rare` | Trouble swallowing (rare) |
 | `injection-pain-severe` | Severe stinging or pain at the injection site |
 
-## Mechanism classes (for rollup)
+## Mechanism classes
 
-A compound below the release threshold is published only as its class.
+A compound below the release threshold is published only as part of its class's report count.
 
 | Class | Members |
 |---|---|
@@ -1037,8 +1037,8 @@ is published so the identifiability of the store is a stated number, not a claim
 **Assumptions:** compound prevalence Zipf(s=1.0) over 30 compounds; dose bands middle-heavy; one
 goal per row, Zipf(0.8) within the compound's list; age and sex skewed to the community's known
 demographics; source channel dominated by research-chemical vendors. These are assumptions
-made before any data existed. The same tool runs in `real` mode on the private store before every release, and the
-summary numbers (never rows) are published with the release.
+made before any data existed. The same tool runs in `real` mode on the private store before every release,
+as the operator's private check; its real figures are not published (exact figures would be a probe).
 
 | Quasi-identifier set | Fields | n=500 | n=5,000 | n=50,000 |
 |---|---|---|---|---|

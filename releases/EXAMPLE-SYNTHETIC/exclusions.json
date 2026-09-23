@@ -1,6 +1,6 @@
 {
  "release": "EXAMPLE-SYNTHETIC",
- "applies_to_all_releases_on_or_after": "2026-12-31",
+ "as_of": "2026-12-31",
  "reason_codes": [
   "malformed",
   "implausible",
@@ -8,5 +8,6 @@
   "coordinated",
   "test"
  ],
+ "note": "Each listed report leaves the tables in a batch of at least five (RELEASE_SPEC.md, Cadence); the counts in T0 leave it out at once.",
  "excluded": []
 }

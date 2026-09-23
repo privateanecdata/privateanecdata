@@ -85,7 +85,8 @@ submit many reports to move a statistic.
 We make this detectable rather than impossible: a bot trap catches automated submitters, an
 in-memory rate limit slows any one connection, a coordinated-submission detector (public code:
 `tools/detect.py`) flags self-contradicting reports and unusual bursts, and what it flags is
-excluded from the tables and listed in every release's *Integrity log* section. We publish only counts and
+listed in every release's *Integrity log* section and leaves the tables in batches of at least
+five. We publish only counts and
 distributions — never an average — so a burst of extreme reports cannot move a headline number.
 There is no CAPTCHA and no proof-of-work: both would need a third party or a script in your
 browser, and this site runs neither. We do not claim the data

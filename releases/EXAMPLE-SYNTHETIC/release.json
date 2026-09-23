@@ -6,11 +6,12 @@
  "taxonomy_sha256": "1bbf7e563e1efbc72307d3004f84f6f69b3f4f79108b0f532d7c5664d76c30e2",
  "release_spec": {
   "version": "1.0",
-  "sha256": "c8e9606df87d264e1af954cbf3f6a1c3ca465ab8de449aa953fad7bf196d7b81"
+  "sha256": "2ef2f1e6a8da3153cb520c348796aa753bd0c199a50281f5884ebf61a3153dd3"
  },
  "pipeline": {
   "tool": "tools/release.py",
-  "sha256": "82f5a52f389cf09ef14d0e92a7451cf97a177dd2fbc9099090a285929b17adc4"
+  "sha256": "a78e43088905732a921714b51e1533949a67bffff7f505d0fbacd6f9b556e21e",
+  "update_floor_sha256": "0c9b5d5b982c738a31f8b1efa3af9d495bb1cf49bc56757f3fa407dc48263fd3"
  },
  "merkle": {
   "root": "49d08c112ca6b8914c888610f79d093be7ede651300ec2d2757216bce51ec87b",
@@ -74,822 +75,311 @@
   "compound:melanotan-ii": 2,
   "compound:kisspeptin-10": 2,
   "compound:melanotan-i": 2,
-  "compound:gonadorelin": 1,
-  "class:incretin": 4,
-  "class:gh-secretagogue": 3,
-  "class:tissue-repair": 4,
-  "class:neuro": 4,
-  "class:metabolic": 3,
-  "class:sexual-hormonal": 4
+  "compound:gonadorelin": 1
  },
  "units": {
-  "class:gh-secretagogue": {
-   "release": "EXAMPLE-SYNTHETIC",
-   "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 158,
-   "tier": 3,
-   "parts": {
-    "compound:cjc-1295-ipamorelin-blend": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:ipamorelin": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:tesamorelin": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:mk-677": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:somatropin": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:cjc-1295-without-dac": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:sermorelin": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:cjc-1295-with-dac": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:ghrp-6": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:ghrp-2": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "class:gh-secretagogue/pool": {
-     "leaves": 1500,
-     "date": "2026-12-31",
-     "members": [
-      "hexarelin"
-     ]
-    }
-   }
-  },
-  "class:gh-secretagogue/pool": {
-   "release": "EXAMPLE-SYNTHETIC",
-   "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 8,
-   "members": [
-    "hexarelin"
-   ]
-  },
-  "class:incretin": {
-   "release": "EXAMPLE-SYNTHETIC",
-   "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 227,
-   "tier": 4,
-   "parts": {
-    "compound:retatrutide": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:tirzepatide": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:semaglutide": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:cagrilintide": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:mazdutide": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:survodutide": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:liraglutide": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "class:incretin/pool": {
-     "leaves": 1500,
-     "date": "2026-12-31",
-     "members": []
-    }
-   }
-  },
-  "class:incretin/pool": {
-   "release": "EXAMPLE-SYNTHETIC",
-   "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 0,
-   "members": []
-  },
-  "class:metabolic": {
-   "release": "EXAMPLE-SYNTHETIC",
-   "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 114,
-   "tier": 3,
-   "parts": {
-    "compound:aod-9604": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:nad": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:epitalon": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:5-amino-1mq": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:glutathione": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:humanin": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:slu-pp-332": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "class:metabolic/pool": {
-     "leaves": 1500,
-     "date": "2026-12-31",
-     "members": [
-      "mots-c",
-      "thymosin-alpha-1",
-      "tesofensine",
-      "ss-31",
-      "foxo4-dri"
-     ]
-    }
-   }
-  },
-  "class:metabolic/pool": {
-   "release": "EXAMPLE-SYNTHETIC",
-   "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 35,
-   "members": [
-    "mots-c",
-    "thymosin-alpha-1",
-    "tesofensine",
-    "ss-31",
-    "foxo4-dri"
-   ]
-  },
-  "class:neuro": {
-   "release": "EXAMPLE-SYNTHETIC",
-   "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 232,
-   "tier": 4,
-   "parts": {
-    "compound:oxytocin": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:dsip": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:semax": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:selank": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:cerebrolysin": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:dihexa": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:p21": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:pinealon": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "class:neuro/pool": {
-     "leaves": 1500,
-     "date": "2026-12-31",
-     "members": []
-    }
-   }
-  },
-  "class:neuro/pool": {
-   "release": "EXAMPLE-SYNTHETIC",
-   "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 0,
-   "members": []
-  },
-  "class:sexual-hormonal": {
-   "release": "EXAMPLE-SYNTHETIC",
-   "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 409,
-   "tier": 4,
-   "parts": {
-    "compound:pt-141": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:melanotan-ii": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:kisspeptin-10": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:melanotan-i": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:gonadorelin": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "class:sexual-hormonal/pool": {
-     "leaves": 1500,
-     "date": "2026-12-31",
-     "members": []
-    }
-   }
-  },
-  "class:sexual-hormonal/pool": {
-   "release": "EXAMPLE-SYNTHETIC",
-   "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 0,
-   "members": []
-  },
-  "class:tissue-repair": {
-   "release": "EXAMPLE-SYNTHETIC",
-   "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 333,
-   "tier": 4,
-   "parts": {
-    "compound:ghk-cu": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:bpc-157": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:tb-500": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:kpv": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:ll-37": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "compound:ara-290": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "class:tissue-repair/pool": {
-     "leaves": 1500,
-     "date": "2026-12-31",
-     "members": [
-      "bpc-157-tb-500-blend"
-     ]
-    }
-   }
-  },
-  "class:tissue-repair/pool": {
-   "release": "EXAMPLE-SYNTHETIC",
-   "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 7,
-   "members": [
-    "bpc-157-tb-500-blend"
-   ]
-  },
   "compound:5-amino-1mq": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 11,
    "tier": 1
   },
   "compound:aod-9604": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 10,
    "tier": 1
   },
   "compound:ara-290": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 10,
    "tier": 1
   },
   "compound:bpc-157": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 11,
    "tier": 1
   },
   "compound:cagrilintide": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 28,
    "tier": 1
   },
   "compound:cerebrolysin": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 16,
    "tier": 1
   },
   "compound:cjc-1295-ipamorelin-blend": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 16,
    "tier": 1
   },
   "compound:cjc-1295-with-dac": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 11,
    "tier": 1
   },
   "compound:cjc-1295-without-dac": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 12,
    "tier": 1
   },
   "compound:dihexa": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 19,
    "tier": 1
   },
   "compound:dsip": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 54,
    "tier": 2
   },
   "compound:dsip/T12/stopped": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 32
+   "tier": 2
   },
   "compound:epitalon": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 10,
    "tier": 1
   },
   "compound:ghk-cu": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 272,
    "tier": 4
   },
   "compound:ghk-cu/T11/nausea": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 25
+   "tier": 4
   },
   "compound:ghk-cu/T12/stopped": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 122
+   "tier": 4
   },
   "compound:ghk-cu/T8/hair": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 44
+   "tier": 4
   },
   "compound:ghk-cu/T8/injury-healing": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 31
+   "tier": 4
   },
   "compound:ghk-cu/T8/skin-aging": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 101
+   "tier": 4
   },
   "compound:ghk-cu/T8/skin-tone": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 29
+   "tier": 4
   },
   "compound:ghk-cu/T8/wound-scar": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 40
+   "tier": 4
   },
   "compound:ghrp-2": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 17,
    "tier": 1
   },
   "compound:ghrp-6": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 14,
    "tier": 1
   },
   "compound:glutathione": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 14,
    "tier": 1
   },
   "compound:gonadorelin": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 47,
    "tier": 1
   },
   "compound:humanin": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 11,
    "tier": 1
   },
   "compound:ipamorelin": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 18,
    "tier": 1
   },
   "compound:kisspeptin-10": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 86,
    "tier": 2
   },
   "compound:kisspeptin-10/T12/stopped": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 40
+   "tier": 2
   },
   "compound:kpv": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 12,
    "tier": 1
   },
   "compound:liraglutide": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 22,
    "tier": 1
   },
   "compound:ll-37": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 11,
    "tier": 1
   },
   "compound:mazdutide": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 30,
    "tier": 1
   },
   "compound:melanotan-i": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 50,
    "tier": 2
   },
   "compound:melanotan-ii": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 89,
    "tier": 2
   },
   "compound:melanotan-ii/T12/stopped": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 40
+   "tier": 2
   },
   "compound:mk-677": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 10,
    "tier": 1
   },
   "compound:nad": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 13,
    "tier": 1
   },
   "compound:oxytocin": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 62,
    "tier": 2
   },
   "compound:oxytocin/T12/stopped": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 22
+   "tier": 2
   },
   "compound:p21": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 20,
    "tier": 1
   },
   "compound:pinealon": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 11,
    "tier": 1
   },
   "compound:pt-141": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 137,
    "tier": 3
   },
   "compound:pt-141/T12/stopped": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 64
+   "tier": 3
   },
   "compound:pt-141/T8/ed-adjunct": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 24
+   "tier": 3
   },
   "compound:pt-141/T8/erections": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 30
+   "tier": 3
   },
   "compound:pt-141/T8/libido": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 59
+   "tier": 3
   },
   "compound:retatrutide": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 43,
    "tier": 1
   },
   "compound:selank": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 29,
    "tier": 1
   },
   "compound:semaglutide": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 35,
    "tier": 1
   },
   "compound:semax": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 21,
    "tier": 1
   },
   "compound:sermorelin": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 19,
    "tier": 1
   },
   "compound:slu-pp-332": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 10,
    "tier": 1
   },
   "compound:somatropin": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 12,
    "tier": 1
   },
   "compound:survodutide": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 33,
    "tier": 1
   },
   "compound:tb-500": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 10,
    "tier": 1
   },
   "compound:tesamorelin": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 21,
    "tier": 1
   },
   "compound:tirzepatide": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 36,
    "tier": 1
   },
   "overall": {
    "release": "EXAMPLE-SYNTHETIC",
    "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 1500,
-   "tier": 5,
-   "parts": {
-    "class:incretin": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "class:gh-secretagogue": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "class:tissue-repair": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "class:neuro": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "class:metabolic": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "class:sexual-hormonal": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    },
-    "overall/other": {
-     "leaves": 1500,
-     "date": "2026-12-31"
-    }
-   }
-  },
-  "overall/other": {
-   "release": "EXAMPLE-SYNTHETIC",
-   "date": "2026-12-31",
-   "leaves": 1500,
-   "n": 27
+   "tier": 5
   }
  },
  "held": [],
+ "history": [],
  "files": {
-  "exclusions.json": "7edad3ec83d139149b7d5be3c42c7ee29838f11fb31f353a34854639add57413",
+  "exclusions.json": "54dedab30d38e5ff95d55818e8bc071e7def46ee60abb8aef0b13939f8c9848a",
   "figures/_overall/T13-age_band.svg": "034c97faeb72dc96f6de14a1ae127bc7c8a58b9a18ab2c674d4d5134a1ff3ec5",
   "figures/_overall/T13-sex.svg": "57233133483caa7c3d6935c7c89f6ff06cdba71f4632d7d7b0e2d88f044faa72",
-  "figures/_overall/T6.svg": "1de480bac4b76c34f613147810d6571adb8e94bad24c7b29f4126e7805785650",
-  "figures/class-gh-secretagogue/T1.svg": "d4f580c4c578843f2e1657d3049a57e8e2222e230e0f8d26291cec0e76c7215a",
-  "figures/class-gh-secretagogue/T10.svg": "f97bd7db21d156a0e6515cb93f7c0f65e481155e03023c66ad236ed6849d8b0e",
-  "figures/class-gh-secretagogue/T12-status.svg": "58bc1313bd3096fe1fe8b664745394245fcdb93d02855ae17f4cde599e536f4e",
-  "figures/class-gh-secretagogue/T16.svg": "b9dafaed3015104922499f43c45a7ce080c5ccecee196b3d9b1c1547b4fa0337",
-  "figures/class-gh-secretagogue/T2.svg": "4472892a62f383e405b856f5401ea5931b65ccd08ca8dcbc6b2a993e506bab5b",
-  "figures/class-gh-secretagogue/T4.svg": "5bc7125c2e5d2b3b89da92205aea368f018785da63f3ca44fab55deff7171981",
-  "figures/class-gh-secretagogue/T5.svg": "97d1665a05455ad2f65b84edc52e85b205ad4ee64bc8c94d86a8e8602fe6d66e",
-  "figures/class-gh-secretagogue/T6.svg": "274a0feaa9396246dff2f6571c9f9192dbb99d4941f19b844536f9b89867a003",
-  "figures/class-incretin/T1.svg": "0fb225237d0096baf74caee738838c2d384be25f142367c77db95d49f792d3c5",
-  "figures/class-incretin/T10.svg": "99d9edd37ae93c4ae8406b913143d913ab3345463a061f785b6b7dcc283d1a5c",
-  "figures/class-incretin/T12-status.svg": "e43853c937137ef0f35e996a0e8d0303089949b7c1d29d5329e0aebf6041abdf",
-  "figures/class-incretin/T16.svg": "e002a1914f24de913cbdd48e4a9424c7deeecf95736538a9fe030720bf7e117c",
-  "figures/class-incretin/T2.svg": "05613467d5b072fdbc473d89de499145c3a72f19343d69510c4e8b0893ae4c2b",
-  "figures/class-incretin/T4.svg": "666c13e75f53d80cbc2471847354cc1eec98679dda7a04469f255dd389061416",
-  "figures/class-incretin/T5.svg": "4a95bd777531d9032f71e9260b5ee22852e097b425811ff7b8ea8256814f21d2",
-  "figures/class-incretin/T6.svg": "306a15a83945b787e1a8a827947e513a37464f02a38095dc6ac7cf18e5e36d61",
-  "figures/class-metabolic/T1.svg": "2920a83ba75e15d251f02b6bb283d0a5d2b3eca118e180107ef76cbc1971e61e",
-  "figures/class-metabolic/T10.svg": "5e5f74462eacf59335e9903a74a950e18e8103771739f66a957bb4a0a5928cc1",
-  "figures/class-metabolic/T12-status.svg": "9472029652a56c132de11c2da240857979f4b5728cae9d2d62bd7814202a176d",
-  "figures/class-metabolic/T16.svg": "a9f1b1a0c48dbf5d893c320467e33317b2612eca4b8ec6fb6ce4c720a1e5aa00",
-  "figures/class-metabolic/T2.svg": "3878ec2e4444cfbe44cdd1854c21409c9e5317dbf2190306effa37c0bb980ae7",
-  "figures/class-metabolic/T4.svg": "dfd17c1be0b890fab1f93032861acaeebf176d488fdbd43a872d13362ba6f2f5",
-  "figures/class-metabolic/T5.svg": "919796b4528712a79140dd40c006c1e14ba8a97c6c78e33bee24ba9e76420ea0",
-  "figures/class-metabolic/T6.svg": "70cab94220e45b304b16a59a5bf74777e1f7430727573a4bccb50b723955aa0a",
-  "figures/class-neuro/T1.svg": "d0afed50c86a8850d20ff7db60a08abd981302ace0e86a9572c2ead45ddbb3f5",
-  "figures/class-neuro/T10.svg": "ad9d5edca043e83aa4f1136ca95f45e905948fa7bc1171accaca03696ac3d868",
-  "figures/class-neuro/T12-status.svg": "b9e4da7bae9a18f0a300ebb7d1bcb3b2655483d8df464af09dcfb59e025ddcc4",
-  "figures/class-neuro/T16.svg": "8a13697d86da375637caf8a16f815fb3a17cb1dd568e0a800cdc81c73d878395",
-  "figures/class-neuro/T2.svg": "f8e8fe6e958594d24d133a610792387623e79937cf59dc15b6cf780e9831aac0",
-  "figures/class-neuro/T4.svg": "1a7b09c576c3b635730804f5c6608d136a1ab082b715abb8192c847d91f3c8ea",
-  "figures/class-neuro/T5.svg": "a35ae19c8e25d8f2d4c884ba75b2019974aed44fdeeea0bd25a14d83a46db3e4",
-  "figures/class-neuro/T6.svg": "6fd0264ea8d3b20437cd7837b90dae3bc186c454b8009c7189f971922c838fb4",
-  "figures/class-sexual-hormonal/T1.svg": "0ffb773447d777ec1f3f6453ea761a65f0a6c2b7fc3b0d28ea25c6669ba890d3",
-  "figures/class-sexual-hormonal/T10.svg": "35590be70d627eaba843af0dcf466568a605e4f7af6cb81c3bf8850fcafe16c7",
-  "figures/class-sexual-hormonal/T12-status.svg": "22a0f702af36e238a3737e0139e7a08595e697c5c11e3de9a2899b473488e207",
-  "figures/class-sexual-hormonal/T16.svg": "d0c1958ae0f087f6791332fd3f97b8e6fa5fbf38f6ea229257e1abf013b3c492",
-  "figures/class-sexual-hormonal/T2.svg": "f4293fc9934d5325dab412c5021d1319955c78d1288d6436df6a69c765dab603",
-  "figures/class-sexual-hormonal/T4.svg": "bb585d0c0f356a4630aa0d4a3ad2c2ec81e63f397c2e5516d2d940f800a7be21",
-  "figures/class-sexual-hormonal/T5.svg": "7ab14e41ddb86183e431ce80da459c3c67de11365e35d215c60dc2394c76324d",
-  "figures/class-sexual-hormonal/T6.svg": "2252dbd4ec4e5ad613bc5428203951cdf788b1690ecf4f700d0064e8280c309a",
-  "figures/class-tissue-repair/T1.svg": "ce466ab359ce9dd887d7b1f936bad2b7bd5fcbd6526ae0afece31265058926ee",
-  "figures/class-tissue-repair/T10.svg": "b1e774ef2bfcb5029d2ee731fbfcf78e9337aa9381ac511ca79a9f02d53f7ef5",
-  "figures/class-tissue-repair/T12-status.svg": "240ce9353eb1e73cfbbd94266f422395261fba59514a4883edc767b99b7bee1d",
-  "figures/class-tissue-repair/T16.svg": "7748b1c8075e93aa5c2ee9727e365ea4a2a91953b8ed550f2161f31a4c7c18cf",
-  "figures/class-tissue-repair/T2.svg": "c9954df86e1fd065e92e2e2570ddd302d27070fabfb8d8cd6ad2b7942ad80f5c",
-  "figures/class-tissue-repair/T4.svg": "080c7a288c6c69abd7a0da03073feb0f3cb8c38b9082db4898b9ec6a480847e3",
-  "figures/class-tissue-repair/T5.svg": "e4f6aabddc141325c36dce2d1c8a60dc0d6458f90650d521a63401f400bd7c44",
-  "figures/class-tissue-repair/T6.svg": "4f658b0bfb9a1635c20b5e3b634281f16994e8e2ea4b4a89d1002b3fb84e392a",
   "figures/compound-5-amino-1mq/T1.svg": "6fb376c981bd2a8d76d76054334779fc7da9da41ad7b2b95935a946a477c3df6",
   "figures/compound-5-amino-1mq/T2.svg": "d00126fa3d2d3990fdf888e48fe4bd3d352dad74c3df83d56413dfc961eabc48",
   "figures/compound-aod-9604/T1.svg": "3c5850387cc21e433ebedd1701a62b06c3d5fd67df5615aa4cf115c51b7e0cf7",
@@ -1043,20 +533,19 @@
   "figures/compound-tirzepatide/T1.svg": "27aff22bbe9758f8db73b07513d2ceb6580a1389a91568529c74a9b18db5730e",
   "figures/compound-tirzepatide/T2.svg": "82aecb3e190cf686423273cb1c322d3e4e67287e62dcd05f9e56ccfdd053d749",
   "merkle/leaves.txt": "da438c1d78f2075886d157276eb67f5073b941ae4b4d6f153faa378d79294526",
-  "tables/T0.json": "5ef1b60b516c0f180e9304263ae7f5327b294cd5bbd5ac3ab227ff825eb679d8",
-  "tables/T1.json": "219a2521174e20d21e1350fa08b342ce1765d38ce6b26fd8dccc7689c890e4dc",
-  "tables/T10.json": "f60360b6d3a5a5ea4a66a7bbb567f405dec452173f8685285591e38c1a6e7876",
+  "tables/T0.json": "9400ecbae26f8ceefbf86f8a4bbc1ee87d56173bb15acb3b507496e4994caea6",
+  "tables/T1.json": "a5b8857d9d28859957452a9971264baaca85876b2a5af59d176b41e334ee7e62",
+  "tables/T10.json": "60959a0f7614aacf371b0a147701f04729fc876f6afcfc3b39ad51017cb6643d",
   "tables/T11.json": "351c061bb7a4228ccdb927e78178800f3fd150513f6e33171ad70c8103fb83bc",
-  "tables/T12.json": "c3c8e19bbdde2ad145d832a4717c98adcb1fcd2118dedf2045dfbd43d7710a24",
+  "tables/T12.json": "1b0d73976dd507c7674274a133c5f54ee524016c48788fa2fcc3b5ba56fd2de8",
   "tables/T13.json": "278aaa03a5c9a82a4865577a91b60730dc9f605c261ecabaf253916a3e2d1438",
   "tables/T14.json": "1191ccd0c2d81469f7f08379f9e1dac0eb3ae9e45f187541aa2354dfa0a51d1d",
-  "tables/T15.json": "2f73e3fbb42d136882a50a9f639503a846ffc94a822fd908b11e8f455f3979a0",
-  "tables/T16.json": "b552fbffd86cf0c658a0b3b9c5816d74df448d034b2b08cd9f8b529760b8f146",
-  "tables/T2.json": "0378d011bdf67be803044b82e7703155ecfcb98066509e6e74e5d476a0b9b80f",
+  "tables/T16.json": "18f1655fbac3e104a66b57d0a8f8f2936993511dd03074317d61fbfdead5b34e",
+  "tables/T2.json": "42e7cf4f206c13b2de49ab9ba9975f01df62fe6f8a6ad85d8b077357e2025db3",
   "tables/T3.json": "8a567dcdf9e2af492d2bfa15e23cebd0cfe74cd01be0b7668863a19ab994e269",
-  "tables/T4.json": "c6a50788802a200796d9c4d989a1f46228275a9cffd25af8234820c27a2e973d",
-  "tables/T5.json": "2eb2e3a088f8a80975bb2aaa9bdba6e23fa401c176f5ece63f7f72552d36bde5",
-  "tables/T6.json": "fe6c31e640ba0da6be5a9c0e79b8d938ed4ea7962fd206d8e08e5c09847a4615",
+  "tables/T4.json": "7ac9a6e7bcbe792d788d1ee0659f3be7183d0493dd0de3a782d12d909ef2df7b",
+  "tables/T5.json": "984664e5a842d9253bc21c6465f7caeb844d111cd1a5403dd1711498613d0787",
+  "tables/T6.json": "552dcb95ca6783e107f34865e8ad046e13817bf609988c49fe354e1c195367cf",
   "tables/T8.json": "3f53aa194b8304135768377533094c29ec8735574e6ec8793e6763cb48dc6303",
   "tables/T9.json": "96346e0231a6da5f77b5a227eaa1741932ac90bfe85b6e802abc4146a43f2752"
  },

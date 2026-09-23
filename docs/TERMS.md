@@ -38,11 +38,12 @@ we cannot find, change or delete it afterwards. The form says so in the box next
 **Agree and submit** button. You receive no receipt and no reference number, on purpose — any such thing would be a
 link.
 
-**We may exclude a report from the published statistics** if it fails validation or if the
-patterns described in the [release specification](../spec/RELEASE_SPEC.md) suggest it is
-fabricated, duplicated, or part of a coordinated submission. Excluded reports are not deleted;
-they remain counted in the committed log and are listed in every release by position and reason
-code. We do not know whose they are.
+**We may exclude a report** if it fails validation or if the patterns described in the
+[release specification](../spec/RELEASE_SPEC.md) suggest it is fabricated, duplicated, or part of a
+coordinated submission. An excluded report leaves the report counts at once and leaves the
+published tables only in a batch of at least five exclusions, so it can stay in a table until enough
+others join it. Excluded reports are not deleted; they remain counted in the committed log and are
+listed in every release by position, reason code and date. We do not know whose they are.
 
 ## 4. What we promise about your report
 

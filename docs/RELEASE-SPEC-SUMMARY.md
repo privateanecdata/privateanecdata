@@ -35,11 +35,13 @@ Age and sex are reported only as totals across all contributors, never with any 
 average of any scale, no per-vendor or per-region breakdown, no individual row, no live count,
 no statistic on request ([the full list](#never); [analyses we will never run](#never-run)).
 
-**Cadence.** Releases are monthly for the first year, then quarterly. Each is cumulative,
+**Cadence.** Releases are monthly for the twelve months after the first release, then quarterly. Each is cumulative,
 reviewed by a person, signed, and witnessed, and is never deleted or changed
-([cadence](#cadence)). Tables update in batches: a table is updated only after at least five of
-its reports have changed, so subtracting one release from the next shows at least five people's
-answers mixed together, the same protection as a table cell ([why](#cadence)). The rules
+([cadence](#cadence)). Tables update in batches: new reports enter a table only in a batch of at
+least five, and excluded ones leave it the same way, so subtracting one release from the next
+shows at least five reports' answers mixed together, never fewer ([why](#cadence)). Report
+counts are always current. A table waiting for its batch is shown unchanged and says which release
+computed it. The rules
 themselves can change only by a versioned amendment announced a full release period in advance
 ([amendment](#amendment)).
 
@@ -56,10 +58,11 @@ root. The release itself is signed, and its hash is recorded in two public trans
 do not control.
 
 That lets anyone check, without trusting us: that the published count is the number of entries
-in the log; that nothing was removed, reordered, or backdated between releases; that the tables
-were computed from that log under rules fixed before the data existed; and that a release has not
-been quietly replaced since. Reports excluded from the tables for quality reasons are never
-deleted: they stay in the log and are listed, by position and reason, in every release
+in the log; that nothing was removed, reordered, or backdated between releases; that each release
+names rules fixed before the data existed; and that a release has not been quietly replaced
+since. That the tables were computed from the reports in the log, under those rules, cannot be
+checked from the public files: it rests on the public code and on us. Reports excluded for quality reasons are never deleted: they stay in
+the log, are listed by position, reason and date in every release, and leave the tables in batches
 ([exclusions](#exclusions)).
 
 We cannot independently verify report counts published elsewhere, and we do not claim they are
@@ -75,8 +78,8 @@ wrong. We can only say that ours is checkable — by you, with the steps below.
   downside to our privacy-first approach. What we can detect is a pattern: the
   coordinated-submission detector — a script in the public repository, `tools/detect.py` — flags
   reports that contradict themselves and unusual bursts, such as many reports about one compound
-  arriving on one day. Flagged reports are left out of the tables and listed by log position in
-  each release's exclusion list, and each release page ends with an **Integrity log** section
+  arriving on one day. Flagged reports are listed by log position in each release's exclusion
+  list and leave the tables in batches of at least five, and each release page ends with an **Integrity log** section
   (table T14 in the spec) showing how many were flagged, why, and a note on any pattern found.
 - **That a report was not dropped before commitment.** The log proves what happened after a report
   entered it. The insertion policy is published: every submission that passes validation, the bot
@@ -128,21 +131,25 @@ so the chain can be followed back to the first release.
 
 `release.json` carries the SHA-256 of `spec/RELEASE_SPEC.md` and of `spec/taxonomy.v1.json` as
 they stood when the release was computed. `spec/WITNESS.md` records the transparency-log entries
-for those documents. If the hashes match, the tables were computed under rules that predate the
-data.
+for those documents. If the hashes match, the release names rules that predate the data. That
+its tables were computed under them from the stored reports cannot be checked from the public
+files.
 
 ### 5. Tables updated in batches
 
-With `--prior`, the `updates` line checks that every table `release.json` lists as republished is
-identical to the prior release's, and that every updated table names this release. The operator,
-with the private store, can also have it re-run the batch decision on the store as it stood at
-that release and confirm it comes out the same.
+The `updates` line checks that every table names the release that computed it and carries the
+matching mark; that a table republished from an earlier release is identical to the prior
+release's, and so is its figure where it has one of its own, when the prior release also showed
+it (the line says how many it could not compare); and that the exclusion list only grew and
+nothing in it changed. That each update was a batch of at least five cannot be seen in the public
+files: the operator, with the private store, replays the rule over every release and rebuilds
+every file, which must come out byte for byte the same.
 
 ### 6. The release was witnessed
 
 `witness/release.json.sig` is a detached signature on `release.json` under the key in
-`witness/pubkey.pem`. The same key will be published at `/releases/pubkey.pem` and in the
-repository before the first real release; until then there is no signing key and nothing to check.
+`witness/pubkey.pem`. The same key is published at `/releases/pubkey.pem` and in the repository;
+use that copy, not the one inside the release.
 
 ```
 openssl dgst -sha256 -verify /path/to/your/copy/of/pubkey.pem -signature witness/release.json.sig release.json

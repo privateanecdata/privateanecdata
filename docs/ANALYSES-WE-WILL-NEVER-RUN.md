@@ -44,7 +44,8 @@ you," no calculator, no dose suggestion, no comparison against a reader's own nu
 published. A request for something not on the list is answered by pointing at the list.
 
 **We will never run a statistic on a compound with fewer than ten reports under its own name.**
-It appears inside its mechanism class until it has enough reports to stand alone.
+It is counted in its mechanism class's report count, and has no table of its own, until it has
+enough reports to stand alone.
 
 ---
 

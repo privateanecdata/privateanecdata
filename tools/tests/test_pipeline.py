@@ -125,11 +125,6 @@ class Tiers(unittest.TestCase):
         self.assertTrue(release.one_way(rows, "f", [("a", "A"), ("b", "B")], 4)["percent"])
         self.assertFalse(release.one_way(rows, "f", [("a", "A"), ("b", "B")], 3)["percent"])
 
-    def test_stratum_under_20_is_not_published(self):
-        rows = [{"f": "a"}] * 19
-        s = release.stratum(rows, "f", [("a", "A")], 3, "goal", "g")
-        self.assertIsNone(s["n"]); self.assertNotIn("cells", s)
-
     def test_wilson(self):
         lo, hi = release.wilson(50, 100)
         self.assertAlmostEqual(lo, 40.4, places=1); self.assertAlmostEqual(hi, 59.6, places=1)
@@ -174,7 +169,7 @@ class EndToEnd(unittest.TestCase):
 
     def rel(self, id, out, extra=()):
         return subprocess.run([self.py, os.path.join(TOOLS, "release.py"), "--db", self.db, "--id", id, "--date", "2026-12-31",
-                               "--out", out, "--force", *extra], capture_output=True, text=True)
+                               "--out", out, "--force", *(extra or ["--first"])], capture_output=True, text=True)
 
     def test_release_verifies_and_is_deterministic(self):
         out = os.path.join(self.tmp, "r1")
@@ -225,7 +220,7 @@ class EndToEnd(unittest.TestCase):
         con.execute("UPDATE reports SET outcome=CASE WHEN outcome='large' THEN 'no-change' ELSE 'large' END WHERE rowid=(SELECT rowid FROM reports WHERE outcome IS NOT NULL LIMIT 1)")
         con.commit(); con.close()
         r = subprocess.run([self.py, os.path.join(TOOLS, "release.py"), "--db", bad, "--id", "X-SYNTHETIC", "--date", "2026-12-31",
-                            "--out", os.path.join(self.tmp, "r3"), "--force"], capture_output=True, text=True)
+                            "--out", os.path.join(self.tmp, "r3"), "--force", "--first"], capture_output=True, text=True)
         self.assertNotEqual(r.returncode, 0); self.assertIn("FAILED", r.stderr + r.stdout)
 
     def _tools(self, db):
@@ -234,134 +229,108 @@ class EndToEnd(unittest.TestCase):
                                                                  "--append", "--day", "2026-12-20", "--compound", comp, *(["--goal", goal] if goal else [])],
                                                                 check=True, capture_output=True)
         run = lambda id, out, prior=None, date="2026-12-31": subprocess.run([self.py, os.path.join(TOOLS, "release.py"), "--db", db, "--id", id, "--date", date,
-                                                                             "--out", out, "--force", *(["--prior", prior] if prior else [])], capture_output=True, text=True)
-        verify = lambda out, prior: subprocess.run([self.py, os.path.join(TOOLS, "verify_release.py"), out, "--prior", prior, "--db", db, "--taxonomy", tax],
-                                                   capture_output=True, text=True)
+                                                                             "--out", out, "--force", *(["--prior", prior] if prior else ["--first"])], capture_output=True, text=True)
+        verify = lambda out, prior=None: subprocess.run([self.py, os.path.join(TOOLS, "verify_release.py"), out, *(["--prior", prior] if prior else []),
+                                                          "--db", db, "--taxonomy", tax], capture_output=True, text=True)
         load = lambda out, t: json.load(open(os.path.join(out, "tables", f"{t}.json")))["data"]
         rel = lambda out: json.load(open(os.path.join(out, "release.json")))
         return tax, grow, run, verify, load, rel
 
-    def test_update_floor_holds_small_changes_and_updates_at_five(self):
-        """A table is updated only after at least five of its reports changed; until then it is
-        republished byte for byte and marked as-of. Classes and all-reports follow their parts."""
+    def _rehash(self, out):
+        r = json.load(open(os.path.join(out, "release.json")))
+        for f in r["files"]:
+            r["files"][f] = hashlib.sha256(open(os.path.join(out, f), "rb").read()).hexdigest()
+        json.dump(r, open(os.path.join(out, "release.json"), "w"))
+
+    def test_update_floor_end_to_end(self):
+        """Three reports on a compound: its tables are republished byte for byte and marked; T0's
+        count is current. Two more: updated. The verifier replays the rule and catches tampering."""
         db = os.path.join(self.tmp, "uf.db"); shutil.copy(self.db, db)
         tax, grow, run, verify, load, rel = self._tools(db)
         hashes = lambda out: {f: hashlib.sha256(open(os.path.join(out, f), "rb").read()).hexdigest() for f in rel(out)["files"]}
         a = os.path.join(self.tmp, "ufA"); r = run("A-SYNTHETIC", a); self.assertEqual(r.returncode, 0, r.stderr)
         relA = rel(a); t0 = load(a, "T0")
         c1 = next(c for c in t0["per_compound"] if c["tier"] == 1 and c["count"] <= 40)
-        k1, kc = f"compound:{c1['id']}", f"class:{c1['class']}"
-        self.assertEqual(relA["held"], []); self.assertEqual(relA["units"][k1]["release"], "A-SYNTHETIC")
+        k1 = f"compound:{c1['id']}"
+        self.assertEqual(relA["held"], []); self.assertEqual(relA["history"], []); self.assertEqual(relA["units"][k1]["release"], "A-SYNTHETIC")
+        self.assertTrue(all(k.startswith("compound:") or k == "overall" for k in relA["units"]))
+        self.assertEqual([k for k in load(a, "T1") if not k.startswith("compound:")], [])       # no class tables
+        self.assertNotIn("overall", load(a, "T6"))
 
-        grow(3, c1["id"], 101)                                   # under the floor
+        grow(3, c1["id"], 101)
         b = os.path.join(self.tmp, "ufB"); r = run("B-SYNTHETIC", b, a, "2027-01-31"); self.assertEqual(r.returncode, 0, r.stderr)
         relB = rel(b)
         self.assertIn(k1, relB["held"]); self.assertEqual(relB["units"][k1], relA["units"][k1])
+        self.assertEqual(relB["history"], [{"release": "A-SYNTHETIC", "date": "2026-12-31", "leaves": relA["merkle"]["leaves"]}])
+        strip = lambda d: {k: v for k, v in d.items() if k != "as_of"}
         for t in ("T1", "T2"):
-            self.assertEqual(load(a, t)[k1], load(b, t)[k1])
+            self.assertEqual(load(a, t)[k1], strip(load(b, t)[k1])); self.assertEqual(load(b, t)[k1]["as_of"], "A-SYNTHETIC")
         for path, h in relA["files"].items():
             if path.startswith(f"figures/compound-{c1['id']}/"):
                 self.assertEqual(relB["files"][path], h, path)
         e = next(x for x in load(b, "T0")["per_compound"] if x["id"] == c1["id"])
         self.assertEqual(e["count"], c1["count"] + 3); self.assertEqual(e["tables_as_of"], "A-SYNTHETIC"); self.assertEqual(e["tables_n"], c1["count"])
-        self.assertIn(kc, relB["held"]); self.assertIn("overall", relB["held"])   # no part changed
-        self.assertEqual(hashes(b), (run("B-SYNTHETIC", b, a, "2027-01-31"), hashes(b))[1])
-        v = verify(b, a); self.assertEqual(v.returncode, 0, v.stdout)
-        self.assertIn("ok    updates", v.stdout); self.assertIn("agrees", v.stdout)
-        bad = os.path.join(self.tmp, "ufB-bad"); shutil.copytree(b, bad)
-        pth = os.path.join(bad, "tables", "T1.json"); d = json.load(open(pth))
-        cell = next(c for c in d["data"][k1]["cells"] if c["count"]); cell["count"] += 1
-        json.dump(d, open(pth, "w"))
-        v = verify(bad, a); self.assertNotEqual(v.returncode, 0); self.assertIn("FAIL  updates", v.stdout)
+        self.assertEqual(hashes(b), (run("B-SYNTHETIC", b, a, "2027-01-31"), hashes(b))[1])     # deterministic
+        v = verify(b, a); self.assertEqual(v.returncode, 0, v.stdout); self.assertIn("agrees", v.stdout)
+        self.assertIn("every file rebuilt from the store is identical", v.stdout)
+        v = verify(b); self.assertEqual(v.returncode, 0, v.stdout)                               # replay needs no --prior
 
-        grow(2, c1["id"], 102)                                   # five since A: updated
+        bad = os.path.join(self.tmp, "ufB-bad"); shutil.copytree(b, bad)                         # a republished table altered
+        pth = os.path.join(bad, "tables", "T1.json"); d = json.load(open(pth))
+        next(c for c in d["data"][k1]["cells"] if c["count"])["count"] += 1
+        json.dump(d, open(pth, "w")); self._rehash(bad)
+        v = verify(bad, a); self.assertNotEqual(v.returncode, 0); self.assertIn("FAIL  updates", v.stdout)
+        bad2 = os.path.join(self.tmp, "ufB-bad2"); shutil.copytree(b, bad2)                      # passed off as updated
+        r2 = json.load(open(os.path.join(bad2, "release.json"))); r2["held"].remove(k1)
+        for t in ("T1", "T2"):
+            pth = os.path.join(bad2, "tables", f"{t}.json"); d = json.load(open(pth)); d["data"][k1].pop("as_of"); json.dump(d, open(pth, "w"))
+        json.dump(r2, open(os.path.join(bad2, "release.json"), "w")); self._rehash(bad2)
+        v = subprocess.run([self.py, os.path.join(TOOLS, "verify_release.py"), bad2, "--prior", a], capture_output=True, text=True)
+        self.assertNotEqual(v.returncode, 0); self.assertIn("FAIL  updates", v.stdout)
+
+        grow(2, c1["id"], 102)                                                                    # five since A
         c = os.path.join(self.tmp, "ufC"); r = run("C-SYNTHETIC", c, b, "2027-02-28"); self.assertEqual(r.returncode, 0, r.stderr)
         relC = rel(c)
-        self.assertNotIn(k1, relC["held"]); self.assertNotIn(kc, relC["held"]); self.assertNotIn("overall", relC["held"])
-        self.assertEqual(relC["units"][k1], {"release": "C-SYNTHETIC", "date": "2027-02-28", "leaves": relC["merkle"]["leaves"], "n": c1["count"] + 5, "tier": 1})
-        self.assertEqual(load(c, "T1")[k1]["n"], c1["count"] + 5)
-        self.assertIsNone(next(x for x in load(c, "T0")["per_compound"] if x["id"] == c1["id"])["tables_as_of"])
+        self.assertNotIn(k1, relC["held"]); self.assertEqual(relC["units"][k1], {"release": "C-SYNTHETIC", "date": "2027-02-28", "tier": 1})
+        self.assertEqual(load(c, "T1")[k1]["n"], c1["count"] + 5); self.assertNotIn("as_of", load(c, "T1")[k1])
         v = verify(c, b); self.assertEqual(v.returncode, 0, v.stdout)
-        grow(4, c1["id"], 103)                                   # the store moves on; the release is still verifiable as of itself
+        grow(4, c1["id"], 103)                                                                    # the store moves on
         v = verify(c, b); self.assertEqual(v.returncode, 0, v.stdout)
 
-    def test_update_floor_pools_first_publication_and_strata(self):
-        """The pool of below-unlock reports follows the rule; a compound's first publication waits
-        for five reports newer than the pool's last update; each row of a split table is its own unit."""
-        import sqlite3
-        db = os.path.join(self.tmp, "up.db"); shutil.copy(self.db, db)
+    def test_prior_or_first_is_required_and_history_must_replay(self):
+        db = os.path.join(self.tmp, "pf.db"); shutil.copy(self.db, db)
         tax, grow, run, verify, load, rel = self._tools(db)
-        count = lambda comp: sqlite3.connect(db).execute("SELECT COUNT(*) FROM reports WHERE compound=?", (comp,)).fetchone()[0]
-        a = os.path.join(self.tmp, "upA"); r = run("A-SYNTHETIC", a); self.assertEqual(r.returncode, 0, r.stderr)
-        relA = rel(a); t0 = load(a, "T0"); counts = {c["id"]: c for c in t0["per_compound"]}
-        classes = json.load(open(tax))["classes"]
-        pick = None
-        for cls in classes:
-            pub = [m for m in cls["members"] if counts[m]["count"] is not None]
-            sub = [m for m in cls["members"] if counts[m]["count"] is None and 1 <= count(m) <= 4]
-            if pub and sub:
-                pick = (cls["id"], pub[0], sub[0]); break
-        self.assertIsNotNone(pick); cid, m, s = pick
-        kc, kp, ks = f"class:{cid}", f"class:{cid}/pool", f"compound:{s}"
-        n_class_A = load(a, "T2")[kc]["n"]
+        r = subprocess.run([self.py, os.path.join(TOOLS, "release.py"), "--db", db, "--id", "A-SYNTHETIC", "--date", "2026-12-31",
+                            "--out", os.path.join(self.tmp, "pfX")], capture_output=True, text=True)
+        self.assertNotEqual(r.returncode, 0); self.assertIn("--first", r.stderr)
+        a = os.path.join(self.tmp, "pfA"); r = run("A-SYNTHETIC", a); self.assertEqual(r.returncode, 0, r.stderr)
+        t2 = os.path.join(self.tmp, "tax2.json"); d = json.load(open(tax)); d["compounds"][0]["goals"] = d["compounds"][0]["goals"][:-1]
+        json.dump(d, open(t2, "w"))
+        r = subprocess.run([self.py, os.path.join(TOOLS, "release.py"), "--db", db, "--id", "B-SYNTHETIC", "--date", "2027-01-31",
+                            "--out", os.path.join(self.tmp, "pfB"), "--prior", a, "--taxonomy", t2], capture_output=True, text=True)
+        self.assertNotEqual(r.returncode, 0); self.assertIn("taxonomy differs", r.stderr)
+        r = run("B-SYNTHETIC", os.path.join(self.tmp, "pfB"), a, "2026-2-28")
+        self.assertNotEqual(r.returncode, 0); self.assertIn("YYYY-MM-DD", r.stderr)
 
-        grow(20, m, 201); grow(2, s, 202)                        # member updates; pool changes by 2
-        b = os.path.join(self.tmp, "upB"); r = run("B-SYNTHETIC", b, a, "2027-01-31"); self.assertEqual(r.returncode, 0, r.stderr)
-        relB = rel(b)
-        self.assertIn(kp, relB["held"]); self.assertEqual(relB["units"][kp], relA["units"][kp])
-        self.assertNotIn(kc, relB["held"]); self.assertEqual(load(b, "T2")[kc]["n"], n_class_A + 20)   # the pool's 2 are not in it yet
-        v = verify(b, a); self.assertEqual(v.returncode, 0, v.stdout)
-
-        grow(3, s, 203)                                          # pool changed by 5 since A
-        c = os.path.join(self.tmp, "upC"); r = run("C-SYNTHETIC", c, b, "2027-02-28"); self.assertEqual(r.returncode, 0, r.stderr)
-        relC = rel(c)
-        self.assertEqual(relC["units"][kp]["release"], "C-SYNTHETIC"); self.assertEqual(load(c, "T2")[kc]["n"], n_class_A + 25)
-        v = verify(c, b); self.assertEqual(v.returncode, 0, v.stdout)
-
-        need = 10 - count(s)                                     # 1..4: reaches unlock with fewer than 5 reports newer than the pool's update
-        grow(need, s, 204)
-        d = os.path.join(self.tmp, "upD"); r = run("D-SYNTHETIC", d, c, "2027-03-31"); self.assertEqual(r.returncode, 0, r.stderr)
-        relD = rel(d)
-        self.assertNotIn(ks, relD["units"]); self.assertIn("first publication waits", r.stderr)
-        e0 = next(x for x in load(d, "T0")["per_compound"] if x["id"] == s)
-        self.assertEqual(e0["count"], 10); self.assertTrue(e0["tables_pending"]); self.assertNotIn(ks, load(d, "T1"))
-        grow(5 - need, s, 205)                                   # now five newer than the pool's last update
-        e = os.path.join(self.tmp, "upE"); r = run("E-SYNTHETIC", e, d, "2027-04-30"); self.assertEqual(r.returncode, 0, r.stderr)
-        relE = rel(e)
-        self.assertEqual(relE["units"][ks]["release"], "E-SYNTHETIC"); self.assertEqual(relE["units"][kp]["release"], "E-SYNTHETIC")
-        self.assertNotIn(s, relE["units"][kp]["members"])
-        v = verify(e, d); self.assertEqual(v.returncode, 0, v.stdout)
-
-        # Strata: one goal row of outcome-by-goal moves on its own count.
-        t8 = load(a, "T8")
-        g, strata = next((k, [x for x in tab["strata"] if x["n"] is not None]) for k, tab in t8.items() if len([x for x in tab["strata"] if x["n"] is not None]) >= 2)
-        gid = g.split(":", 1)[1]; X, Y = strata[0]["goal"], strata[1]["goal"]
-        self.assertTrue(all(not k.startswith("class:") for k in t8))                 # never pooled across a class
-        self.assertEqual(load(a, "T12")[kc]["stop_reason"]["display"], "not published for a class")
-        grow(6, gid, 301, goal=X)
-        f = os.path.join(self.tmp, "upF"); r = run("F-SYNTHETIC", f, e, "2027-05-31"); self.assertEqual(r.returncode, 0, r.stderr)
-        relF = rel(f)
-        self.assertNotIn(f"{g}/T8/{X}", relF["held"]); self.assertIn(f"{g}/T8/{Y}", relF["held"])
-        rowY = next(x for x in load(f, "T8")[g]["strata"] if x["goal"] == Y); rowY_A = next(x for x in t8[g]["strata"] if x["goal"] == Y)
-        self.assertEqual({k: v for k, v in rowY.items() if k != "as_of"}, rowY_A); self.assertEqual(rowY["as_of"], "A-SYNTHETIC")
-        self.assertEqual(next(x for x in load(f, "T8")[g]["strata"] if x["goal"] == X)["n"], strata[0]["n"] + 6)
-        v = verify(f, e); self.assertEqual(v.returncode, 0, v.stdout)
-        grow(2, gid, 302, goal=Y)
-        h = os.path.join(self.tmp, "upG"); r = run("G-SYNTHETIC", h, f, "2027-06-30"); self.assertEqual(r.returncode, 0, r.stderr)
-        self.assertIn(g, rel(h)["held"]); self.assertIn(f"{g}/T8/{Y}", rel(h)["held"])
-        grow(3, gid, 303, goal=Y)
-        i2 = os.path.join(self.tmp, "upH"); r = run("H-SYNTHETIC", i2, h, "2027-07-31"); self.assertEqual(r.returncode, 0, r.stderr)
-        self.assertNotIn(g, rel(i2)["held"]); self.assertNotIn(f"{g}/T8/{Y}", rel(i2)["held"]); self.assertIn(f"{g}/T8/{X}", rel(i2)["held"])
-        v = verify(i2, h); self.assertEqual(v.returncode, 0, v.stdout)
-
-    def test_backdated_exclusion_is_refused(self):
+    def test_exclusions_are_never_backdated_or_redated(self):
         import sqlite3
         db = os.path.join(self.tmp, "bd.db"); shutil.copy(self.db, db)
         tax, grow, run, verify, load, rel = self._tools(db)
+        con = sqlite3.connect(db); con.execute("INSERT INTO exclusions (leaf_idx, reason, noted_on) VALUES (2, 'test', '2026-12-10')"); con.commit()
         a = os.path.join(self.tmp, "bdA"); r = run("A-SYNTHETIC", a); self.assertEqual(r.returncode, 0, r.stderr)
-        con = sqlite3.connect(db); con.execute("INSERT INTO exclusions (leaf_idx, reason, noted_on) VALUES (1, 'test', '2026-12-15')"); con.commit(); con.close()
-        b = os.path.join(self.tmp, "bdB"); r = run("B-SYNTHETIC", b, a, "2027-01-31")
+        con.execute("INSERT INTO exclusions (leaf_idx, reason, noted_on) VALUES (1, 'test', '2026-12-15')"); con.commit()
+        r = run("B-SYNTHETIC", os.path.join(self.tmp, "bdB"), a, "2027-01-31")
         self.assertNotEqual(r.returncode, 0); self.assertIn("backdated", r.stderr)
+        con.execute("DELETE FROM exclusions WHERE leaf_idx = 1"); con.execute("UPDATE exclusions SET noted_on = '2026-11-01' WHERE leaf_idx = 2"); con.commit()
+        r = run("B-SYNTHETIC", os.path.join(self.tmp, "bdB"), a, "2027-01-31")
+        self.assertNotEqual(r.returncode, 0); self.assertIn("different reason or date", r.stderr)
+        con.execute("UPDATE exclusions SET noted_on = '2026-12-10', reason = 'coordinated' WHERE leaf_idx = 2"); con.commit()
+        r = run("B-SYNTHETIC", os.path.join(self.tmp, "bdB"), a, "2027-01-31")
+        self.assertNotEqual(r.returncode, 0); self.assertIn("different reason or date", r.stderr)
+        con.execute("UPDATE exclusions SET reason = 'test' WHERE leaf_idx = 2"); con.execute("INSERT INTO exclusions (leaf_idx, reason, noted_on) VALUES (1, 'test', '2027-01-10')"); con.commit()
+        b = os.path.join(self.tmp, "bdB"); r = run("B-SYNTHETIC", b, a, "2027-01-31"); self.assertEqual(r.returncode, 0, r.stderr)
+        v = verify(b, a); self.assertEqual(v.returncode, 0, v.stdout)
+
 
     def test_tampered_release_fails_verification(self):
         out = os.path.join(self.tmp, "r4"); self.assertEqual(self.rel("T-SYNTHETIC", out).returncode, 0)
@@ -370,6 +339,148 @@ class EndToEnd(unittest.TestCase):
         json.dump(d, open(p, "w"))
         v = subprocess.run([self.py, os.path.join(TOOLS, "verify_release.py"), out], capture_output=True, text=True)
         self.assertNotEqual(v.returncode, 0); self.assertIn("FAIL  files", v.stdout)
+
+
+class UpdateFloor(unittest.TestCase):
+    """The batch rule, driven directly (tools/update_floor.py) on hand-built stores."""
+
+    @classmethod
+    def setUpClass(cls):
+        import update_floor
+        cls.uf = update_floor
+        cls.tax = release.Tax(release.TAXONOMY)
+        cls.shown = staticmethod(release.shown_fn(cls.tax))
+        # a compound with at least four goals, for the T16/T8 cases
+        cls.comp = next(c for c in cls.tax.raw["compounds"] if len(c["goals"]) >= 4)
+
+    class Sim:
+        def __init__(self, t):
+            self.t, self.rows, self.leaves, self.excl, self.hist = t, [], [], [], []
+
+        def add(self, k, goal=None, status="still-taking", comp=None):
+            ids = []
+            for _ in range(k):
+                i = len(self.leaves) + 1
+                self.rows.append({"_leaf_idx": i, "compound": comp or self.t.comp["id"], "goal": goal or self.t.comp["goals"][0],
+                                  "status": status, "adverse_effects": "[]"})
+                self.leaves.append((i, b"")); ids.append(i)
+            return ids
+
+        def exclude(self, ids, day):
+            for i in ids:
+                self.excl.append({"leaf_idx": i, "noted_on": day, "reason": "test"})
+
+        def release(self, rid, day):
+            units = self.t.uf.plan(self.t.tax.raw, self.rows, self.leaves, self.excl, self.hist, rid, day, self.t.shown)
+            self.hist.append({"release": rid, "date": day, "leaves": len(self.leaves)})
+            return units
+
+    def key(self, suffix=""):
+        return f"compound:{self.comp['id']}" + suffix
+
+    def test_four_wait_five_enter(self):
+        s = self.Sim(self); s.add(12)
+        u = s.release("A", "2027-01-31")[self.key()]; self.assertTrue(u.published); self.assertEqual(len(u.rows), 12)
+        s.add(4); u = s.release("B", "2027-02-28")[self.key()]; self.assertTrue(u.held); self.assertEqual(len(u.rows), 12)
+        s.add(1); u = s.release("C", "2027-03-31")[self.key()]; self.assertFalse(u.held); self.assertEqual(len(u.rows), 17)
+
+    def test_exclusions_batch_separately_by_sign(self):
+        s = self.Sim(self); old = s.add(30); s.release("A", "2027-01-31")
+        s.add(1); s.exclude(old[:4], "2027-02-10")                 # 1 in, 4 out: neither is a batch
+        u = s.release("B", "2027-02-28")[self.key()]; self.assertTrue(u.held); self.assertEqual(len(u.rows), 30)
+        s.exclude(old[4:5], "2027-03-10")                          # five out; the one new report still waits
+        u = s.release("C", "2027-03-31")[self.key()]; self.assertEqual(len(u.rows), 25)
+        self.assertEqual({r["_leaf_idx"] for r in u.rows}, set(old[5:]))
+
+    def test_excluded_newcomers_never_enter_or_complete_a_batch(self):
+        s = self.Sim(self); old = s.add(30); s.release("A", "2027-01-31")
+        real = s.add(1); junk = s.add(4); s.exclude(junk, "2027-02-20")
+        u = s.release("B", "2027-02-28")[self.key()]; self.assertTrue(u.held); self.assertEqual(len(u.rows), 30)
+        s.exclude(old[:5], "2027-03-05"); s.add(5); s.exclude(s.add(4), "2027-03-20")   # five old out; 5 real + 4 junk new
+        u = s.release("C", "2027-03-31")[self.key()]
+        ids = {r["_leaf_idx"] for r in u.rows}
+        self.assertEqual(len(u.rows), 30 - 5 + 6); self.assertFalse(ids & set(junk)); self.assertIn(real[0], ids)
+
+    def test_withdrawn_tables_return_only_through_batches(self):
+        s = self.Sim(self); old = s.add(12); s.release("A", "2027-01-31")
+        s.exclude(old[:5], "2027-02-10")
+        u = s.release("B", "2027-02-28")[self.key()]; self.assertFalse(u.published); self.assertIsNone(self.uf.records({"k": u}).get("k"))
+        s.add(3)                                                    # count back to 10; its set is still 7
+        u = s.release("C", "2027-03-31")[self.key()]; self.assertFalse(u.published)
+        s.add(2)
+        u = s.release("D", "2027-04-30")[self.key()]; self.assertTrue(u.published); self.assertEqual(len(u.rows), 12)
+
+    def test_row_survives_a_tier_dip_and_returns_unchanged(self):
+        g, others = self.comp["goals"][0], self.comp["goals"][1:]
+        s = self.Sim(self); s.add(25, goal=g)
+        per = [75 // len(others) + (1 if i < 75 % len(others) else 0) for i in range(len(others))]
+        rest = [x for o, k in zip(others, per) for x in s.add(k, goal=o)]      # exactly 100 reports
+        units = s.release("A", "2027-01-31"); self.assertTrue(units[self.key(f"/T8/{g}")].published)
+        s.exclude(rest[:5], "2027-02-10"); n = len(s.leaves)
+        units = s.release("B", "2027-02-28"); self.assertFalse(units[self.key(f"/T8/{g}")].published)
+        s.add(1, goal=g); s.add(4, goal=others[0])
+        units = s.release("C", "2027-03-31"); u = units[self.key(f"/T8/{g}")]
+        self.assertTrue(u.published); self.assertTrue(u.held); self.assertEqual(len(u.rows), 25); self.assertEqual(u.record["release"], "A")
+
+    def test_row_hidden_by_t16_stays_hidden_until_it_updates(self):
+        g = self.comp["goals"]
+        s = self.Sim(self); s.add(60, goal=g[0]); s.add(25, goal=g[1]); s.add(3, goal=g[2])
+        for o in g[3:]:
+            s.add(30, goal=o)
+        s.add(30, goal="other")
+        units = s.release("A", "2027-01-31")
+        self.assertIn(g[1], set(self.comp["goals"]) - self.shown(units[self.key()].rows)["goals"])   # the complement
+        self.assertFalse(units[self.key(f"/T8/{g[1]}")].published)
+        s.add(5, goal=g[2])                                          # T16 now shows every goal
+        units = s.release("B", "2027-02-28"); self.assertFalse(units[self.key(f"/T8/{g[1]}")].published)
+        s.add(5, goal=g[1])
+        units = s.release("C", "2027-03-31"); u = units[self.key(f"/T8/{g[1]}")]
+        self.assertTrue(u.published); self.assertFalse(u.held); self.assertEqual(len(u.rows), 30)
+
+    def test_tier_change_does_not_reopen_a_row_t16_hid(self):
+        g = self.comp["goals"]
+        s = self.Sim(self); s.add(25, goal=g[1]); s.add(3, goal=g[2])
+        for o in g[3:]:
+            s.add(30, goal=o)
+        s.add(30, goal="other"); s.add(199 - len(s.leaves), goal=g[0])   # 199: tier 3; g[1] is the complement
+        units = s.release("A", "2027-01-31")
+        self.assertNotIn(g[1], self.shown(units[self.key()].rows)["goals"])
+        s.add(2, goal=g[2]); s.add(2, goal=g[1]); s.add(1, goal=g[0])  # 204: tier 4; T16 opens; hair row +2 only
+        units = s.release("B", "2027-02-28"); self.assertEqual(units[self.key()].record["tier"], 4)
+        self.assertFalse(units[self.key(f"/T8/{g[1]}")].published)
+
+    def test_excluded_reports_never_enter_a_row(self):
+        s = self.Sim(self); s.add(30, status="stopped"); s.add(20)
+        units = s.release("A", "2027-01-31"); self.assertEqual(len(units[self.key("/T12/stopped")].rows), 30)
+        s.add(40)                                                     # tier 2 -> 90; no stopped
+        stop_new = s.add(5, status="stopped"); s.exclude(stop_new[:1], "2027-02-20")
+        units = s.release("B", "2027-02-28")
+        self.assertTrue(units[self.key("/T12/stopped")].held)         # four live newcomers: not a batch
+        s.add(1, status="stopped"); s.add(4)                          # a compound batch of five brings the fifth stopped report
+        units = s.release("C", "2027-03-31"); ids = {r["_leaf_idx"] for r in units[self.key("/T12/stopped")].rows}
+        self.assertEqual(len(ids), 35); self.assertNotIn(stop_new[0], ids)
+
+    def test_tables_hidden_while_the_count_is_under_10(self):
+        s = self.Sim(self); old = s.add(12); s.release("A", "2027-01-31")
+        s.exclude(old[:3], "2027-02-10")                              # count 9; its set still 12 (3 < 5)
+        u = s.release("B", "2027-02-28")[self.key()]; self.assertFalse(u.published); self.assertEqual(len(u.rows), 12)
+        s.add(1)
+        u = s.release("C", "2027-03-31")[self.key()]; self.assertTrue(u.published); self.assertTrue(u.held)
+
+    def test_row_takes_percentages_when_its_compound_reaches_tier_4(self):
+        g = self.comp["goals"]
+        s = self.Sim(self); s.add(120, goal=g[0]); s.add(79, goal=g[1])
+        units = s.release("A", "2027-01-31"); self.assertEqual(units[self.key(f"/T8/{g[0]}")].record["tier"], 3)
+        s.add(5, goal=g[1])
+        units = s.release("B", "2027-02-28"); u = units[self.key(f"/T8/{g[0]}")]
+        self.assertFalse(u.held); self.assertEqual(u.record["tier"], 4); self.assertEqual(len(u.rows), 120)
+
+    def test_records_name_only_shown_units_and_carry_no_counts(self):
+        s = self.Sim(self); s.add(30, goal=self.comp["goals"][0]); s.add(3, comp="other")
+        units = s.release("A", "2027-01-31")
+        for k, r in self.uf.records(units).items():
+            self.assertEqual(set(r), {"release", "date", "tier"}, k); self.assertTrue(units[k].published)
+
 
 
 if __name__ == "__main__":

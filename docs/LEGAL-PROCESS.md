@@ -20,7 +20,8 @@ There is no CDN, WAF, or third-party edge in front of the origin. The configurat
 logging is in the public repository.
 
 We also hold: the public source code; the release artifacts, which are public; the exclusion list
-(the reports left out of the published tables, listed by log position in every release), which
+(the reports the detector excluded, which leave the published tables in batches, listed by log
+position and date in every release), which
 is public; and ordinary operational records (billing with our host, DNS, certificates) that
 contain nothing about any contributor.
 

@@ -15,11 +15,11 @@ What it does, in order:
   2. Applies the exclusion list from the store's `exclusions` table (by log position).
   3. Computes each compound's and class's disclosure tier from its report count, and emits only
      the tables that tier permits, with cell suppression and complementary suppression.
-  3b. Applies the update floor (tools/update_floor.py): a table, or one row of a table split by
-     goal or effect, is updated only once at least 5 of the reports it is computed from have
-     changed since it was last computed; otherwise the earlier version is republished unchanged,
-     marked with the release that computed it. Classes and all-reports tables are built from their
-     compounds' reports as published plus a pool that follows the same rule.
+  3b. Applies the update floor (tools/update_floor.py): each table, and each row of a table split
+     by status, goal or side effect, takes in new reports only in a batch of at least 5 and lets
+     excluded reports go only in a batch of at least 5; otherwise its earlier version is
+     republished unchanged, marked with the release that computed it. The rule is replayed over
+     every earlier release from the store. No table is computed for a class.
   4. Writes one JSON per table, one SVG per figure, the exclusion list, the Merkle leaf list,
      and release.json carrying the SHA-256 of every file. Output is byte-identical on re-run.
   5. Audits its own output: no published count below the cell floor, no file other than the
@@ -43,14 +43,12 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, HERE)
 import update_floor as uf  # noqa: E402
 import release_svg as svg  # noqa: E402
-import uniqueness  # noqa: E402
 from pa_store import (attach_leaf_idx, load_exclusions, load_leaves, load_rows,  # noqa: E402
                       open_store, verify_store)
 
 ROOT = os.path.normpath(os.path.join(HERE, ".."))
 TAXONOMY = os.path.join(ROOT, "spec", "taxonomy.v1.json")
 SPEC = os.path.join(ROOT, "spec", "RELEASE_SPEC.md")
-UNIQ_CONFIG = os.path.join(ROOT, "spec", "schema.config.json")
 
 # ---- RELEASE_SPEC.md constants. Change the spec (with its amendment procedure) before these.
 SPEC_VERSION = "1.0"
@@ -61,7 +59,7 @@ PCT_DENOM_MIN = 100
 DEMOGRAPHICS_MIN = 200
 UNLOCK = 10                      # below this an entity publishes nothing under its own name
 PER_ENTITY_TABLES = ["T1", "T2", "T3", "T4", "T5", "T6", "T8", "T10", "T11", "T12", "T16"]
-OVERALL = "overall"              # the all-reports entity: T6 overall, T13, T15
+OVERALL = "overall"              # the all-reports unit: T13 demographics
 REASON_CODES = ["malformed", "implausible", "duplicate-pattern", "coordinated", "test"]
 Z95 = 1.959964
 
@@ -74,6 +72,16 @@ def tier_of(n):
         if n >= bound:
             return t
     return 0
+
+
+def iso_date(s):
+    """True for a zero-padded YYYY-MM-DD date. Every date comparison in the pipeline is a string
+    comparison, which is only right for this form."""
+    import datetime
+    try:
+        return isinstance(s, str) and datetime.date.fromisoformat(s).isoformat() == s
+    except ValueError:
+        return False
 
 
 def sha256_file(path):
@@ -128,16 +136,16 @@ def union_in_order(lists):
 
 
 class Entity:
-    """A compound or a class: the unit every per-entity table is computed for."""
+    """A compound: the unit every per-compound table is computed for. (Classes publish counts only.)"""
 
     def __init__(self, kind, id, label, rows, tax, members):
-        self.kind, self.id, self.label, self.rows = kind, id, label, rows
+        self.kind, self.id, self.label, self.rows, self.tax = kind, id, label, rows, tax
         self.n = len(rows)
         self.tier = tier_of(self.n)
         self.key = f"{kind}:{id}"
         # Publication state (set in main from tools/update_floor.py): `rows` are the reports the
         # unit is computed from this release (its as-of set when held); `n` is the current count.
-        self.held, self.as_of, self.all_held = False, None, False
+        self.held, self.as_of, self.stamp = False, None, None
         self.pub_tier, self.strata = self.tier, {}
         cs = [tax.compounds[m] for m in members]
         self.routes = union_in_order(c["routes"] for c in cs)
@@ -201,226 +209,204 @@ def one_way(rows, field, options, tier, groups=(), value=None, prefer=None):
     return {"n": n, "percent": percent, "cells": render_cells(cells, n, percent)}
 
 
-def stratum(rows, field, options, tier, label_key, label):
-    if len(rows) < STRATUM_MIN:
-        return {label_key: label, "n": None, "display": "fewer than 20 reports"}
-    return {label_key: label, **one_way(rows, field, options, tier)}
-
-
 def effects_of(row):
     return json.loads(row["adverse_effects"])
 
 
 # ---------------------------------------------------------------- tables
 
-def stratum_entry(su, compute, prior, hidden):
-    """One row of a split table from its unit: hidden when unpublished, the prior release's row
-    (marked as-of) when held, freshly computed otherwise."""
+def goal_table(rows, e, t):
+    """T16. T8 later publishes the exact size of every goal stratum it shows, so T16 is the single
+    source of exact goal counts: its complement is chosen among goals T8 would not show exactly
+    anyway (under 20), and T8 shows a row only if T16 shows that goal."""
+    return one_way(rows, "goal", e.tax.opts(e.goals + [OTHER]), t,
+                   prefer=lambda c: 0 if c["count"] < STRATUM_MIN else 1)
+
+
+def effects_table(rows, e, t):
+    """T10: multi-select, cell floor only — cells do not sum to n, so no complement to protect."""
+    counts, none = Counter(), 0
+    for row in rows:
+        ids = [x["id"] for x in effects_of(row)]
+        none += not ids
+        counts.update(ids)
+    cells = [{"id": "none", "label": "No side effects reported", "count": none}]
+    cells += [{"id": i, "label": l, "count": counts.get(i, 0)} for i, l in e.tax.opts(e.aes)]
+    for c in cells:
+        c["suppressed"] = c["count"] < CELL_FLOOR
+    percent = t >= 4 and len(rows) >= PCT_DENOM_MIN
+    return {"n": len(rows), "percent": percent, "cells": render_cells(cells, len(rows), percent)}
+
+
+def shown_fn(tax):
+    """For tools/update_floor.py: which goals T16 and which effects T10 show for a compound's set."""
+    def shown(rows):
+        if not rows:
+            return {"goals": set(), "effects": set()}
+        cid = rows[0]["compound"]
+        e = Entity("compound", cid, tax.compounds[cid]["label"], rows, tax, [cid])
+        t = tier_of(len(rows))
+        return {"goals": {c["id"] for c in goal_table(rows, e, t)["cells"] if c["count"] is not None},
+                "effects": {c["id"] for c in effects_table(rows, e, t)["cells"] if c["count"] is not None}}
+    return shown
+
+
+def row_entry(su, compute, placeholder):
+    """One row of a split table from its own unit: computed from the unit's reports at the tier they
+    were computed at, marked `as_of` when republished from an earlier release; otherwise the
+    placeholder."""
     if su is None or not su.published:
-        return hidden
+        return placeholder
+    ent = compute(su.rows, su.record["tier"])
     if su.held:
-        ent = dict(prior)
         ent["as_of"] = su.record["release"]
-        return ent
-    return compute(su.rows)
+    return ent
 
 
-def build_tables(ents, tax, prior_T, units):
-    """Returns {table_id: {...}}. Per-entity tables keyed by entity.key. A held unit's entries are
-    copied from the prior release's tables rather than recomputed (tools/update_floor.py).
-    Classes publish one-way tables only."""
+def build_tables(ents, tax, units):
+    """Returns {table_id: {...}}. Per-compound tables keyed by entity.key. Every unit is computed
+    from its own reports (tools/update_floor.py): a held unit from the same reports as before, which
+    reproduces its earlier tables exactly, marked `as_of`. No table is computed for a class."""
     sh = tax.shared
-    prior_T = prior_T or {}
     T = {k: {} for k in PER_ENTITY_TABLES}
     outcome_opts = sh["outcome"]
     stopped_ids = ["stopped"]
     not_stopped_ids = [i for i, _ in sh["status"] if i != "stopped"]
-    prior_entry = lambda tid, key: prior_T.get(tid, {}).get(key)
+
+    def mark(tbl, e):
+        if e.held:
+            tbl["as_of"] = e.as_of
+        return tbl
 
     for e in ents:
         if e.pub_tier < 1:
             continue
         r, t = e.rows, e.pub_tier
-        if e.held:
-            for tid in ("T1", "T2", "T3", "T4", "T5", "T6", "T10", "T16"):
-                pe = prior_entry(tid, e.key)
-                if pe is not None:
-                    T[tid][e.key] = pe
-            status = (prior_entry("T12", e.key) or {}).get("status")
-        else:
-            T["T1"][e.key] = one_way(r, "route", tax.opts(e.routes), t)
-            T["T2"][e.key] = one_way(r, "source_channel", sh["sourceChannel"], t)
-            status = None
-            if t >= 2:
-                if e.kind == "compound":
-                    T["T3"][e.key] = {"start_dose": one_way(r, "start_dose", e.dose_bands, t),
-                                      "current_dose": one_way(r, "current_dose", e.dose_bands, t)}
-                T["T4"][e.key] = one_way(r, "frequency", tax.opts(e.frequency), t)
-                T["T5"][e.key] = one_way(r, "duration", sh["duration"], t)
-                T["T6"][e.key] = one_way(r, "purity_tested", sh["purityTested"], t)
-                # T8 later publishes the exact size of every goal stratum it shows, so T16 is the
-                # single source of exact goal counts: its complement is chosen among goals T8 would
-                # not show exactly anyway (under 20), and T8 shows a stratum's n only if T16 shows it.
-                T["T16"][e.key] = one_way(r, "goal", tax.opts(e.goals + [OTHER]), t,
-                                          prefer=lambda c: 0 if c["count"] < STRATUM_MIN else 1)
-                # T10: multi-select, cell floor only — cells do not sum to n, so no complement.
-                counts, none = Counter(), 0
-                for row in r:
-                    ids = [x["id"] for x in effects_of(row)]
-                    none += not ids
-                    counts.update(ids)
-                cells = [{"id": "none", "label": "No side effects reported", "count": none}]
-                cells += [{"id": i, "label": l, "count": counts.get(i, 0)} for i, l in tax.opts(e.aes)]
-                for c in cells:
-                    c["suppressed"] = c["count"] < CELL_FLOOR
-                percent = t >= 4 and len(r) >= PCT_DENOM_MIN
-                T["T10"][e.key] = {"n": len(r), "percent": percent, "cells": render_cells(cells, len(r), percent)}
-                # T12a: status. T12b publishes the stopped subtotal, so both it and its complement
-                # are published marginals of this table, and the stopped cell is never chosen as
-                # the complement (hiding it would protect nothing while T12b prints the number).
-                status = one_way(r, "status", sh["status"], t, groups=[stopped_ids, not_stopped_ids],
-                                 prefer=lambda c: 1 if c["id"] == "stopped" else 0)
+        T["T1"][e.key] = mark(one_way(r, "route", tax.opts(e.routes), t), e)
+        T["T2"][e.key] = mark(one_way(r, "source_channel", sh["sourceChannel"], t), e)
         if t < 2:
             continue
-        # T12b: stop reason among the stopped — its own unit; never for a class.
-        if e.kind == "class":
-            stop = {"stratum": "Stopped", "n": None, "display": "not published for a class"}
-        else:
-            stop = stratum_entry(e.strata.get(f"{e.key}/T12/stopped"),
-                                 lambda rows: {"stratum": "Stopped", **one_way(rows, "stop_reason", sh["stopReason"], t)},
-                                 (prior_entry("T12", e.key) or {}).get("stop_reason"),
-                                 {"stratum": "Stopped", "n": None, "display": "fewer than 20 reports"})
+        T["T3"][e.key] = mark({"start_dose": one_way(r, "start_dose", e.dose_bands, t),
+                               "current_dose": one_way(r, "current_dose", e.dose_bands, t)}, e)
+        T["T4"][e.key] = mark(one_way(r, "frequency", tax.opts(e.frequency), t), e)
+        T["T5"][e.key] = mark(one_way(r, "duration", sh["duration"], t), e)
+        T["T6"][e.key] = mark(one_way(r, "purity_tested", sh["purityTested"], t), e)
+        T["T16"][e.key] = mark(goal_table(r, e, t), e)
+        T["T10"][e.key] = mark(effects_table(r, e, t), e)
+        # T12a: status. T12b publishes the stopped subtotal, so both it and its complement are
+        # published marginals of this table, and the stopped cell is never chosen as the
+        # complement (hiding it would protect nothing while T12b prints the number).
+        status = mark(one_way(r, "status", sh["status"], t, groups=[stopped_ids, not_stopped_ids],
+                              prefer=lambda c: 1 if c["id"] == "stopped" else 0), e)
+        stopped_cell = next(c for c in status["cells"] if c["id"] == "stopped")
+        stop = row_entry(e.strata.get(f"{e.key}/T12/stopped"),
+                         lambda rows, tt: {"stratum": "Stopped", **one_way(rows, "stop_reason", sh["stopReason"], tt)},
+                         {"stratum": "Stopped", "n": None,
+                          "display": "fewer than 20 reports" if (stopped_cell["count"] or 0) < STRATUM_MIN else "not shown"})
         T["T12"][e.key] = {"status": status, "stop_reason": stop}
-        if e.kind == "class" or t < 3:
+        if t < 3:
             continue
-        # T8: outcome by goal, one unit per goal. "Other" is counted as a goal but is not a stratum.
-        goal_shown = {c["id"] for c in T["T16"][e.key]["cells"] if c["count"] is not None}
-        prior_strata = {st["goal"]: st for st in (prior_entry("T8", e.key) or {}).get("strata", [])}
+        # T8: outcome by goal, one unit per goal. "Other" is counted as a goal but is not a row. A
+        # goal T16 hides (below the floor, or the complement protecting one that is) is "not shown"
+        # whatever its size — one label for both, so the label itself reveals nothing; otherwise the
+        # label follows the count T16 publishes.
+        goal_cells = {c["id"]: c for c in T["T16"][e.key]["cells"]}
         T["T8"][e.key] = {"n": len(r), "strata": []}
         for g in e.goals:
-            su = e.strata.get(f"{e.key}/T8/{g}")
-            if g in goal_shown:
-                st = stratum_entry(su, (lambda g: lambda rows: {"goal": g, **one_way(rows, "outcome", outcome_opts, t)})(g),
-                                   prior_strata.get(g), {"goal": g, "n": None, "display": "fewer than 20 reports"})
-            else:
-                # Hidden in T16 (below the floor, or the complement that protects one that is):
-                # publishing this stratum's size would give the hidden count away by subtraction.
-                st = {"goal": g, "n": None, "display": "fewer than 20 reports" if not (su and su.published)
-                      else "not shown — its size would reveal a smaller group"}
+            gc = goal_cells.get(g, {}).get("count")
+            ph = {"goal": g, "n": None,
+                  "display": "not shown" if gc is None or gc >= STRATUM_MIN else "fewer than 20 reports"}
+            st = row_entry(e.strata.get(f"{e.key}/T8/{g}"),
+                           (lambda g: lambda rows, tt: {"goal": g, **one_way(rows, "outcome", outcome_opts, tt)})(g), ph)
             st["label"] = tax.labels.get(g, g)
             T["T8"][e.key]["strata"].append(st)
         if t < 4:
             continue
         # T11: onset and dechallenge per effect shown in T10, one unit per effect.
-        shown = [c["id"] for c in T["T10"][e.key]["cells"] if c["count"] is not None and c["id"] != "none"]
-        prior_eff = {x["effect"]: x for x in (prior_entry("T11", e.key) or {}).get("effects", [])}
+        eff_cells = {c["id"]: c for c in T["T10"][e.key]["cells"]}
         T["T11"][e.key] = {"n": len(r), "effects": []}
-        for aid in shown:
-            def compute(rows, aid=aid):
+        for aid in [c["id"] for c in T["T10"][e.key]["cells"] if c["count"] is not None and c["id"] != "none"]:
+            def compute(rows, tt, aid=aid):
                 def pick(field):
                     return lambda row: next(x[field] for x in effects_of(row) if x["id"] == aid)
                 return {"effect": aid, "label": tax.labels.get(aid, aid), "n": len(rows),
-                        "onset": one_way(rows, None, sh["onset"], t, value=pick("onset")),
-                        "dechallenge": one_way(rows, None, sh["dechallenge"], t, value=pick("dechallenge"))}
-            entry = stratum_entry(e.strata.get(f"{e.key}/T11/{aid}"), compute, prior_eff.get(aid),
-                                  {"effect": aid, "label": tax.labels.get(aid, aid), "n": None, "display": "fewer than 20 reports"})
-            T["T11"][e.key]["effects"].append(entry)
+                        "onset": one_way(rows, None, sh["onset"], tt, value=pick("onset")),
+                        "dechallenge": one_way(rows, None, sh["dechallenge"], tt, value=pick("dechallenge"))}
+            ph = {"effect": aid, "label": tax.labels.get(aid, aid), "n": None,
+                  "display": "fewer than 20 reports" if eff_cells[aid]["count"] < STRATUM_MIN else "not shown"}
+            T["T11"][e.key]["effects"].append(row_entry(e.strata.get(f"{e.key}/T11/{aid}"), compute, ph))
 
-    # All reports: T6 overall and T13, from the overall unit (published classes plus the "other" pool).
+    # All reports: T13 demographics, from the all-reports unit. Never crossed with anything.
     au = units[OVERALL]
-    if not au.published:
-        T["T6"][OVERALL] = {"n": None, "display": f"fewer than {UNLOCK} reports"}
-        T["T13"] = {"n": None, "display": f"fewer than {DEMOGRAPHICS_MIN} reports"}
-    elif au.held:
-        T["T6"][OVERALL] = prior_T["T6"][OVERALL]
-        T["T13"] = prior_T["T13"]
+    if au.published and len(au.rows) >= DEMOGRAPHICS_MIN:
+        rows_all = au.rows
+        declined = lambda field: (lambda r: r[field] if r[field] is not None else "declined")
+        T["T13"] = {
+            "n": len(rows_all),
+            "age_band": one_way(rows_all, None, sh["ageBand"] + [("declined", "Preferred not to say")], 4, value=declined("age_band")),
+            "sex": one_way(rows_all, None, sh["sex"] + [("declined", "Preferred not to say")], 4, value=declined("sex")),
+        }
+        if au.held:
+            T["T13"]["as_of"] = au.record["release"]
     else:
-        rows_all, tt = au.rows, au.record["tier"]
-        T["T6"][OVERALL] = one_way(rows_all, "purity_tested", sh["purityTested"], tt)
-        if len(rows_all) >= DEMOGRAPHICS_MIN:
-            declined = lambda field: (lambda r: r[field] if r[field] is not None else "declined")
-            T["T13"] = {
-                "n": len(rows_all),
-                "age_band": one_way(rows_all, None, sh["ageBand"] + [("declined", "Preferred not to say")], 4, value=declined("age_band")),
-                "sex": one_way(rows_all, None, sh["sex"] + [("declined", "Preferred not to say")], 4, value=declined("sex")),
-            }
-        else:
-            T["T13"] = {"n": None, "display": f"fewer than {DEMOGRAPHICS_MIN} reports"}
+        T["T13"] = {"n": None, "display": f"fewer than {DEMOGRAPHICS_MIN} reports"}
 
-    # T9: per goal, the T8 rows of every compound at tier >= 4 with a publishable stratum, side by
-    # side — only when at least one participant is at tier 5 and there are at least two.
-    # Everything in T9 is already public in T8; the table adds juxtaposition, never a comparison.
+    # T9: per goal, the T8 rows of every compound at tier >= 4 with a shown row, side by side — only
+    # when at least one participant is at tier 5 and there are at least two. Everything in T9 is
+    # already public in T8; the table adds juxtaposition, never a comparison.
     T["T9"] = {}
-    comps = [e for e in ents if e.kind == "compound" and e.pub_tier >= 4]
-    goals = union_in_order(e.goals for e in comps)
-    for g in goals:
+    comps = [e for e in ents if e.pub_tier >= 4]
+    for g in union_in_order(e.goals for e in comps):
         parts = []
         for e in comps:
             st = next((st for st in T["T8"].get(e.key, {}).get("strata", []) if st["goal"] == g and st["n"] is not None), None)
             if st:
-                parts.append({"compound": e.id, "label": e.label, "tier": e.pub_tier, "n": st["n"], "percent": st["percent"], "cells": st["cells"]})
+                parts.append({"compound": e.id, "label": e.label, "tier": e.pub_tier, "n": st["n"], "percent": st["percent"], "cells": st["cells"],
+                              **({"as_of": st["as_of"]} if st.get("as_of") else {})})
         if len(parts) >= 2 and any(pt["tier"] >= 5 for pt in parts):
             T["T9"][g] = {"goal": g, "label": tax.labels.get(g, g), "compounds": parts}
     return T
 
 
-def build_t0(ents, tax, committed, excluded_by_reason, analyzed, other_n, prior):
+def build_t0(ents, tax, counts, committed, excluded_by_reason, analyzed, other_n, prior):
+    """Counts are current and exact. A compound's count is shown from 10; a class's from 5. For a
+    compound whose tables are republished from an earlier release, the release that computed them
+    and the number of reports they were computed from; `tables_pending` marks a compound whose count
+    is at 10 or more while its tables wait for a batch."""
     per_class, per_compound = [], []
+    for cls in tax.classes:
+        n = sum(counts.get(m, 0) for m in cls["members"])
+        entry = {"id": cls["id"], "label": cls["label"], "count": n if n >= CELL_FLOOR else None}
+        if entry["count"] is None:
+            entry["display"] = "fewer than 5 reports"
+        per_class.append(entry)
     for e in ents:
-        # `count` is always the current count; `tier` is the tier of the published tables, and
-        # `tables_as_of` names the release that computed them when they are held.
-        entry = {"id": e.id, "label": e.label, "tier": e.pub_tier,
+        entry = {"id": e.id, "label": e.label, "class": tax.class_of[e.id], "tier": e.pub_tier,
                  "tables_as_of": e.as_of, "tables_n": len(e.rows) if e.held else None,
-                 # at or past unlock but with no tables yet: its first publication waits for the
-                 # batch rule (five reports newer than the pool's last update)
-                 "tables_pending": e.kind == "compound" and e.n >= UNLOCK and e.pub_tier == 0}
-        if e.kind == "class":
-            entry["count"] = e.n if e.n >= CELL_FLOOR else None
-            if entry["count"] is None:
-                entry["display"] = "fewer than 5 reports"
-            per_class.append(entry)
-        else:
-            entry["class"] = tax.class_of[e.id]
-            entry["count"] = e.n if e.n >= UNLOCK else None
-            if entry["count"] is None:
-                entry["display"] = "fewer than 10 reports — not enough to show"
-            per_compound.append(entry)
+                 "tables_pending": e.n >= UNLOCK and e.pub_tier == 0}
+        entry["count"] = e.n if e.n >= UNLOCK else None
+        if entry["count"] is None:
+            entry["display"] = "fewer than 10 reports — not enough to show"
+        per_compound.append(entry)
     per_compound.append({"id": OTHER, "label": tax.labels[OTHER], "class": None, "tier": None,
                          "count": other_n if other_n >= 10 else None,
                          **({} if other_n >= 10 else {"display": "fewer than 10 reports — not enough to show"})})
     return {
         "committed": committed,
         "excluded": {"total": sum(excluded_by_reason.values()), "by_reason": {k: excluded_by_reason.get(k, 0) for k in REASON_CODES}},
-        "analyzed": analyzed,
+        "not_excluded": analyzed,
         "received_since_prior_release": (committed - prior["counts"]["committed"]) if prior else None,
         "per_class": per_class,
         "per_compound": per_compound,
     }
 
 
-def build_t15(rows, cfg):
-    """Summary numbers from tools/uniqueness.py on the analysed rows. Never row-level output."""
-    if len(rows) < UNLOCK:
-        return {"n": None, "display": f"fewer than {UNLOCK} reports"}
-
-    def flat(r):
-        d = {k: (r[k] if r[k] is not None else "") for k in r if not k.startswith("_")}
-        d["goals"] = d["goal"]          # the config's synthetic-mode field names
-        d["outcomes"] = d["outcome"]
-        d["adverse_effects"] = ",".join(sorted(x["id"] for x in effects_of(r)))
-        return d
-    rep = uniqueness.report(cfg, [flat(r) for r in rows], f"real:{len(rows)}")
-    keep = ["qi_set", "qi_fields", "n", "unique_rows_pct", "rows_in_cells_lt5_pct", "rows_in_cells_lt10_pct",
-            "rows_in_cells_lt20_pct", "median_cell_size"]
-    return {"n": len(rows), "k_anonymity": [{k: r[k] for k in keep} for r in rep["k_anonymity"]],
-            "note": "Uniqueness of rows in the private store on the published quasi-identifier sets. "
-                    "This is a property of the store, which is never published; it is reported so the "
-                    "de-identification argument in SCHEMA.md can be checked against real data."}
-
-
 # ---------------------------------------------------------------- figures
 
-def write_figures(T, ents, tax, out, release, prior_dir=None, overall=None):
+def write_figures(T, ents, tax, out, release, overall):
+    """One SVG per table. A figure is stamped with the release of the unit it belongs to, so a
+    republished unit's figure is byte-identical to the earlier one; a grid whose rows are separate
+    units (T8, T9) carries this release and marks republished rows in their labels."""
     fig = os.path.join(out, "figures")
     written = []
 
@@ -431,74 +417,56 @@ def write_figures(T, ents, tax, out, release, prior_dir=None, overall=None):
             f.write(content)
         written.append(os.path.join("figures", path))
 
-    def carry(d):
-        """A held entity's figures are the prior release's, byte for byte — they say which release
-        they are as of in their own footer."""
-        src = os.path.join(prior_dir, "figures", d)
-        if not os.path.isdir(src):
-            return
-        for name in sorted(os.listdir(src)):
-            if name.endswith(".svg"):
-                os.makedirs(os.path.join(fig, d), exist_ok=True)
-                shutil.copyfile(os.path.join(src, name), os.path.join(fig, d, name))
-                written.append(os.path.join("figures", d, name))
-
-    one_way_tables = [("T1", "Route", None), ("T2", "Source channel", None), ("T16", "What people took it for", None),
-                      ("T4", "Frequency", None), ("T5", "Duration", None), ("T6", "Independent purity testing", None)]
+    asof = lambda x: f" (as of the {x['as_of']} release)" if x.get("as_of") else ""
+    one_way_tables = [("T1", "Route"), ("T2", "Source channel"), ("T16", "What people took it for"),
+                      ("T4", "Frequency"), ("T5", "Duration"), ("T6", "Independent purity testing")]
     for e in ents:
-        d = f"{e.kind}-{e.id}"
-        if e.all_held:
-            carry(d)
-            continue
-        for tid, title, _ in one_way_tables:
+        d = f"compound-{e.id}"
+        for tid, title in one_way_tables:
             tbl = T[tid].get(e.key)
             if tbl:
-                put(f"{d}/{tid}.svg", svg.bar_chart(f"{e.label} — {title.lower()}", sub(tbl, e), tbl, release))
+                put(f"{d}/{tid}.svg", svg.bar_chart(f"{e.label} — {title.lower()}", sub(tbl, e), tbl, e.stamp))
         if e.key in T["T3"]:
             for k, title in (("start_dose", "starting dose"), ("current_dose", "current or final dose")):
                 tbl = T["T3"][e.key][k]
-                put(f"{d}/T3-{k}.svg", svg.bar_chart(f"{e.label} — {title}", sub(tbl, e), tbl, release))
+                put(f"{d}/T3-{k}.svg", svg.bar_chart(f"{e.label} — {title}", sub(tbl, e), tbl, e.stamp))
         if e.key in T["T10"]:
             tbl = T["T10"][e.key]
-            put(f"{d}/T10.svg", svg.bar_chart(f"{e.label} — side effects reported", sub(tbl, e, multi=True), tbl, release))
+            put(f"{d}/T10.svg", svg.bar_chart(f"{e.label} — side effects reported", sub(tbl, e, multi=True), tbl, e.stamp))
         if e.key in T["T12"]:
             tbl = T["T12"][e.key]["status"]
-            put(f"{d}/T12-status.svg", svg.bar_chart(f"{e.label} — still taking, stopped, or finished", sub(tbl, e), tbl, release))
+            put(f"{d}/T12-status.svg", svg.bar_chart(f"{e.label} — still taking, stopped, or finished", sub(tbl, e), tbl, e.stamp))
             sr = T["T12"][e.key]["stop_reason"]
             if sr.get("n"):
                 put(f"{d}/T12-stop_reason.svg", svg.bar_chart(f"{e.label} — main reason for stopping",
-                    f"Of the {sr['n']} reports that stopped. " + ("Percent with 95% interval." if sr["percent"] else "Counts."), sr, release))
+                    f"Of the {sr['n']} reports that stopped. " + ("Percent with 95% interval." if sr["percent"] else "Counts."), sr, sr.get("as_of") or release))
         if e.key in T["T8"]:
-            t8 = T["T8"][e.key]
-            rows = [{"label": s["label"], "n": s["n"], "display": s.get("display"), "cells": s.get("cells", []), "percent": s.get("percent")} for s in t8["strata"]]
+            rows = [{"label": st["label"] + asof(st), "n": st["n"], "display": st.get("display"), "cells": st.get("cells", []), "percent": st.get("percent")}
+                    for st in T["T8"][e.key]["strata"]]
             put(f"{d}/T8.svg", svg.grid_chart(f"{e.label} — what people hoped for, and what they reported",
                 "Of the people who chose each goal as their main reason: how many reported no change, slight, moderate or large improvement.",
-                [l for _, l in tax.shared["outcome"]], rows, release, f"n = {e.n}"))
+                [l for _, l in tax.shared["outcome"]], rows, release, f"n = {len(e.rows)}"))
         if e.key in T["T11"]:
             for entry in T["T11"][e.key]["effects"]:
                 if entry["n"] is None:
                     continue
+                st = entry.get("as_of") or release
                 rows = [{"label": "When it started", "n": entry["n"], "cells": entry["onset"]["cells"], "percent": entry["onset"]["percent"]}]
                 put(f"{d}/T11-{entry['effect']}-onset.svg", svg.grid_chart(f"{e.label} — {entry['label'].lower()}: onset",
-                    f"Among the {entry['n']} reports that noted this effect.", [l for _, l in tax.shared["onset"]], rows, release, f"n = {entry['n']}"))
+                    f"Among the {entry['n']} reports that noted this effect.", [l for _, l in tax.shared["onset"]], rows, st, f"n = {entry['n']}"))
                 rows = [{"label": "After stopping", "n": entry["n"], "cells": entry["dechallenge"]["cells"], "percent": entry["dechallenge"]["percent"]}]
                 put(f"{d}/T11-{entry['effect']}-dechallenge.svg", svg.grid_chart(f"{e.label} — {entry['label'].lower()}: after stopping",
-                    f"Among the {entry['n']} reports that noted this effect.", [l for _, l in tax.shared["dechallenge"]], rows, release, f"n = {entry['n']}"))
+                    f"Among the {entry['n']} reports that noted this effect.", [l for _, l in tax.shared["dechallenge"]], rows, st, f"n = {entry['n']}"))
     for g, t9 in T["T9"].items():
-        rows = [{"label": p["label"], "n": p["n"], "cells": p["cells"], "percent": p["percent"]} for p in t9["compounds"]]
+        rows = [{"label": p["label"] + asof(p), "n": p["n"], "cells": p["cells"], "percent": p["percent"]} for p in t9["compounds"]]
         put(f"_goals/T9-{g}.svg", svg.grid_chart(f"Goal: {t9['label']} — by compound, side by side",
             "Each row is one compound, stratified, never pooled. Read across a row, not down a column: this is not a ranking.",
             [l for _, l in tax.shared["outcome"]], rows, release, "stratified by compound"))
-    if overall is not None and overall.held:
-        carry("_overall")
-        return written
-    if T["T6"].get(OVERALL, {}).get("n"):
-        tbl = T["T6"][OVERALL]
-        put("_overall/T6.svg", svg.bar_chart("All reports — independent purity testing", sub(tbl), tbl, release))
     if T["T13"].get("n"):
+        ostamp = overall.record["release"] if overall.held else release
         for k, title in (("age_band", "age"), ("sex", "sex")):
             tbl = T["T13"][k]
-            put(f"_overall/T13-{k}.svg", svg.bar_chart(f"Who contributed — {title}", "All reports. Never crossed with any other field. " + ("Percent with 95% interval." if tbl["percent"] else "Counts."), tbl, release))
+            put(f"_overall/T13-{k}.svg", svg.bar_chart(f"Who contributed — {title}", "All reports. Never crossed with any other field. " + ("Percent with 95% interval." if tbl["percent"] else "Counts."), tbl, ostamp))
     return written
 
 
@@ -559,13 +527,17 @@ def main():
     ap.add_argument("--id", required=True, help="release id: YYYY-MM while monthly, YYYY-QN once quarterly")
     ap.add_argument("--date", required=True, help="release date YYYY-MM-DD (the only timestamp in the output)")
     ap.add_argument("--out", required=True)
-    ap.add_argument("--prior", help="directory of the previous release (required after the first): log chaining and the batch-update rule")
+    ap.add_argument("--prior", help="directory of the previous release: log chaining and the batch-update rule")
+    ap.add_argument("--first", action="store_true", help="this is the first release (no --prior); required so a forgotten --prior cannot skip the batch rule")
     ap.add_argument("--notes", help="JSON file: {\"integrity\": \"plain-language T14 note\"}")
     ap.add_argument("--taxonomy", default=TAXONOMY)
     ap.add_argument("--spec", default=SPEC)
-    ap.add_argument("--uniqueness-config", default=UNIQ_CONFIG)
     ap.add_argument("--force", action="store_true", help="overwrite an existing output directory")
     args = ap.parse_args()
+    if bool(args.prior) == bool(args.first):
+        sys.exit("pass exactly one of --prior <previous release> or --first")
+    if not iso_date(args.date):
+        sys.exit(f"--date must be YYYY-MM-DD, got {args.date!r}")
 
     tax = Tax(args.taxonomy)
     con = open_store(args.db)
@@ -597,49 +569,62 @@ def main():
         if len(prior_leaves) > len(ours) or ours[: len(prior_leaves)] != prior_leaves:
             sys.exit("prior release's leaves are not a prefix of this store's log — not releasing")
 
-    # 3. What this release updates and what it republishes (tools/update_floor.py). Exclusions
-    # must be dated on or before the release, and none may be backdated behind the prior release.
+    # 3. What this release shows and what it republishes (tools/update_floor.py). Exclusions only
+    # grow, are dated on or before the release, and are never backdated or re-dated: the rule is
+    # replayed over every earlier release from the store, so the store's exclusions dated on or
+    # before the prior release must be exactly the prior release's list, dates included.
+    bad = [x for x in exclusions if not iso_date(x["noted_on"])]
+    if bad:
+        sys.exit(f"exclusions with a date not in YYYY-MM-DD form: {bad[:3]} — not releasing")
     if any(x["noted_on"] > args.date for x in exclusions):
         sys.exit("an exclusion is dated after the release date — not releasing")
-    prior_T = {}
+    history = []
     if prior:
-        prior_ex = {x["leaf_idx"] for x in json.load(open(os.path.join(args.prior, "exclusions.json")))["excluded"]}
-        if {x["leaf_idx"] for x in exclusions if x["noted_on"] <= prior["date"]} != prior_ex:
-            sys.exit("exclusions dated on or before the prior release differ from the prior release's list "
-                     "(a backdated exclusion) — not releasing")
-        for tid in PER_ENTITY_TABLES + ["T13", "T15"]:
-            pth = os.path.join(args.prior, "tables", f"{tid}.json")
-            if os.path.exists(pth):
-                prior_T[tid] = json.load(open(pth))["data"]
-    units = uf.plan(tax.raw, rows, leaves, exclusions, (prior or {}).get("units", {}), args.id, args.date)
+        triple = lambda x: (x["leaf_idx"], x["reason"], x["noted_on"])
+        prior_ex = {triple(x) for x in json.load(open(os.path.join(args.prior, "exclusions.json")))["excluded"]}
+        now_ex = {triple(x) for x in exclusions}
+        if not prior_ex <= now_ex:
+            sys.exit("an exclusion listed by the prior release is missing or carries a different reason or date — "
+                     "exclusions only grow and never change; not releasing")
+        if {p for p in now_ex if p[2] <= prior["date"]} != prior_ex:
+            sys.exit("an exclusion is dated on or before the prior release but was not in its list (backdated) — not releasing")
+        if args.date <= prior["date"]:
+            sys.exit("this release is not dated after the prior release — not releasing")
+        if sha256_file(args.taxonomy) != prior["taxonomy_sha256"]:
+            sys.exit("the taxonomy differs from the prior release's. Replaying earlier releases under a different "
+                     "taxonomy would change what they showed; a taxonomy change needs a specification amendment and a "
+                     "defined changeover, which this pipeline does not implement — not releasing")
+        history = prior.get("history", []) + [{"release": prior["release"], "date": prior["date"], "leaves": prior["merkle"]["leaves"]}]
+        # The replay must reproduce the prior release exactly, or this release would rest on a
+        # history that never happened (a changed rule, a changed store).
+        n_prior = prior["merkle"]["leaves"]
+        replay = uf.plan(tax.raw, rows, leaves[:n_prior], [x for x in exclusions if x["noted_on"] <= prior["date"]],
+                         history[:-1], prior["release"], prior["date"], shown_fn(tax))
+        if uf.records(replay) != prior.get("units") or uf.held(replay) != prior.get("held"):
+            sys.exit("replaying the rule does not reproduce the prior release's tables — the rule, the taxonomy or the "
+                     "store has changed underneath it; not releasing")
+    units = uf.plan(tax.raw, rows, leaves, exclusions, history, args.id, args.date, shown_fn(tax))
     by_compound = {}
     for r in analyzed:
         by_compound.setdefault(r["compound"], []).append(r)
+    counts = {c: len(rs) for c, rs in by_compound.items()}
     ents = []
     for cid in tax.order:
         c, u = tax.compounds[cid], units[f"compound:{cid}"]
         e = Entity("compound", cid, c["label"], u.rows if u.published else [], tax, [cid])
-        e.n = len(by_compound.get(cid, []))
+        e.n = counts.get(cid, 0)
         e.pub_tier = u.record["tier"] if u.published else 0
         e.held, e.as_of = u.held, (u.record["release"] if u.held else None)
         e.strata = {k: su for k, su in units.items() if k.startswith(e.key + "/")}
-        e.all_held = u.published and u.held and all(su.held for su in e.strata.values() if su.published)
+        e.stamp = u.record["release"] if u.held else args.id
         ents.append(e)
-    for cls in tax.classes:
-        u = units[f"class:{cls['id']}"]
-        e = Entity("class", cls["id"], cls["label"], u.rows if u.published else [], tax, cls["members"])
-        e.n = sum(len(by_compound.get(m, [])) for m in cls["members"])
-        e.pub_tier = u.record["tier"] if u.published else 0
-        e.held, e.as_of, e.all_held = u.held, (u.record["release"] if u.held else None), (u.published and u.held)
-        ents.append(e)
-    other_n = len(by_compound.get(OTHER, []))
     au = units[OVERALL]
     for u in units.values():
-        if u.why and not u.why.startswith("updated") and u.why not in ("established", "first publication"):
+        if u.why.startswith("held") or u.why.startswith("not shown"):
             print(f"update floor: {u.key}: {u.why}", file=sys.stderr)
 
-    T = build_tables(ents, tax, prior_T, units)
-    T["T0"] = build_t0(ents, tax, len(leaves), excluded_by_reason, len(analyzed), other_n, prior)
+    T = build_tables(ents, tax, units)
+    T["T0"] = build_t0(ents, tax, counts, len(leaves), excluded_by_reason, len(analyzed), counts.get(OTHER, 0), prior)
     period = [x for x in exclusions if not prior or x["noted_on"] > prior["date"]]
     notes = json.load(open(args.notes)) if args.notes else {}
     this_period = {k: sum(1 for x in period if x["reason"] == k) for k in REASON_CODES}
@@ -649,7 +634,6 @@ def main():
     T["T14"] = {"flagged_this_period": this_period,
                 "flagged_total": {k: excluded_by_reason.get(k, 0) for k in REASON_CODES},
                 "note": notes.get("integrity", "No coordinated-submission pattern was identified in this period.")}
-    T["T15"] = prior_T["T15"] if au.held else build_t15(au.rows if au.published else [], json.load(open(args.uniqueness_config)))
 
     # 4. Write.
     out = args.out
@@ -662,16 +646,18 @@ def main():
     titles = {"T0": "Counts", "T1": "Route", "T2": "Source channel", "T3": "Dose bands", "T4": "Frequency",
               "T5": "Duration", "T6": "Purity testing", "T8": "Outcome by goal",
               "T9": "Outcome by goal, across compounds", "T10": "Adverse effects", "T11": "Adverse effect onset and dechallenge",
-              "T12": "Status and discontinuation", "T13": "Demographics", "T14": "Integrity log", "T15": "Uniqueness summary",
+              "T12": "Status and discontinuation", "T13": "Demographics", "T14": "Integrity log",
               "T16": "Primary goal"}
     for tid in sorted(T, key=lambda s: int(s[1:])):
         dump(os.path.join(out, "tables", f"{tid}.json"), {"table": tid, "title": titles[tid], "release": args.id, "data": T[tid]})
-    dump(os.path.join(out, "exclusions.json"), {"release": args.id, "applies_to_all_releases_on_or_after": args.date,
-                                                 "reason_codes": REASON_CODES, "excluded": exclusions})
+    dump(os.path.join(out, "exclusions.json"), {"release": args.id, "as_of": args.date, "reason_codes": REASON_CODES,
+                                                 "note": "Each listed report leaves the tables in a batch of at least five "
+                                                         "(RELEASE_SPEC.md, Cadence); the counts in T0 leave it out at once.",
+                                                 "excluded": exclusions})
     with open(os.path.join(out, "merkle", "leaves.txt"), "w") as f:
         for _, leaf in leaves:
             f.write(leaf.hex() + "\n")
-    figures = write_figures(T, ents, tax, out, args.id, args.prior, au)
+    figures = write_figures(T, ents, tax, out, args.id, au)
 
     problems = audit(out)
     if problems:
@@ -690,28 +676,31 @@ def main():
         "schema_version": tax.version,
         "taxonomy_sha256": sha256_file(args.taxonomy),
         "release_spec": {"version": SPEC_VERSION, "sha256": sha256_file(args.spec)},
-        "pipeline": {"tool": "tools/release.py", "sha256": sha256_file(os.path.abspath(__file__))},
+        "pipeline": {"tool": "tools/release.py", "sha256": sha256_file(os.path.abspath(__file__)),
+                     "update_floor_sha256": sha256_file(os.path.join(HERE, "update_floor.py"))},
         "merkle": {"root": v["root"], "leaves": len(leaves), "leaves_file": "merkle/leaves.txt",
                    "prior_root": prior["merkle"]["root"] if prior else None,
                    "prior_leaves": prior["merkle"]["leaves"] if prior else None},
         "counts": {"committed": len(leaves), "excluded": len(exclusions), "analyzed": len(analyzed)},
         "tiers": {e.key: e.pub_tier for e in ents},
-        # Update floor (tools/update_floor.py): for every published unit, the release that computed
-        # it, that release's date and log length, and its report count; `held` lists the units this
-        # release republishes unchanged from the prior release.
+        # Update floor (tools/update_floor.py): for every unit shown in this release, the release
+        # that computed it, that release's date and the tier it was computed at — never a count, and
+        # nothing for a unit that is not shown. `held` lists the shown units computed in an earlier
+        # release. `history` lists every earlier release, which is what the rule is replayed over.
         "units": uf.records(units),
         "held": uf.held(units),
+        "history": history,
         "files": dict(sorted(files.items())),
         "witness": "witness/ — signature, Rekor entry and OpenTimestamps proof are written beside this file by "
                    "tools/witness.sh. This file is the signed artifact and is never modified after signing.",
     }
     dump(os.path.join(out, "release.json"), release)
-    print(f"release {args.id}: {len(leaves)} committed, {len(exclusions)} excluded, {len(analyzed)} analysed; "
+    print(f"release {args.id}: {len(leaves)} committed, {len(exclusions)} excluded, {len(analyzed)} not excluded; "
           f"root {v['root'][:16]}…; {len(figures)} figures; {len(files)} files -> {out}")
-    print("tiers:", ", ".join(f"{e.id}={e.pub_tier}" for e in ents if e.kind == "compound" and e.pub_tier))
+    print("tiers:", ", ".join(f"{e.id}={e.pub_tier}" for e in ents if e.pub_tier))
     h = uf.held(units)
     if h:
-        print(f"held under the update floor: {len(h)} units")
+        print(f"republished unchanged under the update floor: {len(h)} units")
 
 
 if __name__ == "__main__":

@@ -41,7 +41,7 @@ Safe to rerun. The numbered steps are what it does, for reading and for doing by
 
 ## Making a release
 
-Monthly for the first year, then quarterly, by hand, on the host. Ids are `YYYY-MM` while monthly
+Monthly for the twelve months after the first release, then quarterly, by hand, on the host. Ids are `YYYY-MM` while monthly
 and `YYYY-QN` once quarterly. The store is readable only by the service user (`data/` is 0700), so
 the steps that touch it run as that user; signing runs as you, with your key. **Always pass
 `--prior` after the first release:** it chains the log and it is what the batch-update rule in
@@ -52,9 +52,11 @@ cd /srv/private-anecdata/repo                                  # a checkout of t
 sudo -u anecdata python3 tools/detect.py scan --db ../data/reports.db --out ../data/candidates.json
 #   review ../data/candidates.json — remove anything you do not agree with — then:
 sudo -u anecdata python3 tools/detect.py apply --db ../data/reports.db ../data/candidates.json --date YYYY-MM-DD
+#   --date must be after the prior release's date and on or before this release's: the pipeline refuses
+#   an exclusion dated behind the prior release (backdated) or after this one
 sudo -u anecdata rm ../data/candidates.json
 sudo -u anecdata python3 tools/release.py --db ../data/reports.db --id 2026-12 --date 2026-12-31 \
-    --out ../data/staging/2026-12 --prior ../releases/2026-11
+    --out ../data/staging/2026-12 --prior ../releases/2026-11     # the very first release: --first instead of --prior
 sudo -u anecdata python3 tools/verify_release.py ../data/staging/2026-12 --prior ../releases/2026-11 \
     --spec spec/RELEASE_SPEC.md --taxonomy spec/taxonomy.v1.json --db ../data/reports.db
 #   read every table against RELEASE_SPEC.md before going further

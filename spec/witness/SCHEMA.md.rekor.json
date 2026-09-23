@@ -1,0 +1,8 @@
+{
+ "artifact": "SCHEMA.md",
+ "artifact_sha256": "9af62ce212e717e9ac51970f9abc8fb32e437b683321b7287ef157143099fb15",
+ "log": "rekor.sigstore.dev",
+ "log_index": 2925397331,
+ "uuid": "108e9186e8c5677a3d922333e7be791d51cf779a40a7fb9f9cb13ca642b061e3ee20bebcaea762e1",
+ "type": "hashedrekord:0.0.1"
+}

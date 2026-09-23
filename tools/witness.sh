@@ -82,7 +82,7 @@ do_ots() {
   command -v ots >/dev/null || { echo "ots client not installed (pip install opentimestamps-client)"; exit 1; }
   run ots stamp "$RJ"
   run mv "$RJ.ots" "$W/$NAME.ots"
-  echo "stamped: $W/release.json.ots — run '$0 upgrade $rel' after a day so the proof no longer depends on a calendar server"
+  echo "stamped: $W/$NAME.ots — run '$0 upgrade $rel' after a day so the proof no longer depends on a calendar server"
 }
 
 do_upgrade() {

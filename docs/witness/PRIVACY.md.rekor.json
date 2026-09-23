@@ -1,0 +1,8 @@
+{
+ "artifact": "PRIVACY.md",
+ "artifact_sha256": "63d35d5778387b653c8d58bd589a03599541cb6e2f213f74bb56e514dd0d1b66",
+ "log": "rekor.sigstore.dev",
+ "log_index": 2925397412,
+ "uuid": "108e9186e8c5677a179f32c136697ccff89442968303da5c01e318465a556e527c4cf5e3b29584c1",
+ "type": "hashedrekord:0.0.1"
+}

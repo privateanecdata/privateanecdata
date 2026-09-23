@@ -1,0 +1,8 @@
+{
+ "artifact": "TERMS.md",
+ "artifact_sha256": "344499d565c3fe7f1f469e4c3da355185f3ad52910d9fe90b9e8dbbb01a552c6",
+ "log": "rekor.sigstore.dev",
+ "log_index": 2925397479,
+ "uuid": "108e9186e8c5677aa84f62055f305de83f885e032eda126b95a46485ae63546c0b7ea3680d0da546",
+ "type": "hashedrekord:0.0.1"
+}

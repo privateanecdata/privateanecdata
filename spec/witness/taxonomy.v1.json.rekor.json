@@ -1,0 +1,8 @@
+{
+ "artifact": "taxonomy.v1.json",
+ "artifact_sha256": "1bbf7e563e1efbc72307d3004f84f6f69b3f4f79108b0f532d7c5664d76c30e2",
+ "log": "rekor.sigstore.dev",
+ "log_index": 2925397015,
+ "uuid": "108e9186e8c5677a90ce3336f280dad93664d355ea9778bd9a3e66909a4e87bfb3f33922c4912550",
+ "type": "hashedrekord:0.0.1"
+}

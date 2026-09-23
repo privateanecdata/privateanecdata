@@ -1,0 +1,8 @@
+{
+ "artifact": "RELEASE_SPEC.md",
+ "artifact_sha256": "2ef2f1e6a8da3153cb520c348796aa753bd0c199a50281f5884ebf61a3153dd3",
+ "log": "rekor.sigstore.dev",
+ "log_index": 2925396720,
+ "uuid": "108e9186e8c5677ad2df6a9d01a3b8a71be5ea0e3d91b6afc84714d42520f41181c17cccfcc2d8b5",
+ "type": "hashedrekord:0.0.1"
+}

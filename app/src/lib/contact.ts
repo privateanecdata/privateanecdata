@@ -1,7 +1,8 @@
 // The contact page's storage and forwarding. Separate database file from the reports store, so a
 // message can never sit next to a report. Messages are the one place on the site where a person
-// types free text; they are stored for at most 30 days (deploy/prune-contact.sh) and forwarded
-// to the operator's mailbox over SMTP to a relay on loopback when PA_CONTACT_TO is set. The
+// types free text; they are stored for at most 30 days (deploy/prune-contact.sh) and read on the
+// server (DigitalOcean blocks outgoing mail, so PA_CONTACT_TO is left empty in production; the
+// forwarding below is kept for a host that allows it). The
 // address is never rendered anywhere.
 import Database from 'better-sqlite3';
 import { randomBytes } from 'node:crypto';

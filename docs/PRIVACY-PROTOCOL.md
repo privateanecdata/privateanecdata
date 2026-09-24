@@ -49,7 +49,8 @@ no key, no vendor or brand, no location of any granularity — not your country,
 No free text: there is nowhere to type on the report form.
 
 **The contact page** is the one place on the site where you can type. A message sent there is
-stored on our server, forwarded to the operator's mailbox, and deleted within 30 days. It is kept
+stored on our server, read there by the operator (it is not emailed anywhere), and deleted within
+30 days. A reply, if you ask for one, comes from the project's mailbox. It is kept
 entirely separate from reports, and it is the reason we ask you never to describe a report you
 submitted in a message.
 

@@ -16,7 +16,7 @@ no third-party edge.
 ## Steps
 
 **`deploy/setup.sh` does all of the below on a fresh Ubuntu 24.04 host** — run it as root, answer
-three questions (hostname, contact mailbox, backup public key), and read the summary it prints.
+two questions (hostname, backup public key), and read the summary it prints.
 Safe to rerun. The numbered steps are what it does, for reading and for doing by hand.
 
 1. Create the service user: `useradd -r -s /usr/sbin/nologin anecdata`.
@@ -96,18 +96,17 @@ of the releasing user, mode 0600, never on the service user and never in the rep
 ## Contact form
 
 `/contact` stores each message in `/srv/private-anecdata/data/contact.db` (`PA_CONTACT_DB_PATH`,
-separate file from the reports store) and, when `PA_CONTACT_TO` is set in the unit, forwards it
-over plain SMTP to `PA_SMTP` (default `127.0.0.1:25`). Install `postfix` as a null client that
-listens on loopback only and relays outbound to the operator's mailbox; set `PA_CONTACT_FROM` to
-an address at the site's domain and publish an SPF record for the host so the mail is accepted.
-Use a mailbox dedicated to the project as `PA_CONTACT_TO` (not a personal address): a reply sent
-from it reaches the sender, and until the project is incorporated the operator is not named.
-No set-gid helper is involved, so the unit's hardening stays as shipped. If the relay is down the
-message is still stored and a one-line error (no content) goes to the journal. The address is
-never rendered anywhere. Messages are the one free-text store on the host: `deploy/prune-contact.sh`
-from cron (daily) deletes them inside the 30 days the privacy statement promises, and
-`sqlite3 /srv/private-anecdata/data/contact.db 'SELECT received_day, reply_to, body FROM messages'`
-reads them over SSH if forwarding ever fails.
+separate file from the reports store). Nothing is emailed: DigitalOcean blocks outgoing mail on
+every Droplet (ports 25, 465 and 587), so `PA_CONTACT_TO` stays empty and no mail program is
+installed. The operator reads messages over SSH (`pa-messages` on the operator's Mac runs
+`sqlite3 /srv/private-anecdata/data/contact.db 'SELECT received_day, reply_to, body FROM messages'`)
+and replies from the project's mailbox. A launchd job on the operator's Mac (`deploy/mac/`) checks
+every three hours with a separate key that the server locks to one command,
+`/usr/local/bin/pa-contact-count`, which prints the number of messages waiting and the latest
+day — it can read nothing else. Messages are the one free-text store on the host:
+`deploy/prune-contact.sh` from cron (daily) deletes them inside the 30 days the privacy statement
+promises. On a host that allows outgoing mail, setting `PA_CONTACT_TO` (and a loopback relay at
+`PA_SMTP`) forwards each message instead.
 
 ## Regional block (optional, off by default)
 

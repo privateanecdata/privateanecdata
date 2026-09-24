@@ -39,9 +39,10 @@ contain nothing about any contributor.
   its /64 prefix) with the salt rotated hourly and never written to disk. Nothing survives a process restart.
 - **Backups:** the submission store is backed up. Backups contain the same fields as the store and
   nothing more. Backups are encrypted and retained for 30 days.
-- **Contact messages:** a message sent through the contact page is stored on our server and
-  forwarded to the operator's mailbox. We delete it once we have replied, and in any case no later
-  than 30 days after receipt. The mailbox provider is named in [SUBPROCESSORS.md](SUBPROCESSORS.md). We ask that you not describe your own submission in a message to
+- **Contact messages:** a message sent through the contact page is stored on our server and read
+  there; it is not emailed anywhere. We delete it once we have replied, and in any case no later
+  than 30 days after receipt. A reply is sent from the project's mailbox, whose provider is named in
+  [SUBPROCESSORS.md](SUBPROCESSORS.md) and so holds the reply and the address it went to. We ask that you not describe your own submission in a message to
   us, because that message would be more identifying than anything in our database.
 
 ## What our hosting provider holds

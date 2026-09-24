@@ -7,15 +7,15 @@ of the submission store. This list is short on purpose and is part of the produc
 |---|---|---|---|---|
 | **DigitalOcean** | Runs the server | United States (New York, NYC1) | IP address and request metadata of every clearnet request, as a necessary consequence of delivering the page. We do not log it; we cannot promise the provider's own network layer does not. | [DigitalOcean privacy policy](https://www.digitalocean.com/legal/privacy-policy) |
 | **Tor network** | Second path to the site (onion address: `unxzqdwshn2ftzivh3bg7e63mvn3ccsxs2d5oplxd7z3djs3qvppjhyd.onion`) | — | Nothing attributable. Onion routing means no party on our side receives a client IP. | n/a |
-| **Google (Gmail)** | The project's mailbox | United States | A copy of each message sent through the contact page, and any reply address the sender chose to give. Nothing about reports. | [Google privacy policy](https://policies.google.com/privacy) |
+| **Google (Gmail)** | The project's mailbox, used to send replies | United States | When we reply to a contact message: the address the sender gave, and our reply. Contact messages themselves are read on our server and are not sent to it. Nothing about reports. | [Google privacy policy](https://policies.google.com/privacy) |
 
 **That is the complete list.**
 
 There is no CDN, no WAF, no DDoS-protection edge, no analytics service, no error-reporting
-service, no email service beyond the forwarding described here, no font host, no CAPTCHA service,
-no third-party JavaScript, no payment processor, and no data processor of any other kind. The
-contact-page forward is the only thing that ever leaves our server, and nothing about reports is
-ever in it; retention is as stated in [LEGAL-PROCESS.md](LEGAL-PROCESS.md). The Content-Security-Policy header
+service, no email-sending service, no font host, no CAPTCHA service,
+no third-party JavaScript, no payment processor, and no data processor of any other kind. Our
+server sends nothing to anyone except the pages it serves; contact messages stay on it, and
+retention is as stated in [LEGAL-PROCESS.md](LEGAL-PROCESS.md). The Content-Security-Policy header
 permits no external origin, and the build fails if any resource references one.
 
 Registrar and DNS for the domain are operational vendors that see DNS queries in the ordinary

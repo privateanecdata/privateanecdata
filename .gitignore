@@ -11,3 +11,6 @@ candidates*.json
 app/.astro/
 research/
 LAUNCH.md
+
+# ots upgrade leaves a backup of the pending proof; the upgraded .ots is the record
+*.ots.bak

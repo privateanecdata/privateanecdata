@@ -13,9 +13,9 @@ Environment=PORT=4321
 Environment=PA_DB_PATH=/srv/private-anecdata/data/reports.db
 Environment=PA_CONTACT_DB_PATH=/srv/private-anecdata/data/contact.db
 Environment=PA_RELEASES_DIR=/srv/private-anecdata/releases
-# Contact form: messages are stored in data/contact.db and, when PA_CONTACT_TO is set, forwarded
-# over SMTP to the relay at PA_SMTP (postfix on loopback). The address is never rendered on the site.
-# Set PA_CONTACT_TO and PA_CONTACT_FROM before enabling the unit.
+# Contact form: messages are stored in data/contact.db and read on the server. PA_CONTACT_TO stays
+# empty: DigitalOcean blocks outgoing mail (ports 25, 465, 587), so nothing is forwarded. On a host
+# that allows it, setting PA_CONTACT_TO forwards over SMTP to a relay at PA_SMTP.
 Environment=PA_CONTACT_TO=
 Environment=PA_CONTACT_FROM=no-reply@privateanecdata.org
 Environment=PA_SMTP=127.0.0.1:25

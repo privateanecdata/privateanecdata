@@ -1,6 +1,7 @@
 # Privacy
 
-**Version 1.0 — effective 22 September 2026.**
+**Version 1.1 — effective 24 September 2026.** Changed from 1.0 (22 September 2026): contact
+messages are read on our server and are no longer emailed to the operator's mailbox.
 
 This is a short document because there is not much to say. We designed the site so that we hold
 nothing that identifies you, and this page tells you exactly what that means, what we do hold,
@@ -102,10 +103,12 @@ If you write to us asking us to locate or remove a report, we will reply by poin
 section. Please do not describe your report in that message: a description of your report next to
 your email address is more identifying than anything we hold. Do not send it.
 A message sent through the contact page is the one thing you can type on this site. It is stored
-on our server, forwarded to the operator's mailbox at the provider named in
-[Subprocessors](SUBPROCESSORS.md), used for nothing but replying, and deleted once we have
-replied and in any case within 30 days of receipt. Give an email address only if you want a
-reply; it is deleted with the message.
+on our server and read there by the operator; it is not emailed anywhere. If you give an email
+address and we reply, the reply is sent from the project's mailbox at the provider named in
+[Subprocessors](SUBPROCESSORS.md), so that provider receives your address and our reply. The
+message is used for nothing but replying, and deleted once we have replied and in any case within
+30 days of receipt. Give an email address only if you want a reply; it is deleted with the
+message.
 
 ## Age
 

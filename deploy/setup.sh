@@ -6,11 +6,11 @@
 #   git clone https://github.com/<account>/privateanecdata /srv/private-anecdata/repo
 #   sh /srv/private-anecdata/repo/deploy/setup.sh
 #
-# It asks three questions (hostname, contact mailbox, path to the backup public key — defaults to
+# It asks two questions (hostname, path to the backup public key — defaults to
 # deploy/backup.pub, the committed public half of the operator's backup key) and then:
-# installs Node, Caddy, Tor, Postfix and sqlite; creates the service user and directories; builds
+# installs Node, Caddy, Tor and sqlite; creates the service user and directories; builds
 # the app with the hostname baked in; installs the systemd unit, Caddyfile, Tor onion service,
-# Postfix null client, journald limits, cron jobs and firewall; starts everything; prints the
+# journald limits, cron jobs and firewall; starts everything; prints the
 # onion address and what to do next. Every command is visible below — nothing is hidden.
 set -eu
 [ "$(id -u)" = 0 ] || { echo "run as root (sudo sh deploy/setup.sh)"; exit 1; }
@@ -25,10 +25,8 @@ ask() { # ask VAR "question" "default"  — env var wins, then the answer, then 
 }
 
 ask PA_HOST "Public hostname" "privateanecdata.org"
-ask PA_CONTACT_TO "Mailbox that receives contact-form messages (never shown on the site)" ""
 DEFAULT_PUBKEY=""; [ -f "$REPO/deploy/backup.pub" ] && DEFAULT_PUBKEY="$REPO/deploy/backup.pub"
 ask PA_BACKUP_PUBKEY "Path to the backup public key (leave empty to skip backups for now)" "$DEFAULT_PUBKEY"
-PA_CONTACT_FROM="no-reply@$PA_HOST"
 
 say "packages"
 apt-get update -q
@@ -43,8 +41,10 @@ if ! command -v caddy >/dev/null; then
   curl -1sLf 'https://dl.cloudsmith.io/public/caddy/stable/debian.deb.txt' > /etc/apt/sources.list.d/caddy-stable.list
   apt-get update -q && apt-get install -y -q caddy
 fi
-echo "postfix postfix/main_mailer_type select No configuration" | debconf-set-selections
-apt-get install -y -q tor postfix
+apt-get install -y -q tor
+# No mail program: DigitalOcean blocks outgoing mail (ports 25, 465, 587), so contact messages are
+# read on the server (deploy/README.md, "Contact form"). Switch off one left from an earlier setup.
+systemctl disable --now postfix >/dev/null 2>&1 || true
 
 say "service user and directories"
 id anecdata >/dev/null 2>&1 || useradd -r -s /usr/sbin/nologin -d "$BASE" anecdata
@@ -66,8 +66,7 @@ install -m 644 "$REPO/deploy/private-anecdata.service" /etc/systemd/system/priva
 mkdir -p /etc/systemd/system/private-anecdata.service.d
 cat > /etc/systemd/system/private-anecdata.service.d/env.conf <<EOF
 [Service]
-Environment=PA_CONTACT_TO=$PA_CONTACT_TO
-Environment=PA_CONTACT_FROM=$PA_CONTACT_FROM
+Environment=PA_CONTACT_TO=
 EOF
 chmod 600 /etc/systemd/system/private-anecdata.service.d/env.conf
 
@@ -79,24 +78,6 @@ systemctl restart systemd-journald
 say "caddy: TLS, no access log, onion block on 8081"
 sed "s/privateanecdata\.org/$PA_HOST/g" "$REPO/deploy/Caddyfile" > /etc/caddy/Caddyfile
 caddy validate --config /etc/caddy/Caddyfile >/dev/null
-
-say "postfix: null client on loopback (outbound only, for the contact forward)"
-# "No configuration" at install time leaves no main.cf; make sure the rest of the skeleton exists.
-[ -f /etc/postfix/master.cf ] || cp /usr/share/postfix/master.cf.dist /etc/postfix/master.cf
-[ -f /etc/aliases ] || : > /etc/aliases
-cat > /etc/postfix/main.cf <<EOF
-myhostname = $PA_HOST
-myorigin = $PA_HOST
-mydestination =
-inet_interfaces = loopback-only
-inet_protocols = ipv4
-mynetworks = 127.0.0.0/8 [::1]/128
-relayhost =
-smtp_tls_security_level = may
-disable_vrfy_command = yes
-smtpd_banner = \$myhostname ESMTP
-EOF
-newaliases >/dev/null 2>&1 || true
 
 say "tor: onion service -> caddy's 8081 block"
 grep -q "HiddenServiceDir /var/lib/tor/anecdata/" /etc/tor/torrc || cat >> /etc/tor/torrc <<'EOF'
@@ -120,19 +101,19 @@ if [ -n "$PA_BACKUP_PUBKEY" ] && [ -f "$PA_BACKUP_PUBKEY" ]; then
 else
   echo "   (no backup key given — backups are NOT scheduled; rerun with the key when you have it)"
 fi
-printf '%s\n' "$CRON" | crontab -u anecdata -
+printf 'MAILTO=""\n%s\n' "$CRON" | crontab -u anecdata -   # no cron mail: outbound mail is blocked on DigitalOcean
 
 say "start everything"
 systemctl daemon-reload
-systemctl enable --now private-anecdata caddy tor postfix >/dev/null
-systemctl restart private-anecdata caddy tor postfix
+systemctl enable --now private-anecdata caddy tor >/dev/null
+systemctl restart private-anecdata caddy tor
 sleep 3
 
 say "done"
 echo "site:      https://$PA_HOST   (DNS must point here; Caddy fetches the certificate on first request)"
 for i in 1 2 3 4 5 6; do [ -f /var/lib/tor/anecdata/hostname ] && break; sleep 5; done
 if [ -f /var/lib/tor/anecdata/hostname ]; then echo "tor mirror: http://$(cat /var/lib/tor/anecdata/hostname)"; else echo "tor mirror: address not ready yet — cat /var/lib/tor/anecdata/hostname in a minute"; fi
-echo "services:  $(systemctl is-active private-anecdata) app · $(systemctl is-active caddy) caddy · $(systemctl is-active tor) tor · $(systemctl is-active postfix) postfix"
+echo "services:  $(systemctl is-active private-anecdata) app · $(systemctl is-active caddy) caddy · $(systemctl is-active tor) tor"
 echo
 echo "next: point DNS at this host if you have not; open the site; walk the form once; then clear"
 echo "      test rows:  systemctl stop private-anecdata; rm -f $BASE/data/reports.db*; systemctl start private-anecdata"

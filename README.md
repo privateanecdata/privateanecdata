@@ -1,4 +1,4 @@
-# privateanecdata.org (working name)
+# privateanecdata.org
 
 A structured, identifier-free census of peptide use, from any source, published as aggregate
 statistics under a release specification fixed before any data was collected.
@@ -31,7 +31,7 @@ cannot be quietly revised.
 | [`docs/WHAT-WE-CAN-AND-CANNOT-PROMISE.md`](docs/WHAT-WE-CAN-AND-CANNOT-PROMISE.md) | The limits, stated for contributors before they submit. |
 | [`docs/ANALYSES-WE-WILL-NEVER-RUN.md`](docs/ANALYSES-WE-WILL-NEVER-RUN.md) | Rankings, comparisons, rates, causal language, individualized output — the list of refusals. |
 | [`docs/LEGAL-PROCESS.md`](docs/LEGAL-PROCESS.md) | What is held, retention, and what a subpoena obtains. |
-| [`docs/SUBPROCESSORS.md`](docs/SUBPROCESSORS.md) | The complete list of third parties. It has two entries. |
+| [`docs/SUBPROCESSORS.md`](docs/SUBPROCESSORS.md) | The complete list of third parties: three, plus the domain registrar. |
 | [`docs/SHUTDOWN.md`](docs/SHUTDOWN.md) | Kill criterion, destruction protocol, and the commitment that the store is never transferred. |
 | [`docs/RELEASE-SPEC-SUMMARY.md`](docs/RELEASE-SPEC-SUMMARY.md) | The short version of the release spec: what is published and when, how we count reports, what it does not prove, and how to verify a release. Rendered above the full spec at `/docs/release-spec`. |
 
